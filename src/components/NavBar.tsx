@@ -40,7 +40,10 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
                   href={item.href}
                   className={`flex items-center ${activePage === item.key ? "text-orange-500 font-bold" : "hover:text-gray-600"}`}
                 >
-                  {item.name}
+                  {item.name} 
+                  <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                  </svg>
                 </a>
                 {/* Dropdown */}
                 <ul className="absolute left-0 mt-2 space-y-2 bg-white text-gray-700 shadow-lg rounded-lg w-48 opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity duration-200">
