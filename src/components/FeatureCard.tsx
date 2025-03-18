@@ -19,7 +19,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, imageSrc,
 
             {/* Image */}
             <div className="mt-4 flex justify-end">
-                <img src={imageSrc} alt="Illustration" className="w-28 h-28 object-contain" />
+                <img src={imageSrc} alt="Illustration" className="w-28 h-28 object-contain mix-blend-multiply" />
             </div>
 
             {/* Arrow Button */}

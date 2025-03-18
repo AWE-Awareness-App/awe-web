@@ -11,7 +11,7 @@ const EventCard: React.FC<EventCardProps> = ({ title, imageSrc, bgColor }) => {
         <div className={`rounded-xl p-4 ${bgColor} shadow-md w-full`}>
             <span className="bg-white text-blue-900 px-2 py-1 text-xs font-bold rounded-md">Live event</span>
             <h3 className="text-lg font-bold text-white mt-2">{title}</h3>
-            <img src={imageSrc} alt="Event" className="w-20 h-20 object-contain mt-2" />
+            <img src={imageSrc} alt="Event" className="w-20 h-20 object-contain mt-2 mix-blend-multiply" />
         </div>
     );
 };

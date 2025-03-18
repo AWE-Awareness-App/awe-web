@@ -135,4 +135,153 @@ export const workshops: Workshop[] = [
         endDate: "22/04/2025",
         imageSrc: "/images/couples-parenting-201.jpg"
     },
+    {
+        type: "family",
+        title: "Better Digitality in Family Workshop",
+        description: "TODO",
+        price: "$499",
+        features: [
+            "For parents and children  8-19 yr old",
+            "Creativity and play in the real world",
+            "Family values and culture",
+            "Family vs.Tech"
+        ],
+        startDate: "20/04/2025",
+        endDate: "22/04/2025",
+        imageSrc: "/images/family-better-digitality.jpg"
+    },
+    {
+        type: "family",
+        title: "Single Parent Workshop",
+        description: "TODO",
+        price: "$599",
+        features: [
+            "3 group sessions",
+            "Challenges of single parents",
+            "Children mental health and technology",
+            "How technology can enhance parenting"
+        ],
+        startDate: "20/04/2025",
+        endDate: "22/04/2025",
+        imageSrc: "/images/family-single-parent.jpg"
+    },
+    {
+        type: "family",
+        title: "Co-parenting Facilitation",
+        description: "TODO",
+        price: "$899",
+        features: [
+            "3 parent sessions",
+            "Align parents who are no longer together",
+            "Not a mediation, a mature discussion for children direction",
+            "Separated parent realignment for mental wellness"
+        ],
+        startDate: "20/04/2025",
+        endDate: "22/04/2025",
+        imageSrc: "/images/family-co-parenting.jpg"
+    },
+    {
+        type: "communities",
+        title: "Youth & Schools (12-18yr)",
+        description: "TODO",
+        price: "Contact Us for Pricing or Free Engagement",
+        features: [
+            "Youth, educators and community",
+            "Culturally sensitive",
+            "Fun and interactive",
+            "Several languages available"
+        ],
+        startDate: "20/04/2025",
+        endDate: "22/04/2025",
+        imageSrc: "/images/communities-youth-school.jpg"
+    },
+    {
+        type: "communities",
+        title: "Neurodiversity",
+        description: "TODO",
+        price: "$999",
+        features: [
+            "3-hr workshop",
+            "ADHD / ADD, ASD, Down",
+            "Intellectual Disability and Giftedness",
+            "Think different, learn and value the differences"
+        ],
+        startDate: "20/04/2025",
+        endDate: "22/04/2025",
+        imageSrc: "/images/communities-neurodiversity.jpg"
+    },
+    {
+        type: "communities",
+        title: "Cultural Diversity",
+        description: "TODO",
+        price: "$499",
+        features: [
+            "Learn and teach the science of Race",
+            "Bring people together and connect",
+            "Cultural sensivity through examples and stories",
+            "Educate for true equality"
+        ],
+        startDate: "20/04/2025",
+        endDate: "22/04/2025",
+        imageSrc: "/images/communities-cultural-diversity.jpg"
+    },
+    {
+        type: "communities",
+        title: "University (18-25yr)",
+        description: "TODO",
+        price: "$999",
+        features: [
+            "Addiction Awareness for University",
+            "Artificial Intelligence in University",
+            "Academic Perseverance and Motivation (Inquire for Staff or Teachers' Training)"
+        ],
+        startDate: "20/04/2025",
+        endDate: "22/04/2025",
+        imageSrc: "/images/communities-university.jpg"
+    },
+    {
+        type: "organization",
+        title: "Government",
+        description: "TODO",
+        price: "Contact AWE for a quote",
+        features: [
+            "3-Day Happiness Retreat Workshop.",
+            "30 - Day Digital Bootcamp.",
+            "60 - Day Breakthrough & Bonding.",
+            "12 - Week Digital Recovery."
+        ],
+        startDate: "TBD",
+        endDate: "TBD",
+        imageSrc: "/images/organization-government.jpg"
+    },
+    {
+        type: "organization",
+        title: "Business",
+        description: "TODO",
+        price: "$2499",
+        features: [
+            "Digital wellness and productivity",
+            "Mental wellness and motivation",
+            "Purpose and commitment",
+            "Clarity, coherence and accountability"
+        ],
+        startDate: "TBD",
+        endDate: "TBD",
+        imageSrc: "/images/organization-business.jpg"
+    },
+    {
+        type: "organization",
+        title: "NGO / Nonprofit",
+        description: "TODO",
+        price: "Contact AWE for a discounted quote",
+        features: [
+            "Social impact and technology",
+            "Mental wellness education",
+            "Digital awareness best practices",
+            "Community, collaboration and cross - cultural enjoyment"
+        ],
+        startDate: "TBD",
+        endDate: "TBD",
+        imageSrc: "/images/organization-ngo-nonprofit.jpg"
+    },
 ];

@@ -14,7 +14,7 @@ const StatCard: React.FC<StatCardProps> = ({ stat, label, imageSrc, bgColor }) =
                 <h3 className="text-2xl font-bold text-blue-900">{stat}</h3>
                 <p className="text-gray-700">{label}</p>
             </div>
-            <img src={imageSrc} alt="Stat" className="w-16 h-16 object-contain" />
+            <img src={imageSrc} alt="Stat" className="w-16 h-16 object-contain mix-blend-multiply" />
         </div>
     );
 };

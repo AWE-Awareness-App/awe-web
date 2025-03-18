@@ -1031,6 +1031,10 @@ video {
   padding-bottom: 2.5rem;
 }
 
+.pl-5 {
+  padding-left: 1.25rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1165,6 +1169,10 @@ video {
 
 .opacity-80 {
   opacity: 0.8;
+}
+
+.mix-blend-multiply {
+  mix-blend-mode: multiply;
 }
 
 .shadow-lg {
