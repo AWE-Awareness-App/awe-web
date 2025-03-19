@@ -46,7 +46,7 @@ const BigWorkshopCard: React.FC<BigWorkshopCardProps> = ({ workshop }) => {
 
                 {/* Right side */}
                 <div className="rounded-xl">
-                    <img src={workshop.imageSrc} alt="Workshop Image" className="w-34 h-34 object-contain" />
+                    <img src={workshop.imageSrc} alt="Workshop" className="w-34 h-34 object-contain" />
                 </div>
             </div>
 
