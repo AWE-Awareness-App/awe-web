@@ -5,26 +5,26 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 const testimonials = [
     {
         name: "Thomas Austin",
-        imageSrc: "/images/thomas.jpg",
+        imageSrc: "/images/thomas.png",
         rating: 5,
         review:
             "Helped me achieve a new perspective on my place in the world. I was heavily struggling with ADHD, and the impact that it had on my life and career.",
     },
     {
         name: "Alena Park",
-        imageSrc: "/images/alena.jpg",
+        imageSrc: "/images/alena.png",
         rating: 5,
         review: "Made me aware of my unconscious habits and their roots. This led me to change them into positive attitudes and actions.",
     },
     {
         name: "Jonathon Edison",
-        imageSrc: "/images/jonathon.jpg",
+        imageSrc: "/images/jonathon.png",
         rating: 5,
         review: "My coaching saved my couple and allowed me to connect like never before.",
     },
     {
         name: "Tom Daniel",
-        imageSrc: "/images/tom.jpg",
+        imageSrc: "/images/tom.png",
         rating: 5,
         review: "The attention and care was unparalleled. It gave me back my self-worth and sense of living.",
     },
@@ -32,6 +32,7 @@ const testimonials = [
 
 const TestimonialSection: React.FC = () => {
     const [index, setIndex] = useState(0);
+    const showNavigation = testimonials.length > 4;
 
     // Handle navigation
     const prevSlide = () => setIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
@@ -51,9 +52,11 @@ const TestimonialSection: React.FC = () => {
 
             {/* Testimonials Slider */}
             <div className="flex items-center justify-center space-x-4">
-                <button onClick={prevSlide} className="bg-blue-900 text-white p-3 rounded-full hover:bg-blue-700">
-                    <FaArrowLeft />
-                </button>
+                {showNavigation && (
+                    <button onClick={prevSlide} className="bg-blue-900 text-white p-3 rounded-full hover:bg-blue-700">
+                        <FaArrowLeft />
+                    </button>
+                )}
 
                 <div className="overflow-hidden w-full max-w-4xl">
                     <div
@@ -66,11 +69,12 @@ const TestimonialSection: React.FC = () => {
                     </div>
                 </div>
 
-                <button onClick={nextSlide} className="bg-blue-900 text-white p-3 rounded-full hover:bg-blue-700">
-                    <FaArrowRight />
-                </button>
+                {showNavigation && (
+                    <button onClick={nextSlide} className="bg-blue-900 text-white p-3 rounded-full hover:bg-blue-700">
+                        <FaArrowRight />
+                    </button>
+                )}
             </div>
-
         </section>
     );
 };

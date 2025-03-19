@@ -5,6 +5,10 @@ const AboutUsPage: React.FC = () => {
     return (
         <Layout activePage="aboutus">
             <div className="mx-auto max-w-6xl px-4">
+                <div className="flex justify-center items-center space-x-4">
+                    <img src="images/APA.png" alt="American Psychological Association" className="flex-1 w-1/3 max-h-[111px] object-contain" />
+                    <img src="images/ISSBA.png" alt="ISSBA" className="flex-1 w-1/3 max-h-[111px] object-contain" />
+                </div>
                 <h2 className="text-4xl font-bold mb-8">About Us</h2>
                 <h4 className="text-xl font-bold">Leading the Path to Digital Wellness</h4>
                 <p>
@@ -92,7 +96,12 @@ const AboutUsPage: React.FC = () => {
                 <p>
                     Whether you’re looking to fine-tune your digital habits, provide or seek support for technology
                     dependence, our team and commu n ity are here to offer guidance and support. AWE helps everyone
-                    create a more balanced use of tech and media for a meaningful fulfilling lfe.</p>
+                    create a more balanced use of tech and media for a meaningful fulfilling lfe.
+                </p>
+                <div className="flex justify-center items-center space-x-4 p-8">
+                    <img src="images/CPA.png" alt="Canadian Psychological Association" className="flex-1 w-1/3 max-h-[111px] object-contain" />
+                    <img src="images/LA2024.png" alt="Lisbon Addictions 2024" className="flex-1 w-1/3 max-h-[111px] object-contain" />
+                </div>
             </div>
         </Layout>
     );
