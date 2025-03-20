@@ -7,7 +7,7 @@ interface ConnectWithSpecialistCardProps {
     referenceDiscount: string;
     price: string;
     features: string[];
-    bgColor: string; // Tailwind background color class
+    bgColor: string;
 }
 
 const ConnectWithSpecialistCard: React.FC<ConnectWithSpecialistCardProps> = ({ title, description, referenceDiscount, price, features, bgColor }) => {

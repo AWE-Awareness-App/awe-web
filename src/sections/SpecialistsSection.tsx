@@ -8,21 +8,21 @@ const specialists = [
         role: "Addiction Coach and Trainer",
         languages: "English, German",
         imageSrc: "/images/MarcRitter.png",
-        linkedInUrl: "https://www.linkedin.com/in/marc-d-ritter-58112a82/",
+        linkedInUrl: "#",
     },
     {
         name: "Christian Dominique",
         role: "Addiction Coach and Trainer",
         languages: "English, French, Spanish",
         imageSrc: "/images/ChristianDominique.png",
-        linkedInUrl: "https://www.linkedin.com/in/dominiquemba/",
+        linkedInUrl: "#",
     },
     {
         name: "Dr. Clara Dawkins",
         role: "Medical Doctor and Teacher",
         languages: "English, Spanish",
         imageSrc: "/images/ClaraDawkins.png",
-        linkedInUrl: "https://www.linkedin.com/in/clara-dawkins-8726394/",
+        linkedInUrl: "#",
     },
     {
         name: "Dr. Bonnie Lee",
@@ -35,7 +35,6 @@ const specialists = [
 
 const SpecialistsSection: React.FC = () => {
     const [index, setIndex] = useState(0);
-    const showNavigation = specialists.length > 4;
 
     // Handle navigation
     const prevSlide = () => setIndex((prev) => (prev === 0 ? specialists.length - 1 : prev - 1));
@@ -53,11 +52,9 @@ const SpecialistsSection: React.FC = () => {
 
             {/* Specialists Slider */}
             <div className="flex items-center justify-center space-x-4">
-                {showNavigation && (
-                    <button onClick={prevSlide} className="bg-blue-900 text-white p-3 rounded-full hover:bg-blue-700">
-                        <FaArrowLeft />
-                    </button>
-                )}
+                <button onClick={prevSlide} className="bg-blue-900 text-white p-3 rounded-full hover:bg-blue-700">
+                    <FaArrowLeft />
+                </button>
 
                 <div className="overflow-hidden w-full max-w-4xl">
                     <div
@@ -70,15 +67,12 @@ const SpecialistsSection: React.FC = () => {
                     </div>
                 </div>
 
-                {showNavigation && (
-                    <button onClick={nextSlide} className="bg-blue-900 text-white p-3 rounded-full hover:bg-blue-700">
-                        <FaArrowRight />
-                    </button>
-                )}
+                <button onClick={nextSlide} className="bg-blue-900 text-white p-3 rounded-full hover:bg-blue-700">
+                    <FaArrowRight />
+                </button>
             </div>
         </section>
     );
 };
-
 
 export default SpecialistsSection;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BigWorkshopCard from "../components/BigWorkshopCard";
 import { GetWorkshops } from "../services/GetWorkshops";
+import { Workshop } from "../interfaces/Workshop";
 
 const WorkshopBigCardsSection: React.FC = () => {
     const [workshops, setWorkshops] = useState<Workshop[]>([]);
@@ -42,7 +43,7 @@ const WorkshopBigCardsSection: React.FC = () => {
                     {sortedTypes.map((type, index) => (
                         <div key={type}>
                             <h3 className="text-xl font-bold text-blue-900 mb-4 capitalize">{index + 1}. {type} Workshops</h3>
-                            <div className="grid grid-cols-1 gap-6">
+                            <div className="grid grid-cols-1 gap-6 ">
                                 {groupedWorkshops[type].map((workshop, index) => (
                                     <BigWorkshopCard key={index} workshop={workshop} />
                                 ))}

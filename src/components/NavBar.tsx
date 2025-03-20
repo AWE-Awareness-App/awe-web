@@ -1,6 +1,8 @@
 import React from 'react';
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdCheckCircle } from "react-icons/md";
+import { motion } from "framer-motion";
+
 
 interface NavBarProps {
   logoPath: string;
@@ -16,8 +18,8 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
   const navItems = [
     { name: "Home", href: "/", key: "home" },
     { name: "Healthcare Services", href: "#", key: "healthcareServices", type: "service" },
-    //{ name: "Analytics", href: "/analytics", key: "analytics" }, not for MVP
-    { name: "About Us", href: "/about-us", key: "aboutus" },
+    { name: "Analytics", href: "/analytics", key: "analytics" },
+    { name: "FAQs", href: "/faqs", key: "faqs" },
   ];
 
 
@@ -25,8 +27,18 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
     <nav className="mx-auto flex max-w-6xl items-center justify-between rounded-xl bg-gray-200 px-8 py-4 shadow-md my-6">
       {/* Logo */}
       <div className="flex items-center space-x-3">
-        <img src={logoPath} alt="Logo" className="h-10 w-10" />
-        <span className="text-lg font-bold text-blue-900">AWE | Awareness, Wellness, Enjoyment</span>
+        <img src={logoPath} alt="Logo" className="h-10 w-10 rounded-full" />
+        <span className="text-lg font-bold text-blue-900">
+          AWE | 
+          <motion.span
+            initial={{ x: -100, opacity: 1 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="inline-block ml-2"
+          >
+            Awareness, Wellness, Enjoyment
+          </motion.span>
+        </span>
       </div>
 
       {/* Navigation Links */}

@@ -1,5 +1,8 @@
+import { Workshop } from "../interfaces/Workshop";
+
 export const workshops: Workshop[] = [
     {
+        _id:"123",
         type: "individual",
         title: "3-Day Happiness Retreat",
         description: "TODO",
@@ -15,6 +18,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/3day-happiness-retreat.jpg"
     },
     {
+        _id:"124",
         type: "individual",
         title: "30-Day Digital Bootcamp.",
         description: "TODO",
@@ -30,6 +34,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/30day-digital-bootcamp.jpg"
     },
     {
+        _id:"125",
         type: "individual",
         title: "60-Day Breakthrough & Bonding.",
         description: "TODO",
@@ -45,6 +50,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/60day-breakthrough-bounding.jpg"
     },
     {
+        _id:"125",
         type: "individual",
         title: "12-Week Digital Recovery.",
         description: "TODO",
@@ -61,6 +67,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/12week-digital-recovery.jpg"
     },
     {
+        _id:"126",
         type: "couples",
         title: "Addiction & Couples",
         description: "TODO",
@@ -76,6 +83,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/couples-addiction-couple.jpg"
     },
     {
+        _id:"127",
         type: "couples",
         title: "Communication",
         description: "TODO",
@@ -91,6 +99,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/couples-communication.jpg"
     },
     {
+        _id:"128",
         type: "couples",
         title: "Sex & Intimacy",
         description: "TODO",
@@ -106,6 +115,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/couples-addiction-couple.jpg"
     },
     {
+        _id:"129",
         type: "couples",
         title: "Parenting 101",
         description: "TODO",
@@ -121,6 +131,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/couples-parenting-101.jpg"
     },
     {
+        _id:"130",
         type: "couples",
         title: "Parenting 201",
         description: "TODO",
@@ -136,6 +147,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/couples-parenting-201.jpg"
     },
     {
+        _id:"131",
         type: "family",
         title: "Better Digitality in Family Workshop",
         description: "TODO",
@@ -151,6 +163,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/family-better-digitality.jpg"
     },
     {
+        _id:"132",
         type: "family",
         title: "Single Parent Workshop",
         description: "TODO",
@@ -166,6 +179,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/family-single-parent.jpg"
     },
     {
+        _id:"133",
         type: "family",
         title: "Co-parenting Facilitation",
         description: "TODO",
@@ -181,6 +195,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/family-co-parenting.jpg"
     },
     {
+        _id:"134",
         type: "communities",
         title: "Youth & Schools (12-18yr)",
         description: "TODO",
@@ -196,6 +211,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/communities-youth-school.jpg"
     },
     {
+        _id:"135",
         type: "communities",
         title: "Neurodiversity",
         description: "TODO",
@@ -211,6 +227,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/communities-neurodiversity.jpg"
     },
     {
+        _id:"136",
         type: "communities",
         title: "Cultural Diversity",
         description: "TODO",
@@ -226,6 +243,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/communities-cultural-diversity.jpg"
     },
     {
+        _id:"137",
         type: "communities",
         title: "University (18-25yr)",
         description: "TODO",
@@ -240,6 +258,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/communities-university.jpg"
     },
     {
+        _id:"138",
         type: "organization",
         title: "Government",
         description: "TODO",
@@ -255,6 +274,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/organization-government.jpg"
     },
     {
+        _id:"139",
         type: "organization",
         title: "Business",
         description: "TODO",
@@ -270,6 +290,7 @@ export const workshops: Workshop[] = [
         imageSrc: "/images/organization-business.jpg"
     },
     {
+        _id:"140",
         type: "organization",
         title: "NGO / Nonprofit",
         description: "TODO",
