@@ -19,7 +19,7 @@ const BigWorkshopCard: React.FC<BigWorkshopCardProps> = ({ workshop }) => {
 
     return (
         <>
-            <div className={`rounded-xl p-6 flex flex-col shadow-md`}>
+            <div className={`rounded-xl p-6 flex flex-col shadow-md ${showPayment ? 'blur-sm' : ''}`}>
                 <div className="grid grid-cols-1 md:grid-cols-2">
                     {/* Left side */}
                     <div className="flex flex-col space-y-4 py-2 px-8">
@@ -67,19 +67,10 @@ const BigWorkshopCard: React.FC<BigWorkshopCardProps> = ({ workshop }) => {
 
             {/* Payment Card Popup */}
             {showPayment && (
-                <div className="absolute bg-black">
-
-                <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
+                <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
                     <div className="relative">
-                        <PaymentCard />
-                        <button
-                            onClick={handleClosePayment}
-                            className="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2"
-                        >
-                            ✕
-                        </button>
+                        <PaymentCard handleClose={handleClosePayment} />
                     </div>
-                </div>
                 </div>
             )}
         </>
