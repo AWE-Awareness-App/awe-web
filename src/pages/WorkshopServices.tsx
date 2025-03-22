@@ -14,8 +14,8 @@ const WorkshopServicesPage: React.FC = () => {
           If you or someone you know needs additional help dealing with digital
           wellness and general well-being, we are always a click away.
         </p>
-        <WorkshopBigCardsSection />
         <WorkshopServicesSection />
+        <WorkshopBigCardsSection />
       </div>
     </Layout>
   );

@@ -2,18 +2,22 @@ import React from "react";
 import { FaPlus } from "react-icons/fa";
 
 interface WorkshopServicesCardProps {
+  className: string;
   title: string;
   features: string[];
   bgColor: string; // Tailwind background color class
 }
 
 const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
+  className,
   title,
   features,
   bgColor,
 }) => {
   return (
-    <div className={`rounded-xl p-6 ${bgColor} flex flex-col shadow-md`}>
+    <div
+      className={`rounded-xl p-6 ${bgColor} flex flex-col shadow-md h-full w-full ${className}`}
+    >
       {/* Title */}
       <div>
         <h3 className="text text-black h-9">{title}</h3>
