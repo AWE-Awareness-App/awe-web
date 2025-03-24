@@ -18,8 +18,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
   const navItems = [
     { name: "Home", href: "/", key: "home" },
     { name: "Healthcare Services", href: "#", key: "healthcareServices", type: "service" },
-    { name: "Analytics", href: "/analytics", key: "analytics" },
-    { name: "FAQs", href: "/faqs", key: "faqs" },
+    { name: "About Us", href: "/about-us", key: "aboutus" },
   ];
 
 
