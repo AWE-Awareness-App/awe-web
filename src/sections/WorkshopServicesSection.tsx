@@ -36,45 +36,8 @@ const OrganizationWorkshopFeatures = [
 
 const WorkshopServicesSection: React.FC = () => {
   return (
-    <div className="grid grid-cols-3 md:grid-cols-3 gap-6 py-2 items-center justify-items-center">
-      <WorkshopServicesCard
-        className=""
-        title="1. Individual Workshops"
-        features={IndividualWorkshopsFeatures}
-        bgColor="bg-green-200"
-      />
-      <WorkshopServicesCard
-        className=""
-        title="2. Couples Workshops"
-        features={CouplesWorkshopsFeatures}
-        bgColor="bg-yellow-200"
-      />
-      <WorkshopServicesCard
-        className=""
-        title="3. Family Workshops"
-        features={FamilyWorkshopFeatures}
-        bgColor="bg-pink-200"
-      />
-      <WorkshopServicesCard
-        className=""
-        title="4. Communities Workshops"
-        features={CommunitiesWorkshopFeatures}
-        bgColor="bg-yellow-200"
-      />
-      <WorkshopServicesCard
-        className=""
-        title="5. Organization Workshops"
-        features={OrganizationWorkshopFeatures}
-        bgColor="bg-pink-200"
-      />
-    </div>
-  );
-};
-
-export default WorkshopServicesSection;
-
-/*    <div className="">
-      <div className="grid grid-cols-3 md:grid-cols-3 gap-x-28 py-2 items-center justify-items-center">
+    <div className="flex flex-col gap-6 py-2">
+      <div className="grid grid-cols-3 gap-6 items-center justify-items-center">
         <WorkshopServicesCard
           className=""
           title="1. Individual Workshops"
@@ -93,19 +56,26 @@ export default WorkshopServicesSection;
           features={FamilyWorkshopFeatures}
           bgColor="bg-pink-200"
         />
+
       </div>
-      <div className="grid grid-cols-3 md:grid-cols-2 gap-x-28 py-2 items-center justify-items-center">
+      <div className="grid grid-cols-6 gap-6">
+        <div className="col-span-1" />
         <WorkshopServicesCard
-          className=""
+          className="col-span-2"
           title="4. Communities Workshops"
           features={CommunitiesWorkshopFeatures}
           bgColor="bg-yellow-200"
         />
         <WorkshopServicesCard
-          className=""
+          className="col-span-2"
           title="5. Organization Workshops"
           features={OrganizationWorkshopFeatures}
           bgColor="bg-pink-200"
         />
+        <div className="col-span-1" />
       </div>
-    </div>; */
+    </div>
+  );
+};
+
+export default WorkshopServicesSection;
