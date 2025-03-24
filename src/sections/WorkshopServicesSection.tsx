@@ -56,8 +56,8 @@ const WorkshopServicesSection: React.FC = () => {
           features={FamilyWorkshopFeatures}
           bgColor="bg-pink-200"
         />
-
       </div>
+      {/* Making this section 6 columns wide, each content will take 2 spaces and we will have an empty div of 1 space each side to center it */ }
       <div className="grid grid-cols-6 gap-6">
         <div className="col-span-1" />
         <WorkshopServicesCard
