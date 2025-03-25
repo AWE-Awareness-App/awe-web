@@ -4,7 +4,7 @@ import FeatureCard from "../components/FeatureCard";
 const FeatureSection: React.FC = () => {
     return (
         <div className="mx-auto max-w-6xl">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 ">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:px-0 px-8">
                 <FeatureCard
                     title="Instant Free Intro Video Consultation"
                     description="Quickly assess how best we can help you or a loved one."

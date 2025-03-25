@@ -122,7 +122,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
       </nav>
 
       {/* Add spacing to prevent content from being chopped */}
-      <div className="mt-16 md:mt-0"></div>
+      <div className="mt-20 md:mt-0"></div>
     </>
   );
 };
