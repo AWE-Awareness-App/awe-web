@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch`
+### `npx tailwindcss -i ./src/input.css -o ./public/output.css --watch`
 
 Automatically watches and updates any changes done to the TailwindCSS to update the output.css so it affects the website.
 
