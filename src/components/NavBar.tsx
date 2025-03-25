@@ -28,7 +28,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
   return (
     <>
       {/* Navbar */}
-        <nav className="md:relative md:mt-6 bg-gray-200 shadow-md rounded-xl px-6 py-4 fixed top-0 left-0 w-full z-50 h-16 md:h-auto md:mx-auto md:max-w-6xl">
+      <nav className="md:relative md:mt-6 bg-gray-200 shadow-md md:rounded-xl rounded-b-xl px-6 py-4 fixed top-0 left-0 w-full z-50 h-16 md:h-auto md:mx-auto md:max-w-6xl">
         <div className="flex justify-between items-center h-full">
           {/* Logo */}
           <div className="flex items-center space-x-3">
