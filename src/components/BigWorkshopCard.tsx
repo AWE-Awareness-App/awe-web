@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import { Workshop } from "../interfaces/Workshop";
+import PaymentCard from "./PaymentCard";
 
 interface BigWorkshopCardProps {
     workshop: Workshop;
 }
 
 const BigWorkshopCard: React.FC<BigWorkshopCardProps> = ({ workshop }) => {
+    const [showPayment, setShowPayment] = useState(false);
+
+    const handleOpenPayment = () => {
+        setShowPayment(true);
+    };
+
+    const handleClosePayment = () => {
+        setShowPayment(false);
+    };
+
     return (
-        <div className={`rounded-xl p-6 flex flex-col shadow-md`}>
+        <div className={`rounded-xl p-6 flex flex-col shadow-md ${showPayment ? 'blur-sm' : ''}`}>
             <div className="grid grid-cols-1 md:grid-cols-2">
                 {/* Left side */}
                 <div className="flex flex-col space-y-4 py-2 px-8">
@@ -23,7 +35,7 @@ const BigWorkshopCard: React.FC<BigWorkshopCardProps> = ({ workshop }) => {
                         ))}
                     </ul>
 
-                    { /* Dates */}
+                    {/* Dates */}
                     <div className="mt-4 mb-4">
                         <p>
                             <span className="text-black font-semibold">Start Date:</span>
@@ -37,7 +49,10 @@ const BigWorkshopCard: React.FC<BigWorkshopCardProps> = ({ workshop }) => {
 
                     {/* Session Book Now */}
                     <div className="mt-4 mb-4">
-                        <button className="p-3 bg-blue-950 text-white rounded-lg w-[75%] hover:bg-blue-700 transition mt-4">
+                        <button 
+                            className="p-3 bg-blue-950 text-white rounded-lg w-[75%] hover:bg-blue-700 transition mt-4"
+                            onClick={handleOpenPayment}
+                        >
                             Book Now
                         </button>
                     </div>
@@ -49,6 +64,15 @@ const BigWorkshopCard: React.FC<BigWorkshopCardProps> = ({ workshop }) => {
                     <img src={workshop.imageSrc} alt="Workshop" className="w-34 h-34 object-contain" />
                 </div>
             </div>
+
+            {/* Payment Card Popup */}
+            {showPayment && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
+                    <div className="relative">
+                        <PaymentCard handleClose={handleClosePayment} />
+                    </div>
+                </div>
+            )}
 
         </div>
     );
