@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "../components/DefaultLayout.tsx";
 import WorkshopBigCardsSection from "../sections/WorkshopBigCardsSection.tsx";
 import WorkshopServicesSection from "../sections/WorkshopServicesSection.tsx";
+import WorkshopTestimonialSection from "../sections/WorkshopTestimonialSection.tsx";
 
 const WorkshopServicesPage: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const WorkshopServicesPage: React.FC = () => {
           wellness and general well-being, we are always a click away.
         </p>
         <WorkshopServicesSection />
+        <WorkshopTestimonialSection />
         <WorkshopBigCardsSection />
       </div>
     </Layout>
