@@ -5,28 +5,28 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 const workshopTestimonials = [
     {
         name: "Vic Foster",
-        imageSrc: "/images/vic-foster.jpg",
+        imageSrc: "/images/vic-foster.png",
         rating: 5,
         review:
             "The workshop combines theory and practice and helped change my hardest habit. Thank you to the AWE team!",
     },
     {
         name: "Adri & Trevor",
-        imageSrc: "/images/adri-trevor.jpg",
+        imageSrc: "/images/adri-trevor.png",
         rating: 4,
         review:
             "We reconnected like never before while welcoming changes and challenges with anger, resentment and reactivity. We now appreciate and admire each other.",
     },
     {
         name: "Sanjana Das",
-        imageSrc: "/images/sanjana-das.jpg",
+        imageSrc: "/images/sanjana-das.png",
         rating: 5,
         review:
             "The workshop manages to free me from doing the same thing without result and regained my life and time with new purpose.",
     },
     {
         name: "Tom Daniel",
-        imageSrc: "/images/tom-daniel.jpg",
+        imageSrc: "/images/tom-daniel.png",
         rating: 5,
         review:
             "Gained a new understanding of science, myself, my habits, my whys and the world.",
