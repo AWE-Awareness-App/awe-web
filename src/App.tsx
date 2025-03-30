@@ -6,6 +6,7 @@ import WorkshopServicesPage from "./pages/WorkshopServices.tsx";
 import AccountDeletionPage from "./pages/AccountDeletion.tsx";
 import AboutUsPage from "./pages/AboutUs.tsx";
 import BlankPage from "./pages/BlankPage.tsx";
+import "./input.css";
 
 const App: React.FC = () => {
   return (
