@@ -5,7 +5,6 @@ import SpecialistServices from "./pages/SpecialistServices.tsx";
 import WorkshopServicesPage from "./pages/WorkshopServices.tsx";
 import AccountDeletionPage from "./pages/AccountDeletion.tsx";
 import AboutUsPage from "./pages/AboutUs.tsx";
-import BlankPage from "./pages/BlankPage.tsx";
 import "./input.css";
 
 const App: React.FC = () => {
@@ -17,7 +16,6 @@ const App: React.FC = () => {
         <Route path="/workshop-services" element={<WorkshopServicesPage />} />
         <Route path="/about-us" element={<AboutUsPage />} />
         <Route path="/account-deletion" element={<AccountDeletionPage />} />
-        <Route path="/blank" element={<BlankPage />} />
       </Routes>
     </Router>
   );
