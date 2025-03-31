@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "flowbite-react";
 
-interface SignInModalProp {
-  isSignInModalOpen: boolean;
+interface ForgotPasswordModalProp {
+  isForgotPasswordModalOpen: boolean;
   onClose: () => void;
-  onSwitchToSignUpModal: () => void;
+  onSwitchToSignInModal: () => void;
 }
 
-const SignInModal: React.FC<SignInModalProp> = ({
-  isSignInModalOpen,
+const ForgotPasswordModal: React.FC<ForgotPasswordModalProp> = ({
+  isForgotPasswordModalOpen,
   onClose,
-  onSwitchToSignUpModal,
+  onSwitchToSignInModal,
 }) => {
   return (
     <Modal
-      show={isSignInModalOpen}
+      show={isForgotPasswordModalOpen}
       onClose={onClose}
       tabIndex={-1}
       className="inset-0 
@@ -45,7 +45,7 @@ const SignInModal: React.FC<SignInModalProp> = ({
             {/* Left Column*/}
             <div className="w-1/2 md:w-1/2 border-gray-200 dark:border-gray-600 md:border-r md:pr-6">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                Sign in
+                Forgot Password
               </h3>
               <form>
                 <div className="mb-4">
@@ -76,17 +76,12 @@ const SignInModal: React.FC<SignInModalProp> = ({
                     placeholder="••••••••"
                     className="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                   />
-                  <div className="text-right mt-1">
-                    <button className="text-sm text-blue-600 hover:underline dark:text-blue-400">
-                      Forgot your password?
-                    </button>
-                  </div>
                 </div>
                 <button
                   type="submit"
                   className="w-full rounded-lg bg-blue-700 px-4 py-2.5 text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700"
                 >
-                  Sign in
+                  Verify
                 </button>
               </form>
             </div>
@@ -138,7 +133,7 @@ const SignInModal: React.FC<SignInModalProp> = ({
             <button
               type="button"
               onClick={() => {
-                onSwitchToSignUpModal();
+                onSwitchToSignInModal();
               }}
               className="text-blue-600 hover:underline"
             >
@@ -151,4 +146,4 @@ const SignInModal: React.FC<SignInModalProp> = ({
   );
 };
 
-export default SignInModal;
+export default ForgotPasswordModal;

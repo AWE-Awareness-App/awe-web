@@ -12,13 +12,13 @@ const AuthSection: React.FC<AuthSectionProp> = ({ onClose }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/50">
-      <div className="relative">
+      <div className="">
         {/* Login Modal */}
         <SignInModal
           isSignInModalOpen={showSignIn}
           onClose={() => {
             setShowSignIn(false);
-            onClose(); // also close the entire AuthSection overlay
+            onClose();
           }}
           onSwitchToSignUpModal={() => {
             setShowSignIn(false);
