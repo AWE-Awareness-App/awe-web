@@ -1,14 +1,37 @@
 import React from "react";
+import { FaLinkedin, FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import { trackEvent } from "../services/Analytics";
 
 const UnderConstruction: React.FC = () => {
+    const handleLinkedInClick = (event: React.MouseEvent) => {
+        event.preventDefault();
+        trackEvent({ category: "User Actions", action: "Clicked Linked-In", label: "Homepage" });
+        window.open('https://www.linkedin.com/company/awe-digital-wellness/', '_blank', 'noopener noreferrer');
+    };
+
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-100 text-center">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">🚧 Under Construction 🚧</h1>
-            <div className="flex items-center space-x-3 p-4">
-                <img src="images/awe-1.jpg" alt="Logo" className="h-16 w-16" />
-                <span className="text-2xl font-bold text-blue-900">AWE | Awareness, Wellness, Enjoyment</span>
+        <div className="flex flex-col items-center justify-center h-screen bg-white text-center">
+            <h1 className="text-6xl font-extrabold text-[#1168AD] mb-4">🚧 Under Construction 🚧</h1>
+            <div className="flex items-center space-x-4 p-4 border-b-4 border-[#1168AD] mb-8">
+                <img src="images/awe-1.jpg" alt="Logo" className="h-20 w-20 rounded-full border-4 border-[#1168AD]" />
+                <span className="text-3xl font-bold text-[#1168AD]">AWE | Awareness, Wellness, Enjoyment</span>
             </div>
-            <p className="text-lg text-gray-600">We're working hard to bring you something amazing. Stay tuned!</p>
+            <p className="text-xl text-gray-800 mb-6">We're working hard to bring you something amazing. Stay tuned!</p>
+            <p className="text-lg text-gray-800 mb-8">In the meantime, you can follow us on our socials!</p>
+            <div className="flex space-x-8">
+                <a href="#" onClick={handleLinkedInClick} target="_blank" rel="noopener noreferrer" className="text-[#1168AD] hover:text-blue-800">
+                    <FaLinkedin size={72} /> {/* Larger LinkedIn icon */}
+                </a>
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="hidden text-blue-600 hover:text-blue-800">
+                    <FaFacebook size={48} />
+                </a>
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="hidden text-pink-500 hover:text-pink-700">
+                    <FaInstagram size={48} />
+                </a>
+                <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className="hidden text-blue-400 hover:text-blue-600">
+                    <FaTwitter size={48} />
+                </a>
+            </div>
         </div>
     );
 };

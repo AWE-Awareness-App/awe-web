@@ -14,6 +14,7 @@ const getQueryParam = (param: string) => {
 
 // Check if maintenance mode is enabled via env variable
 const envMaintenance = process.env.REACT_APP_UNDER_MAINTENANCE === "true";
+console.log(process.env.REACT_APP_UNDER_MAINTENANCE);
 
 // Allow overriding via query param (?underMaintenance=true or false)
 const queryMaintenance = getQueryParam("underMaintenance");

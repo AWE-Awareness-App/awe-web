@@ -1,4 +1,3 @@
-import react from "react";
 import WorkshopServicesCard from "../components/WorkshopServicesCard";
 
 const IndividualWorkshopsFeatures = [
