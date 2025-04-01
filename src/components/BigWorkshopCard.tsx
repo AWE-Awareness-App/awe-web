@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Workshop } from "../interfaces/Workshop";
+import { Workshop } from "@interfaces/Workshop";
 import PaymentCard from "./PaymentCard";
 
 interface BigWorkshopCardProps {
