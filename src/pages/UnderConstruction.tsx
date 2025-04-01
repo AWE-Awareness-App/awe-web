@@ -19,16 +19,19 @@ const UnderConstruction: React.FC = () => {
             <p className="text-xl text-gray-800 mb-6">We're working hard to bring you something amazing. Stay tuned!</p>
             <p className="text-lg text-gray-800 mb-8">In the meantime, you can follow us on our socials!</p>
             <div className="flex space-x-8">
-                <a href="#" onClick={handleLinkedInClick} target="_blank" rel="noopener noreferrer" className="text-[#1168AD] hover:text-blue-800">
-                    <FaLinkedin size={72} /> {/* Larger LinkedIn icon */}
-                </a>
-                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="hidden text-blue-600 hover:text-blue-800">
+                <button
+                    onClick={handleLinkedInClick}
+                    className="text-[#1168AD] hover:text-blue-800 cursor-pointer"
+                    aria-label="LinkedIn">
+                    <FaLinkedin size={72} />
+                </button>
+                <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="hidden text-blue-600 hover:text-blue-800 cursor-pointer">
                     <FaFacebook size={48} />
                 </a>
-                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="hidden text-pink-500 hover:text-pink-700">
+                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="hidden text-pink-500 hover:text-pink-700 cursor-pointer">
                     <FaInstagram size={48} />
                 </a>
-                <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className="hidden text-blue-400 hover:text-blue-600">
+                <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className="hidden text-blue-400 hover:text-blue-600 cursor-pointer">
                     <FaTwitter size={48} />
                 </a>
             </div>
