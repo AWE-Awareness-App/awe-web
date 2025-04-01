@@ -1,7 +1,7 @@
 import React from "react";
-import PromoCard from "../components/PromoCard";
-import EventCard from "../components/EventCard";
-import StatCard from "../components/StatCard";
+import PromoCard from "@components/PromoCard";
+import EventCard from "@components/EventCard";
+import StatCard from "@components/StatCard";
 
 const PromoSection: React.FC = () => {
   return (

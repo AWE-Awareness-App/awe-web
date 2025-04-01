@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SpecialistCard from "../components/SpecialistCard";
+import SpecialistCard from "@components/SpecialistCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const specialists = [

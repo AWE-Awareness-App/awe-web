@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import TestimonialCard from "../components/TestimonialCard";
+import TestimonialCard from "@components/TestimonialCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const workshopTestimonials = [

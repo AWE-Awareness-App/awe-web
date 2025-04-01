@@ -1,5 +1,5 @@
 import React from "react";
-import ConnectWithSpecialistCard from "../components/ConnectWithSpecialistCard";
+import ConnectWithSpecialistCard from "@components/ConnectWithSpecialistCard";
 
 const IndividualCareFeatures = [
     "Private 1-1 Coaching with Professional",

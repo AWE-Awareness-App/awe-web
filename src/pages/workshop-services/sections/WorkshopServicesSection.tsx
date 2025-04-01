@@ -1,4 +1,4 @@
-import WorkshopServicesCard from "../components/WorkshopServicesCard";
+import WorkshopServicesCard from "@components/WorkshopServicesCard";
 
 const IndividualWorkshopsFeatures = [
   "3-Day Happiness Retreat Workshop",

@@ -1,5 +1,5 @@
 import React from "react";
-import FeatureCard from "../components/FeatureCard";
+import FeatureCard from "@components/FeatureCard";
 
 const FeatureSection: React.FC = () => {
     return (

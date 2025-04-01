@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from "../components/DefaultLayout.tsx";
+import Layout from "../../components/DefaultLayout.tsx";
 
 const AboutUsPage: React.FC = () => {
     return (
