@@ -13,7 +13,7 @@ const UnderConstruction: React.FC = () => {
         <div className="flex flex-col items-center justify-center h-screen bg-white text-center">
             <h1 className="text-6xl font-extrabold text-[#1168AD] mb-4">🚧 Under Construction 🚧</h1>
             <div className="flex items-center space-x-4 p-4 border-b-4 border-[#1168AD] mb-8">
-                <img src="images/awe-1.jpg" alt="Logo" className="h-20 w-20 rounded-full border-4 border-[#1168AD]" />
+                <img src="/images/awe-1.jpg" alt="Logo" className="h-20 w-20 rounded-full border-4 border-[#1168AD]" />
                 <span className="text-3xl font-bold text-[#1168AD]">AWE | Awareness, Wellness, Enjoyment</span>
             </div>
             <p className="text-xl text-gray-800 mb-6">We're working hard to bring you something amazing. Stay tuned!</p>

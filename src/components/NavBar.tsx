@@ -22,7 +22,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
   const navItems = [
     { name: "Home", href: "/", key: "home" },
     { name: "Healthcare Services", href: "#", key: "healthcareServices", type: "service" },
-    { name: "About Us", href: "/about-us", key: "aboutus" },
+    { name: "About Us", href: "/about", key: "about" },
   ];
 
   const logo =

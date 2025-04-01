@@ -1,7 +1,9 @@
 module.exports = {
+  mode: 'jit',
+  purge: ['./src/**/*.{js.jsx,ts,tsx}', './public/index.html'],
   content: [
-    './src/**/*.{js,jsx,ts,tsx}', // Add your content paths here
-    './*.{js,jsx,ts,tsx,html}'
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {},
