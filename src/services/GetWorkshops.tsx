@@ -1,5 +1,6 @@
 import { workshops } from "@repositories/WorkshopRepository";
 import { API_BASE_URL, USE_MOCK_DATA } from "@config/api";
+import { Workshop } from "@interfaces/Workshop";
 
 export const GetWorkshops = async (): Promise<Workshop[]> => {
     if (USE_MOCK_DATA) {

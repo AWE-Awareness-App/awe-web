@@ -1,4 +1,4 @@
-interface Workshop {
+export interface Workshop {
     type: "individual" | "couples" | "family" | "communities" | "organization";
     title: string;
     description: string;
