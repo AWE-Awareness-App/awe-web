@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BigWorkshopCard from "@components/BigWorkshopCard";
 import { GetWorkshops } from "@services/GetWorkshops";
+import { Workshop } from "@interfaces/Workshop";
 
 const WorkshopBigCardsSection: React.FC = () => {
     const [workshops, setWorkshops] = useState<Workshop[]>([]);
