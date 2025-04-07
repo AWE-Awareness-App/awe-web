@@ -46,7 +46,7 @@ const PrivacyPage: React.FC = () => {
                     By purchasing coaching or behavioral support services from https://awedigitalwellness.com/, you acknowledge and agree that:
                 </p>
                 <ul className="list-disc ml-8">
-                    <li>Marc Ritter and Christian Dominique are NOT licensed clinical psychologists or healthcare professionals. They are mental health coaches specializing in internet addiction and behavioral change.</li>
+                    <li>Although some of our coaches are licensed psychologists, they may not be in your jurisdication. You agree to receive services as a coaching service and not a healthcare or clinical psychology consultation.</li>
                     <li>Our services are not a substitute for professional medical treatment, therapy, or mental health care.</li>
                     <li>We do not diagnose, treat, or prevent medical or psychological conditions. If you require clinical therapy or medical care, you should seek a licensed professional.</li>
                     <li>Any guidance or strategies provided are for educational and personal development purposes only. Results vary based on individual commitment and effort.</li>
