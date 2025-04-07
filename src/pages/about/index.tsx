@@ -66,25 +66,27 @@ const AboutUsPage: React.FC = () => {
                 <h2 className="text-4xl font-bold my-8">Our Approach</h2>
                 <p>
                     We believe in the power of combining:
-                    <ul className="list-disc pl-5">
-                        <li>Evidence-based addiction science</li>
-                        <li>Human-centered technology</li>
-                        <li>Personal coaching and support</li>
-                        <li>Community-driven accountability</li>
-                    </ul>
+                </p>
+                <ul className="list-disc pl-5">
+                    <li>Evidence-based addiction science</li>
+                    <li>Human-centered technology</li>
+                    <li>Personal coaching and support</li>
+                    <li>Community-driven accountability</li>
+                </ul>
+                <p>
                     Our platform  is just about reducing screen time about helping people build meaningful
                     relationships with people and technology that enhance rather than detract from their lives.
                 </p>
                 <h2 className="text-4xl font-bold my-8">Our Mission</h2>
                 <p>
                     In today hyper connected world, the line between healthy use and dependency has become increasingly blurred. Our mission is to empower individuals to:
-                    <ul className="list-disc pl-5">
-                        <li>Develop healthier digital habits</li>
-                        <li>Rediscover offline joy and connection</li>
-                        <li>Build sustainable relationships with technology</li>
-                        <li>Access support when they need it most</li>
-                    </ul>
                 </p>
+                <ul className="list-disc pl-5">
+                    <li>Develop healthier digital habits</li>
+                    <li>Rediscover offline joy and connection</li>
+                    <li>Build sustainable relationships with technology</li>
+                    <li>Access support when they need it most</li>
+                </ul>
 
                 <h2 className="text-4xl font-bold my-8">Our Commitment</h2>
                 <p>

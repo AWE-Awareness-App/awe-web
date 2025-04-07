@@ -25,12 +25,12 @@ const PrivacyPage: React.FC = () => {
                 <h5 className="text-l font-bold mt-4">1.4 Prohibited Activities</h5>
                 <p>
                     You agree not to:
-                    <ul className="list-disc ml-8">
-                        <li>Use our services for unlawful, fraudulent, or harmful activities.</li>
-                        <li>Share misleading or false information when registering.</li>
-                        <li>Attempt to interfere with the operation of the Website.</li>
-                    </ul>
                 </p>
+                <ul className="list-disc ml-8">
+                    <li>Use our services for unlawful, fraudulent, or harmful activities.</li>
+                    <li>Share misleading or false information when registering.</li>
+                    <li>Attempt to interfere with the operation of the Website.</li>
+                </ul>
                 <p className="mt-4">
                     We reserve the right to terminate accounts that violate these terms.
                 </p>
@@ -44,23 +44,23 @@ const PrivacyPage: React.FC = () => {
                 <h5 className="text-l font-bold mt-4">2.2 Non-Clinical Therapy Disclaimer</h5>
                 <p>
                     By purchasing coaching or behavioral support services from https://awedigitalwellness.com/, you acknowledge and agree that:
-                    <ul className="list-disc ml-8">
-                        <li>Marc Ritter and Christian Dominique are NOT licensed clinical psychologists or healthcare professionals. They are mental health coaches specializing in internet addiction and behavioral change.</li>
-                        <li>Our services are not a substitute for professional medical treatment, therapy, or mental health care.</li>
-                        <li>We do not diagnose, treat, or prevent medical or psychological conditions. If you require clinical therapy or medical care, you should seek a licensed professional.</li>
-                        <li>Any guidance or strategies provided are for educational and personal development purposes only. Results vary based on individual commitment and effort.</li>
-                        <li>We are not liable for decisions made based on our coaching, and you accept full responsibility for your well-being.</li>
-                    </ul>
                 </p>
+                <ul className="list-disc ml-8">
+                    <li>Marc Ritter and Christian Dominique are NOT licensed clinical psychologists or healthcare professionals. They are mental health coaches specializing in internet addiction and behavioral change.</li>
+                    <li>Our services are not a substitute for professional medical treatment, therapy, or mental health care.</li>
+                    <li>We do not diagnose, treat, or prevent medical or psychological conditions. If you require clinical therapy or medical care, you should seek a licensed professional.</li>
+                    <li>Any guidance or strategies provided are for educational and personal development purposes only. Results vary based on individual commitment and effort.</li>
+                    <li>We are not liable for decisions made based on our coaching, and you accept full responsibility for your well-being.</li>
+                </ul>
                 <h5 className="text-l font-bold mt-4">2.3 Medical Emergency Disclaimer</h5>
                 <p>
                     If you are experiencing a mental health crisis, suicidal thoughts, or any medical emergency, please seek immediate professional assistance. We do not provide crisis intervention services. Contact:
-                    <ul className="list-disc ml-8">
-                        <li>911 (US) for emergency medical services.</li>
-                        <li>988 (Suicide & Crisis Lifeline, US) for immediate mental health support.</li>
-                        <li>988 (Talk Suicide Canada) for crisis support in Canada.</li>
-                    </ul>
                 </p>
+                <ul className="list-disc ml-8">
+                    <li>911 (US) for emergency medical services.</li>
+                    <li>988 (Suicide & Crisis Lifeline, US) for immediate mental health support.</li>
+                    <li>988 (Talk Suicide Canada) for crisis support in Canada.</li>
+                </ul>
                 <h4 className="text-xl font-bold mt-4">3. Cancellation & Refund Policy</h4>
                 <h5 className="text-l font-bold mt-4">3.1 Cancellation and Rescheduling Policy</h5>
                 <ul className="list-disc ml-8">
