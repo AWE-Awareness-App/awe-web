@@ -6,6 +6,7 @@ const PrivacyPage: React.FC = () => {
         <Layout activePage="privacy">
             <div className="mx-auto max-w-6xl px-4 text-blue-950">
                 <h2 className="text-4xl font-bold my-8 text-center">Privacy Policy</h2>
+                <p className="text-gray-700 text-center my-8">At AWE Digital Wellness, we care about your privacy and will never sell your data.</p>
                 <p>
                     By accessing and using <span className="font-bold">AWE | Awareness, Wellness, Enjoyment</span> , you agree to comply with these Terms and Conditions. If you do not agree with any part of these Terms, please discontinue use of our services.
                 </p>
