@@ -1,3 +1,5 @@
+import { Workshop } from "@interfaces/Workshop";
+
 export const workshops: Workshop[] = [
     {
         type: "individual",
