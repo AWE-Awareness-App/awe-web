@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaRegUserCircle, FaBars, FaTimes } from "react-icons/fa";
 import { MdCheckCircle } from "react-icons/md";
+import AuthSection from "src/pages/sections/AuthSection";
 
 interface NavBarProps {
   logoPath: string;
@@ -13,6 +14,9 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
 
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const [isSignIn, setIsSignIn] = useState(false);
 
   const healthcareOptions = [
     { name: "Specialist", href: "/specialist-services", key: "specialistServices" },
@@ -32,9 +36,39 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
     </div>
 
   const languageSection =
+    <div className="text-gray-700 hover:text-gray-900 cursor-pointer">EN ⌄</div>
+
+  const signInButtonSection =
+    <span>
+      {
+        isSignIn && (
+          <FaRegUserCircle className="text-gray-700 text-xl hover:text-gray-900 cursor-pointer" />
+        )
+      }
+      {
+        !isSignIn && (
+          <button
+            className="text-gray-700"
+            type="button"
+            onClick={() => setIsSignInModalOpen(true)}
+          >
+            Sign In
+          </button>
+        )
+      }
+    </span>
+
+  const signInModalSection =
+    <div>
+      {isSignInModalOpen &&
+        <AuthSection onClose={() => setIsSignInModalOpen(false)} />
+      }
+    </div>
+
+  const languageAndSignInSection =
     <div className="hidden md:flex items-center space-x-4">
-      <div className="text-gray-700 hover:text-gray-900 cursor-pointer">EN ⌄</div>
-      <FaRegUserCircle className="text-gray-700 text-xl hover:text-gray-900 cursor-pointer" />
+      {languageSection}
+      {signInButtonSection}
     </div>
 
   var mobileBurgerMenuButton =
@@ -115,9 +149,9 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
           {logo}
           {mobileBurgerMenuButton}
           {desktopNavigation}
-          {languageSection}
+          {languageAndSignInSection}
         </div>
-
+        {signInModalSection}
         {mobileNavigation}
       </nav>
 
