@@ -43,7 +43,7 @@ const PrivacyPage: React.FC = () => {
                 </ul>
                 <h5 className="text-l font-bold mt-4">2.2 Non-Clinical Therapy Disclaimer</h5>
                 <p>
-                    By purchasing coaching or behavioral support services from https://awedigitalwellness.com/, you acknowledge and agree that:
+                    By purchasing coaching or behavioral support services from https://awedigitalwellness.com/ and https://aweddiction.com/, you acknowledge and agree that:
                 </p>
                 <ul className="list-disc ml-8">
                     <li>Although some of our coaches are licensed psychologists, they may not be in your jurisdication. You agree to receive services as a coaching service and not a healthcare or clinical psychology consultation.</li>
@@ -57,7 +57,10 @@ const PrivacyPage: React.FC = () => {
                     If you are experiencing a mental health crisis, suicidal thoughts, or any medical emergency, please seek immediate professional assistance. We do not provide crisis intervention services. Contact:
                 </p>
                 <ul className="list-disc ml-8">
-                    <li>911 (US) for emergency medical services.</li>
+                    <li>911 (US, Canada, Costa Rica, Mexico, Panama, Argentina, Uruguay, Jordan, Fiji, the Philippines) for emergency medical services.</li>
+                    <li>112 Europe</li>
+                    <li>119 South Korea</li>
+                    <li>000 Australia</li>
                     <li>988 (Suicide & Crisis Lifeline, US) for immediate mental health support.</li>
                     <li>988 (Talk Suicide Canada) for crisis support in Canada.</li>
                 </ul>
