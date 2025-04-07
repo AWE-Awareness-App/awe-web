@@ -67,9 +67,10 @@ const PrivacyPage: React.FC = () => {
                 <h4 className="text-xl font-bold mt-4">3. Cancellation & Refund Policy</h4>
                 <h5 className="text-l font-bold mt-4">3.1 Cancellation and Rescheduling Policy</h5>
                 <ul className="list-disc ml-8">
-                    <li>Clients may cancel or reschedule an appointment at least two (2) business days before the scheduled session without penalty.</li>
-                    <li>Cancellations made within two (2) business days of the appointment will be subject to a cancellation fee of 50% of the session cost.</li>
-                    <li>If a client does not show up for a scheduled session without prior cancellation (“no-show”), the full session fee will be charged.</li>
+                    <li>Clients may cancel or reschedule a 1on1 or 1on2+ appointment at least two (2) business days before the scheduled session without penalty.</li>
+                    <li>Reschedule made within two (2) business days of the appointment will be subject to a fee of 50% of the session cost.</li>
+                    <li>After 2 rescheduling for the same appointment, or if the reschedule date is longer than 30 days, the full session fee will be charged.</li>
+                    <li>If a client cancels or does not show up for a scheduled session without prior rescheduling ("no-show"), the full session fee will be charged.</li>
                 </ul>
                 <h5 className="text-l font-bold mt-4">3.2 Refunds</h5>
                 <ul className="list-disc ml-8">
