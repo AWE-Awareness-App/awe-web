@@ -16,6 +16,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const listIds = [parseInt(process.env.BREVO_CONTACT_LIST_ID!)];
     console.log(parseInt(process.env.BREVO_CONTACT_LIST_ID!));
 
+    const bodyContent = JSON.stringify({
+        email,
+        listIds: listIds,
+        updateEnabled: true,
+        attributes: {
+            CONSENT: true,
+        },
+    });
+    console.log(bodyContent);
+
     try {
         const response = await fetch('https://api.brevo.com/v3/contacts', {
             method: 'POST',
@@ -24,14 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
             },
-            body: JSON.stringify({
-                email,
-                listIds: listIds,
-                updateEnabled: true,
-                attributes: {
-                    CONSENT: true,
-                },
-            }),
+            body: bodyContent,
         });
 
         const data = await response.json();
