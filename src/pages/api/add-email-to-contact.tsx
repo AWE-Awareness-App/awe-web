@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const apiKey = process.env.BREVO_API_KEY!;
     console.log(apiKey);
     const listIds = [parseInt(process.env.BREVO_CONTACT_LIST_ID!)];
-    console.log(parseInt(process.env.BREVO_CONTACT_LIST_ID!);
+    console.log(parseInt(process.env.BREVO_CONTACT_LIST_ID!));
 
     try {
         const response = await fetch('https://api.brevo.com/v3/contacts', {
