@@ -12,19 +12,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const apiKey = process.env.BREVO_API_KEY!;
-    console.log(apiKey);
-    const listIds = [parseInt(process.env.BREVO_CONTACT_LIST_ID!)];
-    console.log(parseInt(process.env.BREVO_CONTACT_LIST_ID!));
-
+    const listIds = [parseInt(process.env.BREVO_CONTACT_LIST_ID!)]!;
     const bodyContent = JSON.stringify({
         email,
-        listIds: listIds,
+        listIds,
         updateEnabled: true,
         attributes: {
             CONSENT: true,
         },
     });
-    console.log(bodyContent);
 
     try {
         const response = await fetch('https://api.brevo.com/v3/contacts', {
@@ -37,11 +33,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             body: bodyContent,
         });
 
-        const data = await response.json();
+        const responseText = await response.text();
+        console.log('Brevo API response text:', responseText);
 
         if (!response.ok) {
-            console.error('Brevo API error:', data);
-            return res.status(response.status).json({ error: data.message || 'Failed to add contact' });
+            console.error('Brevo API error:', responseText);
+            return res.status(response.status).json({ error: responseText || 'Failed to add contact' });
+        }
+        
+        let data;
+        if (responseText) {
+            data = JSON.parse(responseText);
         }
 
         res.status(200).json({ success: true, data });
