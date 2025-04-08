@@ -34,13 +34,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
 
         const responseText = await response.text();
-        console.log('Brevo API response text:', responseText);
 
         if (!response.ok) {
             console.error('Brevo API error:', responseText);
             return res.status(response.status).json({ error: responseText || 'Failed to add contact' });
         }
-        
+
         let data;
         if (responseText) {
             data = JSON.parse(responseText);
