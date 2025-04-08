@@ -9,6 +9,12 @@ const UnderConstruction: React.FC = () => {
         window.open('https://www.linkedin.com/company/awe-digital-wellness/', '_blank', 'noopener noreferrer');
     };
 
+    const handleInstagramInClick = (event: React.MouseEvent) => {
+        event.preventDefault();
+        trackEvent({ category: "User Actions", action: "Clicked Instragram", label: "Homepage" });
+        window.open('https://www.instagram.com/awe_digital_wellness?igsh=MWRjcnFhbG5kNzFiMA%3D%3D&utm_source=qr', '_blank', 'noopener noreferrer');
+    };
+
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-white text-center">
             <h1 className="text-6xl font-extrabold text-[#1168AD] mb-4">🚧 Under Construction 🚧</h1>
@@ -25,11 +31,14 @@ const UnderConstruction: React.FC = () => {
                     aria-label="LinkedIn">
                     <FaLinkedin size={72} />
                 </button>
+                <button
+                    onClick={handleInstagramInClick}
+                    className="text-pink-500 hover:text-pink-700 cursor-pointer"
+                    aria-label="Instagram">
+                    <FaInstagram size={72} />
+                </button>
                 <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" className="hidden text-blue-600 hover:text-blue-800 cursor-pointer">
                     <FaFacebook size={48} />
-                </a>
-                <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="hidden text-pink-500 hover:text-pink-700 cursor-pointer">
-                    <FaInstagram size={48} />
                 </a>
                 <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer" className="hidden text-blue-400 hover:text-blue-600 cursor-pointer">
                     <FaTwitter size={48} />
