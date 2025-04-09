@@ -2,6 +2,7 @@ export type AnalyticsEvent = {
     category: string;
     action: string;
     label?: string;
+    value?: number;
 };
 
 class Analytics {
@@ -17,6 +18,10 @@ class Analytics {
 
     trackEvent(event: AnalyticsEvent) {
         this.provider.trackEvent(event.category, event.action, event.label);
+    }
+
+    trackEventValue(event: AnalyticsEvent) {
+        this.provider.trackEventValue(event.category, event.action, event.label, event.value);
     }
 }
 

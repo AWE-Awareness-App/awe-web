@@ -88,7 +88,6 @@ export default function OnlineWellnessTest() {
             alert('Something went wrong while trying to subscribe your email.');
         }
     };
-    var shareText = `I scored ${score}/52 on this test! Try it yourself.`;
 
     const handleFirstQuestionAnswer = (answer: 'Myself' | 'A loved one') => {
         setFirstQuestionAnswer(answer);
@@ -98,6 +97,21 @@ export default function OnlineWellnessTest() {
         setAnswers([...answers, { questionIndex: currentQuestionIndex, score: scoreAnswer }]);
         setScore(score + scoreAnswer);
         setCurrentQuestionIndex(currentQuestionIndex + 1);
+
+        if (currentQuestionIndex + 1 === (firstQuestionAnswer === 'Myself' ? questionsMyself.length : questionsLovedOne.length)) {
+            handleCompleteQuestionnaire();
+        }
+    };
+
+    const handleCompleteQuestionnaire = () => {
+        trackEvent({
+            category: "User Actions",
+            action: "Completed Online Wellness Test",
+            label: "Completed Test",
+            value: score,
+        });
+
+        sendResultsEmail();
     };
 
     const handleGoBack = () => {
@@ -142,6 +156,57 @@ export default function OnlineWellnessTest() {
         setAnswers([]);
         setScore(0);
     }
+
+    const sendResultsEmail = async () => {
+        const emailSubject = "Thanks for completing the test!"
+        const emailMessage = `
+            <h1>Thanks for being part of the AWE community!</h1>
+            <p>We appreciate your participation in the test. Here's a summary of your results:</p>
+            <p><strong>Your score:</strong> ${score} out of 52</p>
+            
+            <h2>Things we recommend you${firstQuestionAnswer == 'A loved one' && (" and they")} pay attention to:</h2>
+
+            <h3>Regarding General Use & Loss of Control</h3>
+            <p>Currently ${pronoun} might have ${getTextForGeneralUseScore()}</p>
+            
+            <h3>Emotional Impact & Withdrawal</h3>
+            <p>Currently ${pronoun} might have ${getTextForEmotionalImpactScore()}.</p>
+            
+            <h3>Real-Life Consequences</h3>
+            <p>Currently ${pronoun} might have ${getTextForRealLifeScore()}.</p>
+
+            <h3>Stay connected:</h3>
+            <p>Follow us for more digital awareness, tips and features coming soon!</p>
+            <p>
+                <a href="https://www.linkedin.com/company/awe-digital-wellness/" target="_blank">LinkedIn</a> | 
+                <a href="https://www.instagram.com/awe_digital_wellness/?igsh=MWRjcnFhbG5kNzFiMA%3D%3D&utm_source=qr#" target="_blank">Instagram</a>
+            </p>
+        `;
+
+        try {
+            const response = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    recipientEmail: email,
+                    subject: emailSubject,
+                    message: emailMessage,
+                }),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                console.log('Email sent successfully!');
+            } else {
+                console.error('Failed to send email.', data.message);
+            }
+        } catch (error) {
+            console.error('Error sending email:', error);
+        }
+    };
 
     var askEmailView =
         <div>
@@ -273,7 +338,7 @@ export default function OnlineWellnessTest() {
                 </Button>
             )}
             <p className='mt-4'>
-                Things we recommend you{firstQuestionAnswer == 'A loved one' && ( " and they")} pay attention to:
+                Things we recommend you{firstQuestionAnswer == 'A loved one' && (" and they")} pay attention to:
             </p>
             <p className='mt-4'>
                 <span className='font-semibold'>Regarding General Use & Loss of Control</span><br />

@@ -15,6 +15,13 @@ const GoogleAnalyticsProvider = {
             event_label: label,
         });
     },
+    trackEventValue: (category: string, action: string, label?: string, value?: number) => {
+        ReactGA.event(action, {
+            event_category: category,
+            event_label: label,
+            event_value: value
+        });
+    },
 };
 
 export default GoogleAnalyticsProvider;

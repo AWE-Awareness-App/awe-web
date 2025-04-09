@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { BREVO_API_KEY } from "@config/api";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {
@@ -11,7 +12,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(400).json({ error: 'Email is required' });
     }
 
-    const apiKey = process.env.BREVO_API_KEY!;
     const listIds = [parseInt(process.env.BREVO_CONTACT_LIST_ID!)]!;
     const bodyContent = JSON.stringify({
         email,
@@ -26,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const response = await fetch('https://api.brevo.com/v3/contacts', {
             method: 'POST',
             headers: {
-                'api-key': apiKey,
+                'api-key': BREVO_API_KEY,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
             },
