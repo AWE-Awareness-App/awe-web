@@ -1,11 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Label, TextInput, Card } from 'flowbite-react';
+import { FaArrowLeft, FaLinkedin, FaFacebook } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import Layout from '@components/DefaultLayout';
+import { EmailShareButton, FacebookShareButton, LinkedinShareButton, TwitterShareButton } from 'react-share';
+import { MdEmail } from 'react-icons/md';
+import { trackEvent } from "@services/Analytics";
 
 export default function OnlineWellnessTest() {
     const [email, setEmail] = useState('');
     const [started, setStarted] = useState(false);
     const [consent, setConsent] = useState(false);
+    const [shareUrl, setShareUrl] = useState('');
+
+    useEffect(() => {
+        // This will run only on the client side
+        setShareUrl(window.location.href);
+    }, []);
+
 
     const firstQuestion = "Is this assessment for you or for someone else?";
     const [firstQuestionAnswer, setFirstQuestionAnswer] = useState<'Myself' | 'A loved one' | null>(null);;
@@ -30,14 +42,14 @@ export default function OnlineWellnessTest() {
         "Does your loved one find it hard to stop using their phone or the internet, even when they know they should?",
         "Does your loved one need to spend more and more time online to feel satisfied or entertained?",
         "Does your loved one often jump from video to video, seeking something more exciting or stimulating?",
-        "Does your loved one feel anxious, restless, or irritable when you can't use their phone or access the internet?",
+        "Does your loved one seem to feel anxious, restless, or irritable when they can't use their phone or access the internet?",
         "Does your loved one use their phone or internet as a way to escape boredom, loneliness, grief, or negative emotions?",
         "Does your loved one feel guilty or ashamed about how much time they spend on their phone or online?",
-        "Does your loved one promises to cut back, but going back to the same habits the next day?",
+        "Did your loved one try to cut back their phone or internet use without success?",
         "Have your loved one hidden their screen time or lied about their online habits to others?",
         "Has their phone or internet use negatively affected their sleep, focus, or energy levels?",
         "Has your loved one missed out on social events, school obligations, or romantic interests because of their screen time?",
-        "Do you feel like their online habits are getting in the way of your real-life goals or relationships?"
+        "Do you feel like their online habits are getting in the way of their real-life goals or relationships?"
     ];
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -76,6 +88,7 @@ export default function OnlineWellnessTest() {
             alert('Something went wrong while trying to subscribe your email.');
         }
     };
+    var shareText = `I scored ${score}/52 on this test! Try it yourself.`;
 
     const handleFirstQuestionAnswer = (answer: 'Myself' | 'A loved one') => {
         setFirstQuestionAnswer(answer);
@@ -87,8 +100,23 @@ export default function OnlineWellnessTest() {
         setCurrentQuestionIndex(currentQuestionIndex + 1);
     };
 
+    const handleGoBack = () => {
+        if (currentQuestionIndex === 0) {
+            setFirstQuestionAnswer(null);
+            setCurrentQuestionIndex(0);
+            setAnswers([]);
+            setScore(0);
+        } else {
+            const updatedAnswers = answers.slice(0, -1);
+            const lastAnswer = answers[answers.length - 1];
+            setAnswers(updatedAnswers);
+            setScore(score - lastAnswer.score);
+            setCurrentQuestionIndex(currentQuestionIndex - 1);
+        }
+    }
+
+    var totalScore = answers.reduce((sum, answer) => sum + answer.score, 0);
     const calculateFinalResult = () => {
-        const totalScore = answers.reduce((sum, answer) => sum + answer.score, 0);
         let result = '';
         if (totalScore <= 10) {
             result = 'No signs of problematic use';
@@ -101,6 +129,19 @@ export default function OnlineWellnessTest() {
         }
         return result;
     };
+
+    const handleBookingConsultation = (event: React.MouseEvent) => {
+        event.preventDefault();
+        trackEvent({ category: "User Actions", action: "Clicked Book Free Consultations", label: "Online-Test" });
+        window.open('https://calendly.com/marcdaritter', '_blank', 'noopener noreferrer');
+    }
+
+    const resetTest = (event: React.MouseEvent) => {
+        setFirstQuestionAnswer(null);
+        setCurrentQuestionIndex(0);
+        setAnswers([]);
+        setScore(0);
+    }
 
     var askEmailView =
         <div>
@@ -154,7 +195,14 @@ export default function OnlineWellnessTest() {
 
     var questionView =
         <div>
-            <h2 className="text-xl font-semibold mb-4">Question {currentQuestionIndex + 2}</h2>
+            <h2 className="text-xl font-semibold mb-4 flex">
+                <Button
+                    onClick={() => handleGoBack()}
+                    className="bg-blue-600 hover:bg-blue-700 text-white px-4 mr-4">
+                    <FaArrowLeft size={12} />
+                </Button>
+                Question {currentQuestionIndex + 2}
+            </h2>
             <p className="mb-6 text-gray-700">
                 {firstQuestionAnswer == 'Myself' ? questionsMyself[currentQuestionIndex] : questionsLovedOne[currentQuestionIndex]}
             </p>
@@ -164,7 +212,7 @@ export default function OnlineWellnessTest() {
                         key={scoreOption}
                         onClick={() => handleAnswer(scoreOption)}
                         color={scoreOption === 4 ? 'success' : scoreOption > 2 ? 'warning' : 'failure'}
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white px-2"
                     >
                         {scoreOption === 0 ? 'Never' :
                             scoreOption === 1 ? 'Rarely' :
@@ -175,15 +223,99 @@ export default function OnlineWellnessTest() {
             </div>
         </div>
 
+    const generalUseScores = answers.slice(1, 5).map(answer => answer.score);
+    const getTextForGeneralUseScore = () => {
+        const totalGeneralUseScore = generalUseScores.reduce((sum, score) => sum + score, 0);
+        if (totalGeneralUseScore <= 4) {
+            return "Strong control";
+        } else if (totalGeneralUseScore <= 10) {
+            return "Occasional loss of control";
+        } else {
+            return "Signs of compulsive use";
+        }
+    }
+
+    const emotionalImpactScores = answers.slice(5, 9).map(answer => answer.score);
+    const getTextForEmotionalImpactScore = () => {
+        const totalEmotionalImpactScore = emotionalImpactScores.reduce((sum, score) => sum + score, 0);
+        if (totalEmotionalImpactScore <= 4) {
+            return "No emotional dependence";
+        } else if (totalEmotionalImpactScore <= 10) {
+            return "Some emotional triggers";
+        } else {
+            return "High emotional reliance";
+        }
+    }
+
+    const realLifeScores = answers.slice(9, 13).map(answer => answer.score);
+    const getTextForRealLifeScore = () => {
+        const totalRealLifeScore = realLifeScores.reduce((sum, score) => sum + score, 0);
+        if (totalRealLifeScore <= 4) {
+            return "No significant impact";
+        } else if (totalRealLifeScore <= 10) {
+            return "Occasional consequences";
+        } else {
+            return "Major life interference";
+        }
+    }
+
+    var pronoun = firstQuestionAnswer == 'Myself' ? "you" : "your loved one"
+
     var completedQuestionaireView =
         <div>
             <h2 className="text-xl font-bold mb-4">Thanks for completing the test!</h2>
             <p className="mb-2 text-gray-600">We’ll email your results to: <strong>{email}</strong></p>
             <p className="mb-4">Your score is {score} out of 52.</p>
             <p className="text-lg font-bold">{calculateFinalResult()}</p>
-            <pre className="bg-gray-100 p-2 rounded text-sm mt-4">
-                {JSON.stringify(answers, null, 2)}
-            </pre>
+            {totalScore >= 21 && (
+                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-2 my-8" onClick={handleBookingConsultation}>
+                    Book a free consultation (10 minutes)
+                </Button>
+            )}
+            <p className='mt-4'>
+                Things we recommend you{firstQuestionAnswer == 'A loved one' && ( " and they")} pay attention to:
+            </p>
+            <p className='mt-4'>
+                <span className='font-semibold'>Regarding General Use & Loss of Control</span><br />
+                Currently {pronoun} might have {getTextForGeneralUseScore()}.
+            </p>
+            <p className='mt-4'>
+                <span className='font-semibold'>Emotional Impact & Withdrawal</span><br />
+                Currently {pronoun} might have {getTextForEmotionalImpactScore()}.
+            </p>
+            <p className='mt-4'>
+                <span className='font-semibold'>Real-Life Consequences</span><br />
+                Currently {pronoun} might have {getTextForRealLifeScore()}.
+            </p>
+            <div className="mt-6">
+                <p className="font-semibold mb-2">Share this test:</p>
+                <div className="flex gap-4 items-center">
+                    <FacebookShareButton url={shareUrl}>
+                        <FaFacebook size={48} className="text-blue-600 hover:underline" />
+                    </FacebookShareButton>
+                    <LinkedinShareButton url={shareUrl}>
+                        <FaLinkedin size={48} className="text-blue-800" />
+                    </LinkedinShareButton>
+                    <TwitterShareButton url={shareUrl}>
+                        <FaXTwitter size={48} className="text-black" />
+                    </TwitterShareButton>
+                    <EmailShareButton url={shareUrl}>
+                        <MdEmail size={48} className="text-black" />
+                    </EmailShareButton>
+                    <button
+                        onClick={() => {
+                            navigator.clipboard.writeText(shareUrl);
+                            alert("Link copied to clipboard!");
+                        }}
+                        className="text-green-600 hover:underline"
+                    >
+                        Copy Link
+                    </button>
+                </div>
+            </div>
+            <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-2 my-8" onClick={resetTest}>
+                Retake the test
+            </Button>
         </div>
 
     return (
