@@ -116,10 +116,7 @@ export default function OnlineWellnessTest() {
 
     const handleGoBack = () => {
         if (currentQuestionIndex === 0) {
-            setFirstQuestionAnswer(null);
-            setCurrentQuestionIndex(0);
-            setAnswers([]);
-            setScore(0);
+            resetTest();
         } else {
             const updatedAnswers = answers.slice(0, -1);
             const lastAnswer = answers[answers.length - 1];
@@ -150,7 +147,7 @@ export default function OnlineWellnessTest() {
         window.open('https://calendly.com/marcdaritter', '_blank', 'noopener noreferrer');
     }
 
-    const resetTest = (event: React.MouseEvent) => {
+    const resetTest = () => {
         setFirstQuestionAnswer(null);
         setCurrentQuestionIndex(0);
         setAnswers([]);
@@ -158,7 +155,7 @@ export default function OnlineWellnessTest() {
     }
 
     const sendResultsEmail = async () => {
-        const emailSubject = "Thanks for completing the test!"
+        const emailSubject = "Thanks for completing the test!";
         const emailMessage = `
             <h1>Thanks for being part of the AWE community!</h1>
             <p>We appreciate your participation in the test. Here's a summary of your results:</p>

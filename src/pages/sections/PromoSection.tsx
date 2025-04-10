@@ -5,43 +5,33 @@ import StatCard from "@components/StatCard";
 
 const PromoSection: React.FC = () => {
   return (
-    <div className="mx-auto max-w-6xl">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 px-8 py-12">
-        {/* Large Promo Card */}
-        <PromoCard
-          title="Want to Become Our Partner or Digital Wellness Coach"
-          description="Verify your credentials or get specialized training for you or your team in no time. Evidence-based approach to digital health and habits."
-          imageSrc="/images/partners.png"
-          bgColor="bg-yellow-200"
-        />
-
-        {/* Right Column */}
-        <div className="flex flex-col space-y-4">
-          <EventCard
-            title="Healthy Habits for a Happy Heart"
-            imageSrc="/images/healthy-habits.png"
-            bgColor="bg-blue-900"
-          />
-          <div className="grid grid-cols-2 gap-4">
-            <StatCard
-              stat="100+"
-              label="Years Experience."
-              imageSrc="/images/experience.png"
-              bgColor="bg-green-200"
-            />
-            <StatCard
-              stat="100+"
-              label="Happy Customers."
-              imageSrc="/images/customers.png"
-              bgColor="bg-pink-200"
-            />
-          </div>
-        </div>
+    <div className="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-6 py-16 space-y-8">
+      <div>
+        <img src="images/pexels-jack-sparrow-4045033.jpg" className="rounded-2xl object-contain" />
       </div>
-      {/* Journalist Section */}
-      <div className="py-4">
-        <p className="text-3xl text-center font-bold text-blue-900">We’re welcoming new patients and can’t wait to meet you.</p>
-        <p className="text-s text-center font-bold text-blue-950">We use only the best quality materials on the market in order to provide the best products to our patients.</p>
+      <div className="flex flex-col justify-center items-center text-center">
+        <h2 className="text-blue-800 font-extrabold text-6xl">How can we help?</h2>
+        <p className="text-2xl my-4">
+          Our team of world-class experts help people regain control over their screen time by focusing on awareness.
+        </p>
+      </div>
+      <div className="flex flex-col justify-center items-center text-center">
+        <h2 className="text-blue-800 font-extrabold text-6xl">Community and People First</h2>
+        <p className="text-2xl my-4">
+          Join the AWE Community and share your progress with other like minded people!
+        </p>
+      </div>
+      <div>
+        <img src="images/pexels-javaistan-17471057.jpg" className="rounded-2xl object-contain" />
+      </div>
+      <div>
+        <img src="images/pexels-cottonbro-5999069.jpg" className="rounded-2xl object-contain" />
+      </div>
+      <div className="flex flex-col justify-center items-center text-center">
+        <h2 className="text-blue-800 font-extrabold text-6xl">Using Technologie for good</h2>
+        <p className="text-2xl my-4">
+          Leaveraging AI + Device healthcare tracking, we are able to help guide and give alternate options our users to make during their day to day lives.
+        </p>
       </div>
     </div>
   );

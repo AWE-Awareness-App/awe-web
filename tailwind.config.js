@@ -11,5 +11,5 @@ module.exports = {
   theme: {
     extend: {},
   },
-  plugins: [flowbiteReact],
+  plugins: [flowbiteReact, require('@tailwindcss/aspect-ratio')],
 }
