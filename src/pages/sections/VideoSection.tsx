@@ -6,14 +6,16 @@ interface VideoSectionProps {
 
 const VideoSection: React.FC<VideoSectionProps> = ({ videoSrc }) => {
     return (
-        <section className="mx-auto aspect-w-16 aspect-h-9 w-full rounded-lg shadow-lg">
-            <iframe
-                className="w-full h-full"
-                src={videoSrc}
-                title="Video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-            />
+        <section className="w-full max-w-3xl mx-auto rounded-lg shadow-lg py-16">
+            <div className="relative w-full pb-[56.25%]">
+                <iframe
+                    className="absolute top-0 left-0 w-full h-full rounded-lg"
+                    src={videoSrc}
+                    title="Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                />
+            </div>
         </section>
     );
 };

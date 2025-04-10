@@ -1,3 +1,4 @@
+import { trackEvent } from '@services/Analytics';
 import { useRouter } from 'next/router';
 import React from 'react';
 
@@ -9,6 +10,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroImageSrc }) => {
   const router = useRouter();
 
   const handleStartTest = () => {
+    trackEvent({ category: "User Actions", action: "Clicked Online Wellness Test", label: "HomePage" });
     router.push('/online-wellness-test');
   };
 

@@ -29,7 +29,7 @@ const specialists = [
         role: "Psychologist and Teacher",
         languages: "English, Mandarin",
         imageSrc: "/images/BonnieLee.png",
-        linkedInUrl: "#",
+        linkedInUrl: undefined
     },
 ];
 
@@ -42,11 +42,9 @@ const SpecialistsSection: React.FC = () => {
     const nextSlide = () => setIndex((prev) => (prev === specialists.length - 1 ? 0 : prev + 1));
 
     return (
-        <section className="py-12 px-8 bg-blue-50">
+        <section className="py-12 px-8 ">
             {/* Section Title */}
-            <h2 className="text-3xl font-bold text-center text-gray-900 mb-6">
-                Meet Our <span className="underline decoration-blue-600">Specialists</span>
-            </h2>
+            <h2 className="text-blue-800 font-extrabold text-6xl text-center py-8">Meet our Specialists</h2>
             <p className="text-center text-gray-700 mb-8">
                 Our specialists can coach or train you. Contact us for a consultation or to join our team.
             </p>

@@ -6,7 +6,7 @@ interface SpecialistCardProps {
     role: string;
     languages: string;
     imageSrc: string;
-    linkedInUrl: string;
+    linkedInUrl: string | undefined;
 }
 
 const SpecialistCard: React.FC<SpecialistCardProps> = ({ name, role, languages, imageSrc, linkedInUrl }) => {
@@ -16,9 +16,9 @@ const SpecialistCard: React.FC<SpecialistCardProps> = ({ name, role, languages, 
             <img src={imageSrc} alt={name} className="w-full h-80 object-cover" />
 
             {/* LinkedIn Icon */}
-            <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" className="absolute top-2 right-2">
-                <FaLinkedin className="text-blue-600 bg-white rounded-full p-1 w-8 h-8" />
-            </a>
+            {linkedInUrl && (<a href={linkedInUrl} target="_blank" rel="noopener noreferrer" className="absolute top-2 right-2">
+                <FaLinkedin className="text-blue-600 p-1 w-12 h-12" />
+            </a>)}
 
             {/* Overlay for Name & Role */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-800 to-transparent p-4 text-white">

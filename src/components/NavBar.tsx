@@ -25,7 +25,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
 
   const navItems = [
     { name: "Home", href: "/", key: "home" },
-    { name: "Healthcare Services", href: "#", key: "healthcareServices", type: "service" },
+    /*{ name: "Healthcare Services", href: "#", key: "healthcareServices", type: "service" },*/
     { name: "About Us", href: "/about", key: "about" },
   ];
 
@@ -67,8 +67,8 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
 
   const languageAndSignInSection =
     <div className="hidden md:flex items-center space-x-4">
-      {languageSection}
-      {signInButtonSection}
+      {/*languageSection*/}
+      {/*signInButtonSection*/}
     </div>
 
   var mobileBurgerMenuButton =
@@ -142,10 +142,8 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
   return (
     <>
       {/* Navbar */}
-      <nav className={`md:relative md:mt-6 bg-gray-200 shadow-md md:rounded-xl rounded-b-xl px-6 py-4 fixed top-0 left-0 w-full z-50 transition-all
-        ${mobileMenuOpen ? "h-auto" : "h-24"} md:h-auto md:mx-auto md:max-w-6xl`}>
-
-        <div className="flex justify-between items-center h-16">
+      <nav className={`fixed top-0 left-0 w-full z-50 transition-all ${mobileMenuOpen ? "h-auto" : "h-24"}`}>
+        <div className="flex justify-between items-center md:h-20 h-16 mx-auto w-full md:max-w-6xl bg-gray-50 shadow-md rounded-b-xl px-6 py-4">
           {logo}
           {mobileBurgerMenuButton}
           {desktopNavigation}
@@ -156,7 +154,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
       </nav>
 
       {/* Add spacing to prevent content from being chopped */}
-      <div className="mt-20 md:mt-0"></div>
+      <div className="mt-20 md:mt-24"></div>
     </>
   );
 };

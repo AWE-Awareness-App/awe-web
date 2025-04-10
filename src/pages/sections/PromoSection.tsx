@@ -12,13 +12,13 @@ const PromoSection: React.FC = () => {
       <div className="flex flex-col justify-center items-center text-center">
         <h2 className="text-blue-800 font-extrabold text-6xl">How can we help?</h2>
         <p className="text-2xl my-4">
-          Our team of world-class experts help people regain control over their screen time by focusing on awareness.
+          Our team of world-class experts help people regain control over their screen time by focusing on <span className="text-blue-800 text-3xl">awareness</span>.
         </p>
       </div>
       <div className="flex flex-col justify-center items-center text-center">
         <h2 className="text-blue-800 font-extrabold text-6xl">Community and People First</h2>
         <p className="text-2xl my-4">
-          Join the AWE Community and share your progress with other like minded people!
+          Join the AWE Community and share your progress with family, friends or other like minded people!
         </p>
       </div>
       <div>
@@ -30,7 +30,7 @@ const PromoSection: React.FC = () => {
       <div className="flex flex-col justify-center items-center text-center">
         <h2 className="text-blue-800 font-extrabold text-6xl">Using Technologie for good</h2>
         <p className="text-2xl my-4">
-          Leaveraging AI + Device healthcare tracking, we are able to help guide and give alternate options our users to make during their day to day lives.
+          Leveraging AI + Fun Assessments + Device healthcare tracking, we are able to help guide and give better options to our users during their day to day lives.
         </p>
       </div>
     </div>
