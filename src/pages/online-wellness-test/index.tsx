@@ -157,27 +157,34 @@ export default function OnlineWellnessTest() {
     const sendResultsEmail = async () => {
         const emailSubject = "Thanks for completing the test!";
         const emailMessage = `
-            <h1>Thanks for being part of the AWE community!</h1>
-            <p>We appreciate your participation in the test. Here's a summary of your results:</p>
-            <p><strong>Your score:</strong> ${score} out of 52</p>
-            
-            <h2>Things we recommend you${firstQuestionAnswer == 'A loved one' && (" and they")} pay attention to:</h2>
+            <div style="font-family: Arial, sans-serif; color: #333; padding: 24px; line-height: 1.6; max-width: 600px; margin: auto; background-color: #f9f9f9; border-radius: 8px;">
+                <h1 style="color: #2c3e50;">Thanks for being part of the <span style="color: #2980b9;">AWE</span> community!</h1>
 
-            <h3>Regarding General Use & Loss of Control</h3>
-            <p>Currently ${pronoun} might have ${getTextForGeneralUseScore()}</p>
-            
-            <h3>Emotional Impact & Withdrawal</h3>
-            <p>Currently ${pronoun} might have ${getTextForEmotionalImpactScore()}.</p>
-            
-            <h3>Real-Life Consequences</h3>
-            <p>Currently ${pronoun} might have ${getTextForRealLifeScore()}.</p>
+                <p>We appreciate your participation in the test. Here's a summary of your results:</p>
 
-            <h3>Stay connected:</h3>
-            <p>Follow us for more digital awareness, tips and features coming soon!</p>
-            <p>
-                <a href="https://www.linkedin.com/company/awe-digital-wellness/" target="_blank">LinkedIn</a> | 
-                <a href="https://www.instagram.com/awe_digital_wellness/?igsh=MWRjcnFhbG5kNzFiMA%3D%3D&utm_source=qr#" target="_blank">Instagram</a>
-            </p>
+                <p style="font-size: 18px;"><strong>Your score:</strong> <span style="color: #2980b9;"><strong>${score}</strong></span> out of 52</p>
+
+                <h2 style="margin-top: 32px;">Things we recommend you${firstQuestionAnswer === 'A loved one' ? ' and they' : ''} pay attention to:</h2>
+
+                <h3 style="color: #34495e;">General Use & Loss of Control</h3>
+                <p>Currently, ${pronoun} might have <strong>${getTextForGeneralUseScore()}</strong>.</p>
+
+                <h3 style="color: #34495e;">Emotional Impact & Withdrawal</h3>
+                <p>Currently, ${pronoun} might have <strong>${getTextForEmotionalImpactScore()}</strong>.</p>
+
+                <h3 style="color: #34495e;">Real-Life Consequences</h3>
+                <p>Currently, ${pronoun} might have <strong>${getTextForRealLifeScore()}</strong>.</p>
+
+                <hr style="margin: 32px 0; border: none; border-top: 1px solid #ccc;">
+
+                <h3 style="color: #34495e;">Stay connected:</h3>
+                <p>Follow us for more digital awareness, tips, and features coming soon!</p>
+
+                <p>
+                    <a href="https://www.linkedin.com/company/awe-digital-wellness/" target="_blank" style="color: #0077b5; text-decoration: none;">LinkedIn</a> &nbsp;|&nbsp;
+                    <a href="https://www.instagram.com/awe_digital_wellness/?igsh=MWRjcnFhbG5kNzFiMA%3D%3D&utm_source=qr#" target="_blank" style="color: #d6249f; text-decoration: none;">Instagram</a>
+                </p>
+            </div>
         `;
 
         try {
