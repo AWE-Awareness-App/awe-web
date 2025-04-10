@@ -5,7 +5,7 @@ import StatCard from "@components/StatCard";
 
 const PromoSection: React.FC = () => {
   return (
-    <div className="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-6 py-16 space-y-8">
+    <div className="mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-6 py-16 space-y-8 px-4">
       <div>
         <img src="images/pexels-jack-sparrow-4045033.jpg" className="rounded-2xl object-contain" />
       </div>

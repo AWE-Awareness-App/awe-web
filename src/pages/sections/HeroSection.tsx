@@ -16,8 +16,8 @@ const HeroSection: React.FC<HeroSectionProps> = ({ heroImageSrc }) => {
 
   return (
     <section className="relative mx-auto max-w-6xl h-[600px]  flex flex-col text-center space-y-6">
-      <img src={heroImageSrc} alt="Logo" className="absolute top-[100px] left-0 w-full h-[550px] z-0 overflow-hidden object-contain" />
-      <div className="relative z-10 space-y-6">
+      <img src={heroImageSrc} alt="Logo" className="absolute md:top-[100px] top-[170px] left-0 w-full h-[550px] z-0 overflow-hidden object-contain" />
+      <div className="relative z-10 space-y-6 p-4">
         <h1 className="text-5xl font-extrabold text-white mb-4 text-center">
           Is Your Screen Time Taking Over?
         </h1>
