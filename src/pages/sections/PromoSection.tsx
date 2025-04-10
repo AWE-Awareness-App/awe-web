@@ -28,7 +28,7 @@ const PromoSection: React.FC = () => {
         <img src="images/pexels-cottonbro-5999069.jpg" className="rounded-2xl object-contain" />
       </div>
       <div className="flex flex-col justify-center items-center text-center">
-        <h2 className="text-blue-800 font-extrabold text-6xl">Using Technologie for good</h2>
+        <h2 className="text-blue-800 font-extrabold text-6xl">Using Technology for good</h2>
         <p className="text-2xl my-4">
           Leveraging AI + Fun Assessments + Device healthcare tracking, we are able to help guide and give better options to our users during their day to day lives.
         </p>

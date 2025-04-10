@@ -12,7 +12,7 @@ const specialists = [
     },
     {
         name: "Christian Dominique",
-        role: "Addiction Coach and Trainer",
+        role: "Addiction Coach, Family and Couples",
         languages: "English, French, Spanish",
         imageSrc: "/images/ChristianDominique.png",
         linkedInUrl: "https://www.linkedin.com/in/dominiquemba/",
