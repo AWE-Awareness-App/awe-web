@@ -79,7 +79,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
   var desktopNavigation =
     <ul className="hidden md:flex items-center space-x-6 text-gray-700">
       {navItems.map((item) =>
-        item.type === "service" ? (
+        /*item.type === "service" ? (
           <li key={item.key} className="relative">
             <button onClick={toggleDropdown} className={`flex items-center ${activePage === item.key ? "text-orange-500 font-bold" : "hover:text-gray-600"}`}>
               {item.name}
@@ -99,7 +99,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
               </ul>
             )}
           </li>
-        ) : (
+        ) : (*/
           <li key={item.key}>
             <a href={item.href} className={`flex items-center ${activePage === item.key ? "text-orange-500 font-bold" : "hover:text-gray-600"}`}>
               {item.name}
@@ -107,13 +107,13 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
             </a>
           </li>
         )
-      )}
+      /*)*/}
     </ul>
 
   var mobileNavigation =
     <div className={`md:hidden ${mobileMenuOpen ? "" : "hidden"} flex flex-col space-y-4 pt-4`}>
       {navItems.map((item) =>
-        item.type === "service" ? (
+        /*item.type === "service" ? (
           <div key={item.key}>
             <button onClick={toggleDropdown} className={`block w-full text-left px-4 py-2 ${activePage === item.key ? "text-orange-500 font-bold" : "hover:text-gray-600"}`}>
               {item.name}
@@ -130,12 +130,12 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
               </ul>
             )}
           </div>
-        ) : (
+        ) : (*/
           <a key={item.key} href={item.href} className={`block px-4 py-2 ${activePage === item.key ? "text-orange-500 font-bold" : "hover:text-gray-600"}`}>
             {item.name}
           </a>
         )
-      )}
+      /*)*/}
       {languageSection}
     </div>
 
