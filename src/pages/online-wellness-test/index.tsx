@@ -182,7 +182,9 @@ export default function OnlineWellnessTest() {
 
                 <p>
                     <a href="https://www.linkedin.com/company/awe-digital-wellness/" target="_blank" style="color: #0077b5; text-decoration: none;">LinkedIn</a> &nbsp;|&nbsp;
-                    <a href="https://www.instagram.com/awe_digital_wellness/?igsh=MWRjcnFhbG5kNzFiMA%3D%3D&utm_source=qr#" target="_blank" style="color: #d6249f; text-decoration: none;">Instagram</a>
+                    <a href="https://www.instagram.com/awe_digital_wellness/?igsh=MWRjcnFhbG5kNzFiMA%3D%3D&utm_source=qr#" target="_blank" style="color: #d6249f; text-decoration: none;">Instagram</a> &nbsp;|&nbsp;
+                    <a href="https://x.com/awe_wellness" target="_blank" style="color: #000000; text-decoration: none;">X</a> &nbsp;|&nbsp;
+                    <a href="https://www.youtube.com/@awe_digital_wellness" target="_blank" style="color: #CD201F; text-decoration: none;">YouTube</a>
                 </p>
             </div>
         `;
