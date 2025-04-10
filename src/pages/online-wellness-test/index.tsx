@@ -46,7 +46,7 @@ export default function OnlineWellnessTest() {
         "Does your loved one use their phone or internet as a way to escape boredom, loneliness, grief, or negative emotions?",
         "Does your loved one feel guilty or ashamed about how much time they spend on their phone or online?",
         "Did your loved one try to cut back their phone or internet use without success?",
-        "Have your loved one hidden their screen time or lied about their online habits to others?",
+        "How often do you suspect your loved one to have hidden their screen time to you or others?",
         "Has their phone or internet use negatively affected their sleep, focus, or energy levels?",
         "Has your loved one missed out on social events, school obligations, or romantic interests because of their screen time?",
         "Do you feel like their online habits are getting in the way of their real-life goals or relationships?"
