@@ -59,7 +59,7 @@ const SpecialistsSection: React.FC = () => {
 
                 <div className="overflow-hidden w-full max-w-4xl">
                     <div
-                        className="flex space-x-6 transition-transform duration-500 ease-in-out"
+                        className="grid grid-cols-1 md:grid-cols-4 gap-4 transition-transform duration-500 ease-in-out"
                         style={{ transform: `translateX(-${index * 100}%)` }}
                     >
                         {specialists.map((specialist, i) => (

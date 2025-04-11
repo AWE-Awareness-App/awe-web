@@ -11,7 +11,7 @@ interface SpecialistCardProps {
 
 const SpecialistCard: React.FC<SpecialistCardProps> = ({ name, role, languages, imageSrc, linkedInUrl }) => {
     return (
-        <div className="relative w-64 rounded-lg shadow-lg overflow-hidden">
+        <div className="relative rounded-lg shadow-lg overflow-hidden">
             {/* Profile Image */}
             <img src={imageSrc} alt={name} className="w-full h-80 object-cover" />
 
