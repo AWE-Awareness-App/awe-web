@@ -111,7 +111,8 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
     </ul>
 
   var mobileNavigation =
-    <div className={`md:hidden ${mobileMenuOpen ? "" : "hidden"} flex flex-col space-y-4 pt-4`}>
+    <div className={`md:hidden ${mobileMenuOpen ? "" : "hidden"} bg-gray-50 shadow-md rounded-b-xl px-6 py-4`}>
+      <div className="flex flex-col space-y-4">
       {navItems.map((item) =>
         /*item.type === "service" ? (
           <div key={item.key}>
@@ -136,7 +137,8 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
           </a>
         )
       /*)*/}
-      {languageSection}
+        {/*languageSection*/}
+      </div>
     </div>
 
   return (
