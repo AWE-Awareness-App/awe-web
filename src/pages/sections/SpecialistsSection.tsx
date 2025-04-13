@@ -5,8 +5,8 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 const specialists = [
     {
         name: "Marc Ritter",
-        role: "Addiction Coach and Trainer",
-        languages: "English, German",
+        role: "Addiction Coach and Therapist",
+        languages: "English, German, Spanish, Portuguese",
         imageSrc: "/images/MarcRitter.png",
         linkedInUrl: "https://www.linkedin.com/in/marc-d-ritter-58112a82/",
     },
