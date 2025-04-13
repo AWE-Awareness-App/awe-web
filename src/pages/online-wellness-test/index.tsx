@@ -340,7 +340,7 @@ export default function OnlineWellnessTest() {
             <p className="text-lg font-bold">{calculateFinalResult()}</p>
             {totalScore >= 21 && (
                 <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white px-2 my-8" onClick={handleBookingConsultation}>
-                    Book a free consultation (10 minutes)
+                    Book a free consultation (15 minutes)
                 </Button>
             )}
             <p className='mt-4'>
