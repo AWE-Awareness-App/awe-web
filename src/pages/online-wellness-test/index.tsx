@@ -277,7 +277,7 @@ export default function OnlineWellnessTest() {
             <p className="mb-6 text-gray-700">
                 {firstQuestionAnswer == 'Myself' ? questionsMyself[currentQuestionIndex] : questionsLovedOne[currentQuestionIndex]}
             </p>
-            <div className="flex gap-4">
+            <div className="flex flex-col md:flex-row gap-4">
                 {[0, 1, 2, 3, 4].map((scoreOption) => (
                     <Button
                         key={scoreOption}
