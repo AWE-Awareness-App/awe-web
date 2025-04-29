@@ -87,12 +87,16 @@ const PrivacyPage: React.FC = () => {
                 <p>
                     We respect your privacy. Your information will be handled per our Privacy Policy, which explains how we collect, use, and protect your data.
                 </p>
-                <h4 className="text-xl font-bold mt-4">6. Changes to These Terms</h4>
+                <h4 className="text-xl font-bold mt-4">6. Governing Law and Jurisdiction</h4>
                 <p>
-                    We may update these Terms at any time. Continued use of our services after changes take effect constitutes acceptance of the revised Terms.<br />
-                    Contact Us<br />
-                    For any questions about these Terms, contact us at:<br />
-                    <a className="text-blue-500" href="mailto:info@awedigitalwellness.com">info@awedigitalwellness.com</a>
+                    These Terms & Conditions are governed by the laws of Canada. Any disputes arising from the use of this website shall be subject to the exclusive jurisdiction of the courts of Quebec, Canada.
+                </p>
+                <h4 className="text-xl font-bold mt-4">7. Changes to These Terms & Conditioms</h4>
+                <p>
+                    We reserve the right to update or modify these
+                    these Terms & Conditioms
+                    at any time. Any changes will be posted on this page with a revised effective date. Your continued use of the website after modifications constitutes acceptance of the updated terms.
+                    By using this website, you acknowledge that you have read and understood these Terms & Conditions and agree to their terms.
                 </p>
             </div>
         </Layout>
