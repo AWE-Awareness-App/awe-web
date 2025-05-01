@@ -7,4 +7,5 @@ export interface Workshop {
     startDate: string;
     endDate: string;
     imageSrc: string;
+    schedulingLink: string;
 }

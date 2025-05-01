@@ -1,33 +1,32 @@
-import React, { useState } from "react";
+import React, { MouseEventHandler } from "react";
 import { Workshop } from "@interfaces/Workshop";
-import PaymentCard from "./PaymentCard";
+import { trackEvent } from "@services/Analytics";
 
 interface BigWorkshopCardProps {
     workshop: Workshop;
 }
 
+const handleWorkshopClicked = async (workshop: Workshop) => {
+    trackEvent({
+        category: "User Actions",
+        action: "Book Now - " + workshop.title,
+        label: "Specialist Service",
+    });
+    window.open(workshop.schedulingLink, '_blank', 'noopener noreferrer');
+};
+
 const BigWorkshopCard: React.FC<BigWorkshopCardProps> = ({ workshop }) => {
-    const [showPayment, setShowPayment] = useState(false);
-
-    const handleOpenPayment = () => {
-        setShowPayment(true);
-    };
-
-    const handleClosePayment = () => {
-        setShowPayment(false);
-    };
-
     return (
-        <div className={`rounded-xl p-6 flex flex-col shadow-md ${showPayment ? 'blur-sm' : ''}`}>
+        <div className="bg-white shadow-xl rounded-2xl border p-8 mx-4 text-left hover:shadow-2xl transition-shadow duration-300 flex flex-col">
             <div className="grid grid-cols-1 md:grid-cols-2">
                 {/* Left side */}
                 <div className="flex flex-col space-y-4 py-2 px-8">
 
-                    <h3 className="text-xl text-blue-950 h-9">{workshop.title}</h3>
+                    <h3 className="text-2xl font-semibold text-blue-800 md-h-9">{workshop.title}</h3>
                     <h2 className="text-3xl font-bold text-black">{workshop.price}</h2>
 
                     {/* Features */}
-                    <ul className="space-y-4 p-8 list-disc pl-5">
+                    <ul className="space-y-2 p-4 list-disc pl-5">
                         {workshop.features.map((feature, index) => (
                             <li key={index} className="text-blue-950">
                                 {feature}
@@ -49,9 +48,9 @@ const BigWorkshopCard: React.FC<BigWorkshopCardProps> = ({ workshop }) => {
 
                     {/* Session Book Now */}
                     <div className="mt-4 mb-4">
-                        <button 
-                            className="p-3 bg-blue-950 text-white rounded-lg w-[75%] hover:bg-blue-700 transition mt-4"
-                            onClick={handleOpenPayment}
+                        <button
+                            className="p-3 bg-blue-800 text-white rounded-lg w-[75%] hover:bg-blue-500 transition-colors mt-4"
+                            onClick={() => handleWorkshopClicked(workshop)}
                         >
                             Book Now
                         </button>
@@ -64,15 +63,6 @@ const BigWorkshopCard: React.FC<BigWorkshopCardProps> = ({ workshop }) => {
                     <img src={workshop.imageSrc} alt="Workshop" className="w-34 h-34 object-contain" />
                 </div>
             </div>
-
-            {/* Payment Card Popup */}
-            {showPayment && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
-                    <div className="relative">
-                        <PaymentCard handleClose={handleClosePayment} />
-                    </div>
-                </div>
-            )}
 
         </div>
     );

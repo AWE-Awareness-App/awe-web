@@ -14,7 +14,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "12/03/2025",
         endDate: "15/03/2025",
-        imageSrc: "/images/3day-happiness-retreat.jpg"
+        imageSrc: "/images/3day-happiness-retreat.jpg",
+        schedulingLink:""
     },
     {
         type: "individual",
@@ -29,7 +30,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "12/03/2025",
         endDate: "15/03/2025",
-        imageSrc: "/images/30day-digital-bootcamp.jpg"
+        imageSrc: "/images/30day-digital-bootcamp.jpg",
+        schedulingLink: ""
     },
     {
         type: "individual",
@@ -44,7 +46,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "12/03/2025",
         endDate: "15/03/2025",
-        imageSrc: "/images/60day-breakthrough-bounding.jpg"
+        imageSrc: "/images/60day-breakthrough-bounding.jpg",
+        schedulingLink: ""
     },
     {
         type: "individual",
@@ -60,7 +63,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "12/03/2025",
         endDate: "15/03/2025",
-        imageSrc: "/images/12week-digital-recovery.jpg"
+        imageSrc: "/images/12week-digital-recovery.jpg",
+        schedulingLink: ""
     },
     {
         type: "couples",
@@ -75,7 +79,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "20/04/2025",
         endDate: "22/04/2025",
-        imageSrc: "/images/couples-addiction-couple.jpg"
+        imageSrc: "/images/couples-addiction-couple.jpg",
+        schedulingLink: ""
     },
     {
         type: "couples",
@@ -90,7 +95,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "20/04/2025",
         endDate: "22/04/2025",
-        imageSrc: "/images/couples-communication.jpg"
+        imageSrc: "/images/couples-communication.jpg",
+        schedulingLink: ""
     },
     {
         type: "couples",
@@ -105,7 +111,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "20/04/2025",
         endDate: "22/04/2025",
-        imageSrc: "/images/couples-addiction-couple.jpg"
+        imageSrc: "/images/couples-addiction-couple2.jpg",
+        schedulingLink: ""
     },
     {
         type: "couples",
@@ -120,7 +127,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "20/04/2025",
         endDate: "22/04/2025",
-        imageSrc: "/images/couples-parenting-101.jpg"
+        imageSrc: "/images/couples-parenting-101.jpg",
+        schedulingLink: ""
     },
     {
         type: "couples",
@@ -135,7 +143,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "20/04/2025",
         endDate: "22/04/2025",
-        imageSrc: "/images/couples-parenting-201.jpg"
+        imageSrc: "/images/couples-parenting-201.jpg",
+        schedulingLink: ""
     },
     {
         type: "family",
@@ -150,7 +159,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "20/04/2025",
         endDate: "22/04/2025",
-        imageSrc: "/images/family-better-digitality.jpg"
+        imageSrc: "/images/family-better-digitality.jpg",
+        schedulingLink: ""
     },
     {
         type: "family",
@@ -165,7 +175,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "20/04/2025",
         endDate: "22/04/2025",
-        imageSrc: "/images/family-single-parent.jpg"
+        imageSrc: "/images/family-single-parent.jpg",
+        schedulingLink: ""
     },
     {
         type: "family",
@@ -180,7 +191,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "20/04/2025",
         endDate: "22/04/2025",
-        imageSrc: "/images/family-co-parenting.jpg"
+        imageSrc: "/images/family-co-parenting.jpg",
+        schedulingLink: ""
     },
     {
         type: "communities",
@@ -195,7 +207,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "20/04/2025",
         endDate: "22/04/2025",
-        imageSrc: "/images/communities-youth-school.jpg"
+        imageSrc: "/images/communities-youth-school.jpg",
+        schedulingLink: ""
     },
     {
         type: "communities",
@@ -210,7 +223,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "20/04/2025",
         endDate: "22/04/2025",
-        imageSrc: "/images/communities-neurodiversity.jpg"
+        imageSrc: "/images/communities-neurodiversity.jpg",
+        schedulingLink: ""
     },
     {
         type: "communities",
@@ -225,7 +239,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "20/04/2025",
         endDate: "22/04/2025",
-        imageSrc: "/images/communities-cultural-diversity.jpg"
+        imageSrc: "/images/communities-cultural-diversity.jpg",
+        schedulingLink: ""
     },
     {
         type: "communities",
@@ -239,7 +254,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "20/04/2025",
         endDate: "22/04/2025",
-        imageSrc: "/images/communities-university.jpg"
+        imageSrc: "/images/communities-university.jpg",
+        schedulingLink: ""
     },
     {
         type: "organization",
@@ -254,7 +270,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "TBD",
         endDate: "TBD",
-        imageSrc: "/images/organization-government.jpg"
+        imageSrc: "/images/organization-government.jpg",
+        schedulingLink: ""
     },
     {
         type: "organization",
@@ -269,7 +286,8 @@ export const workshops: Workshop[] = [
         ],
         startDate: "TBD",
         endDate: "TBD",
-        imageSrc: "/images/organization-business.jpg"
+        imageSrc: "/images/organization-business.jpg",
+        schedulingLink: ""
     },
     {
         type: "organization",
@@ -284,6 +302,7 @@ export const workshops: Workshop[] = [
         ],
         startDate: "TBD",
         endDate: "TBD",
-        imageSrc: "/images/organization-ngo-nonprofit.jpg"
+        imageSrc: "/images/organization-ngo-nonprofit.jpg",
+        schedulingLink: ""
     },
 ];

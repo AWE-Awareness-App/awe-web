@@ -32,7 +32,7 @@
   },
   "include": [
     "src"
-  ],
+, "next.config.tsx"  ],
   "exclude": [
     "node_modules"
   ]
