@@ -46,9 +46,9 @@ const WorkshopBigCardsSection: React.FC = () => {
                 <div className="space-y-8">
                     {sortedTypes.map((type, index) => (
                         <div key={type}>
-                            <h3 className="text-3xl font-bold text-blue-800 mb-4 md-mx-0 mx-4 capitalize">
+                            {/*<h3 className="text-3xl font-bold text-blue-800 mb-4 md-mx-0 mx-4 capitalize">
                                 {index + 1}. {type} Workshops
-                            </h3>
+                            </h3>*/}
                             <div className="grid grid-cols-1 gap-6">
                                 {groupedWorkshops[type].map((workshop, index) => (
                                     <BigWorkshopCard key={index} workshop={workshop} />

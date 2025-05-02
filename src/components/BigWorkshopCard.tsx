@@ -34,7 +34,9 @@ const BigWorkshopCard: React.FC<BigWorkshopCardProps> = ({ workshop }) => {
                         ))}
                     </ul>
 
+                    
                     {/* Dates */}
+                    {/*}
                     <div className="mt-4 mb-4">
                         <p>
                             <span className="text-black font-semibold">Start Date:</span>
@@ -45,6 +47,7 @@ const BigWorkshopCard: React.FC<BigWorkshopCardProps> = ({ workshop }) => {
                             <span className="text-gray-500 ml-2">{workshop.endDate}</span>
                         </p>
                     </div>
+                    {*/}
 
                     {/* Session Book Now */}
                     <div className="mt-4 mb-4">
