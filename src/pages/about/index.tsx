@@ -8,6 +8,7 @@ const AboutUsPage: React.FC = () => {
                 <div className="flex justify-center items-center space-x-4">
                     <img src="/images/APA.png" alt="American Psychological Association" className="flex-1 w-1/3 max-h-[111px] object-contain" />
                     <img src="/images/ISSBA.png" alt="ISSBA" className="flex-1 w-1/3 max-h-[111px] object-contain" />
+                    <img src="/images/HBHL.png" alt="ISSBA" className="flex-1 w-1/3 max-h-[111px] object-contain" />
                 </div>
                 <h2 className="text-4xl font-bold mb-8">About Us</h2>
                 <h4 className="text-xl font-bold">Leading the Path to Digital Wellness</h4>
@@ -103,6 +104,7 @@ const AboutUsPage: React.FC = () => {
                 <div className="flex justify-center items-center space-x-4 p-8">
                     <img src="/images/CPA.png" alt="Canadian Psychological Association" className="flex-1 w-1/3 max-h-[111px] object-contain" />
                     <img src="/images/LA2024.png" alt="Lisbon Addictions 2024" className="flex-1 w-1/3 max-h-[111px] object-contain" />
+                    <img src="/images/ISAM.jpg" alt="Lisbon Addictions 2024" className="flex-1 w-1/3 max-h-[111px] object-contain" />
                 </div>
             </div>
         </Layout>
