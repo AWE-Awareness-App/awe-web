@@ -1,5 +1,6 @@
 import React from 'react';
 import Layout from "../../components/DefaultLayout.tsx";
+import { FaLinkedin } from 'react-icons/fa6';
 
 const AboutUsPage: React.FC = () => {
     return (
@@ -19,15 +20,26 @@ const AboutUsPage: React.FC = () => {
                     connections and enjoyment.
                 </p>
                 <h2 className="text-4xl font-bold my-8">Our Leadership Team</h2>
-                <h4 className="text-xl font-bold my-4">Marc Ritter, MSc - Chief Executive Officer</h4>
+                <h4 className="text-xl font-bold my-4 flex items-center">
+                    Marc Ritter, MSc - Chief Executive Officer
+                    <a href="https://www.linkedin.com/in/marc-d-ritter-58112a82/" target="_blank" rel="noopener noreferrer" className="">
+                        <FaLinkedin className="text-blue-600 p-1 w-12 h-12" />
+                    </a>
+                </h4>
                 <p>
                     Drawing from extensive experience coaching digital addiction patients across Europe and North
                     America, Marc brings deep insight into the personal struggles and triumphs of digital wellness journeys.
                     His hands - on approach to helping individuals overcome technology dependence has shaped our
                     platform human - centered design and supportive community features.His training in psychology,
                     neuroscience and business informs our comprehensive vision.
+
                 </p>
-                <h4 className="text-xl font-bold my-4">Christian Dominique, MBA - Chief Strategy Officer</h4>
+                <h4 className="text-xl font-bold my-4 flex items-center">
+                    Christian Dominique, MBA - Chief Strategy Officer
+                    <a href="https://www.linkedin.com/in/dominiquemba/" target="_blank" rel="noopener noreferrer" className="">
+                        <FaLinkedin className="text-blue-600 p-1 w-12 h-12" />
+                    </a>
+                </h4>
                 <p>
                     With over a decade of experience in digital health commercialization globally, Christian brings valuable
                     insights into scaling digital wellness solutions.His expertise in bringing innovative health technologies to
@@ -35,11 +47,19 @@ const AboutUsPage: React.FC = () => {
                     coach, happiness expert and addiction awareness advocate, educating adults and youth aiming to
                     reduce stigma and focus on sustainable solutions.He teaches people to incorporate positive stories and
                     key relationships like family and friends to bring about a more connected and content life experience.
-                    (Link to Linkedin)
                 </p>
-                <h4 className="text-xl font-bold my-4">Roan Brasil Monteiro, MBA - Chief Technology Officer</h4>
+                <h4 className="text-xl font-bold my-4 flex items-center">
+                    Roan Brasil Monteiro, MBA - Chief Technology Officer
+                    <a href="https://www.linkedin.com/in/roanbrasil/" target="_blank" rel="noopener noreferrer" className="">
+                        <FaLinkedin className="text-blue-600 p-1 w-12 h-12" />
+                    </a>
+                </h4>
                 <p>
-                    With almost 2 decades of cutting edge IT project management and development in North and South America, Roan is the technical architect with a humane management touch and business sense.Passionate, curious and present he has worked for the biggest banking, transport, tech and gaming global companies.Author and teacher, he cares deeply about the world and is involved in many communities in need. He is compelled to lessen the negative impact identity to digital life can have through awareness and reach.
+                    With almost 2 decades of cutting edge IT project management and development in North and South America,
+                    Roan is the technical architect with a humane management touch and business sense. Passionate,
+                    curious and present he has worked for the biggest banking, transport, tech and gaming global companies.
+                    Author and teacher, he cares deeply about the world and is involved in many communities in need.
+                    He is compelled to lessen the negative impacts (attention, relationships, etc.) digital life can have through awareness and reach.
                 </p>
                 <h2 className="text-4xl font-bold my-8">Our Clinical and Scientific Advisors</h2>
                 <h4 className="text-xl font-bold my-4">Dr. Bonnie Lee, PhD</h4>
@@ -49,7 +69,7 @@ const AboutUsPage: React.FC = () => {
                     initiatives. Her expertise in understandig how addictive behaviors impact intimate relationships and
                     family dynamcs helps shape our interventions for couples and families affected by digital dependency.
                     Dr. Lee holistic approach to psychological health and relationship healing adds a crucial dimension to
-                    ourtherapeutic framework.
+                    our therapeutic framework.
                 </span>
                 <h4 className="text-xl font-bold my-4">Dr. Clara Dawkins, MD, MRCGP - Chief Clinical Officer</h4>
                 <span>
@@ -62,7 +82,7 @@ const AboutUsPage: React.FC = () => {
                 </span>
                 <h4 className="text-xl font-bold my-4">Dr. Helen Martin, PhD</h4>
                 <span>
-                    Dr. Martin has been a researcher and advisor for addiction, harm reduction, youth training and family engagement. With a PhD in Psychiatry from McGill University, Helen's mission is to revolutionize education and mental health support for all. She is involved in many diverse communities , including advocating for women, youth, public and non for profit mental wellness tools and initiatives.
+                    Dr. Martin has been a researcher and advisor for addiction, harm reduction, youth training and family engagement. With a PhD in Psychiatry from McGill University, Helen's mission is to revolutionize education and mental health support for all. She is involved in many diverse communities, including advocating for women, youth, public and non for profit mental wellness tools and initiatives.
                 </span>
                 <h2 className="text-4xl font-bold my-8">Our Approach</h2>
                 <p>
@@ -92,7 +112,7 @@ const AboutUsPage: React.FC = () => {
                 <h2 className="text-4xl font-bold my-8">Our Commitment</h2>
                 <p>
                     We understand that each person’s journey to digital wellness is unique. That’s why we’ve created a
-                    flexible, personalized approach that adapts to individual needs while lveraging the power of
+                    flexible, personalized approach that adapts to individual needs while leveraging the power of
                     community support and expert guidance.
                 </p>
                 <h2 className="text-4xl font-bold my-8">Join Our Community</h2>
