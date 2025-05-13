@@ -1,14 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { API_BASE_URL, /*USE_MOCK_DATA*/ } from "@config/api";
+import { API_BASE_URL} from "@config/api";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    /*if (USE_MOCK_DATA) {
-        console.log("Using mock data for workshops.");
-        return res.status(200).json({ workshops });
-    }*/
-
     try {
-        const response = await fetch(API_BASE_URL + '/workshops');
+        const response = await fetch(API_BASE_URL + '/workshops', {
+            next: { revalidate: 3600 },
+        });
         if (!response.ok) {
             throw new Error("Failed to fetch workshops");
         }
@@ -30,6 +27,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         return res.status(200).json({ workshops: formatted });
     } catch (error) {
         console.error("Error fetching workshops:", error);
-        return res.status(500).json({error: "Server error. Using fallback data." });
+        return res.status(500).json({ error: "Server error. Using fallback data." });
     }
 }
