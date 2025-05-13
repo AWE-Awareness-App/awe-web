@@ -95,23 +95,24 @@ export default function OnlineWellnessTest() {
 
     const handleAnswer = (scoreAnswer: number) => {
         setAnswers([...answers, { questionIndex: currentQuestionIndex, score: scoreAnswer }]);
-        setScore(score + scoreAnswer);
+        var updatedScore = score + scoreAnswer;
+        setScore(updatedScore);
         setCurrentQuestionIndex(currentQuestionIndex + 1);
 
         if (currentQuestionIndex + 1 === (firstQuestionAnswer === 'Myself' ? questionsMyself.length : questionsLovedOne.length)) {
-            handleCompleteQuestionnaire();
+            handleCompleteQuestionnaire(updatedScore);
         }
     };
 
-    const handleCompleteQuestionnaire = () => {
+    const handleCompleteQuestionnaire = (finalScore: number) => {
         trackEvent({
             category: "User Actions",
             action: "Completed Online Wellness Test",
             label: "Completed Test",
-            value: score,
+            value: finalScore,
         });
 
-        sendResultsEmail();
+        sendResultsEmail(finalScore);
     };
 
     const handleGoBack = () => {
@@ -154,7 +155,7 @@ export default function OnlineWellnessTest() {
         setScore(0);
     }
 
-    const sendResultsEmail = async () => {
+    const sendResultsEmail = async (finalScore: number) => {
         const emailSubject = "Thanks for completing the test!";
         const emailMessage = `
             <div style="font-family: Arial, sans-serif; color: #333; padding: 24px; line-height: 1.6; max-width: 600px; margin: auto; background-color: #f9f9f9; border-radius: 8px;">
@@ -162,7 +163,7 @@ export default function OnlineWellnessTest() {
 
                 <p>We appreciate your participation in the test. Here's a summary of your results:</p>
 
-                <p style="font-size: 18px;"><strong>Your score:</strong> <span style="color: #2980b9;"><strong>${score}</strong></span> out of 52</p>
+                <p style="font-size: 18px;"><strong>Your score:</strong> <span style="color: #2980b9;"><strong>${finalScore}</strong></span> out of 52</p>
 
                 <h2 style="margin-top: 32px;">Things we recommend you${firstQuestionAnswer === 'A loved one' ? ' and they' : ''} pay attention to:</h2>
 
