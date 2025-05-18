@@ -5,7 +5,7 @@ import { trackEvent } from "@services/Analytics";
 
 const FeatureSection: React.FC = () => {
     const router = useRouter();
-    
+
     const handleBookFreeConsultClicked = () => {
         trackEvent({ category: "User Actions", action: "Clicked Book Free Consultations", label: "HomePage-Features" });
         window.open('https://calendly.com/marcdaritter', '_blank', 'noopener noreferrer');
@@ -22,7 +22,7 @@ const FeatureSection: React.FC = () => {
 
     return (
         <div className="mx-auto max-w-6xl py-8 mb-8">
-            <h2 className="text-blue-800 font-extrabold text-6xl text-center py-8">Our Services</h2>
+            <h2 className="text-blue-800 font-extrabold text-4xl text-center py-8">Our Services</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:px-0 px-8">
                 <FeatureCard
                     title="Consult with an expert"

@@ -44,7 +44,7 @@ const SpecialistsSection: React.FC = () => {
     return (
         <section className="py-12 px-8 ">
             {/* Section Title */}
-            <h2 className="text-blue-800 font-extrabold text-6xl text-center py-8">Meet our Specialists</h2>
+            <h2 className="text-blue-800 font-extrabold text-4xl text-center py-8">Meet our Specialists</h2>
             <p className="text-center text-gray-700 mb-8">
                 Our specialists can coach or train you. Contact us for a consultation or to join our team.
             </p>

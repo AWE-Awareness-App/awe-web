@@ -10,8 +10,8 @@ const PromoSection: React.FC = () => {
           className="rounded-2xl object-contain md:w-1/2"
         />
         <div className="flex flex-col justify-center items-center text-center md:w-1/2">
-          <h2 className="text-blue-800 font-extrabold text-4xl md:text-6xl">How can we help?</h2>
-          <p className="text-2xl my-4">
+          <h2 className="text-blue-800 font-extrabold text-2xl md:text-4xl">How can we help?</h2>
+          <p className="text-xl my-4">
             Our team of world-class experts help people regain control over their screen time by focusing on <span className="text-blue-800 text-3xl">awareness</span>.
           </p>
         </div>
@@ -23,8 +23,8 @@ const PromoSection: React.FC = () => {
           className="rounded-2xl object-contain md:w-1/2"
         />
         <div className="flex flex-col justify-center items-center text-center md:w-1/2">
-          <h2 className="text-blue-800 font-extrabold text-4xl md:text-6xl">Community and People First</h2>
-          <p className="text-2xl my-4">
+          <h2 className="text-blue-800 font-extrabold text-2xl md:text-4xl">Community and People First</h2>
+          <p className="text-xl my-4">
             Join the AWE Community and share your progress with family, friends or other like-minded people!
           </p>
         </div>
@@ -36,8 +36,8 @@ const PromoSection: React.FC = () => {
           className="rounded-2xl object-contain md:w-1/2"
         />
         <div className="flex flex-col justify-center items-center text-center md:w-1/2">
-          <h2 className="text-blue-800 font-extrabold text-4xl md:text-6xl">Using Technology for Good</h2>
-          <p className="text-2xl my-4">
+          <h2 className="text-blue-800 font-extrabold text-2xl md:text-4xl">Using Technology for Good</h2>
+          <p className="text-xl my-4">
             Leveraging AI + Fun Assessments + Device healthcare tracking, we are able to help guide and give better options to our users during their day-to-day lives.
           </p>
         </div>

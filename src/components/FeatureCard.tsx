@@ -16,7 +16,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ title, description, ctaText, 
                 <img src={imageSrc} alt="Illustration" className="md:w-32 md:h-32 w-32 h-32 object-contain mix-blend-multiply" />
             </div>
             <div>
-                <h3 className="text-3xl font-bold text-blue-800">{title}</h3>
+                <h3 className="text-2xl font-bold text-blue-800">{title}</h3>
                 <p className="text-gray-700 mt-4">{description}</p>
             </div>
             <div className="md:mt-4">
