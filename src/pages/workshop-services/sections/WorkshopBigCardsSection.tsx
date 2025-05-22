@@ -22,7 +22,7 @@ const WorkshopBigCardsSection: React.FC = () => {
         fetchWorkshops();
     }, []);
 
-    const groupedWorkshops = workshops.reduce((acc, workshop) => {
+    const groupedWorkshops = workshops?.reduce((acc, workshop) => {
         if (!acc[workshop.type]) {
             acc[workshop.type] = [];
         }
@@ -32,11 +32,11 @@ const WorkshopBigCardsSection: React.FC = () => {
 
     const typeOrder = ["individual", "couples", "family", "communities", "organization"];
 
-    const sortedTypes = Object.keys(groupedWorkshops).sort(
+    const sortedTypes = Object.keys(groupedWorkshops ?? {}).sort(
         (a, b) => typeOrder.indexOf(a) - typeOrder.indexOf(b)
     );
 
-    
+
 
     return (
         <div className="max-w-6xl mx-auto py-8">
