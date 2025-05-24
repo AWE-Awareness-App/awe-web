@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "flowbite-react";
+import { SignIn } from "@services/SignIn";
+import type { SignInPayload } from "@interfaces/SignInPayload";
 
 interface SignInModalProp {
     isSignInModalOpen: boolean;
@@ -12,6 +14,39 @@ const SignInModal: React.FC<SignInModalProp> = ({
     onClose,
     onSwitchToSignUpModal,
 }) => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const delay = (ms: number) =>
+        new Promise<void>(resolve => setTimeout(resolve, ms));
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        setError("");
+
+        const payload: SignInPayload = {
+            username: email,
+            password: password,
+        };
+
+        try {
+            //const token = await SignIn(payload);
+            const token = await delay(5000)
+            console.log("Logged in, got token:", token);
+
+            // save the token
+            onClose();
+        } catch (err: any) {
+            console.error(err);
+            setError(err.message || "Sign‑in failed");
+        } finally {
+            setLoading(false);
+        }
+    }
+
     return (
         <Modal
             show={isSignInModalOpen}
@@ -47,7 +82,7 @@ const SignInModal: React.FC<SignInModalProp> = ({
                             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                                 Sign in
                             </h3>
-                            <form>
+                            <form onSubmit={handleSubmit}>
                                 <div className="mb-4">
                                     <label
                                         htmlFor="email"
@@ -58,8 +93,11 @@ const SignInModal: React.FC<SignInModalProp> = ({
                                     <input
                                         type="email"
                                         id="email"
+                                        value={email}
                                         placeholder="name@company.com"
                                         className="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                        onChange={e => setEmail(e.target.value)}
+                                        required
                                     />
                                 </div>
 
@@ -73,8 +111,11 @@ const SignInModal: React.FC<SignInModalProp> = ({
                                     <input
                                         type="password"
                                         id="password"
+                                        value={password}
                                         placeholder="••••••••"
                                         className="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                        onChange={e => setPassword(e.target.value)}
+                                        required
                                     />
                                     <div className="text-right mt-1">
                                         <button className="text-sm text-blue-600 hover:underline dark:text-blue-400">
@@ -85,8 +126,9 @@ const SignInModal: React.FC<SignInModalProp> = ({
                                 <button
                                     type="submit"
                                     className="w-full rounded-lg bg-blue-700 px-4 py-2.5 text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700"
+                                    disabled={loading}
                                 >
-                                    Sign in
+                                    {loading ? "Signing in…" : "Sign in"}
                                 </button>
                             </form>
                         </div>

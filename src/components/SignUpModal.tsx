@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "flowbite-react";
+import { SignIn } from "@services/SignIn";
+import type { SignInPayload } from "@interfaces/SignInPayload";
+
 
 interface SignUpModalProp {
     isSignUpModalOpen: boolean;
