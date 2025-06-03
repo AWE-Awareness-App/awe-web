@@ -36,8 +36,14 @@ const Footer: React.FC = () => {
 
   const handleQuoraOnClick = (event: React.MouseEvent) => {
     event.preventDefault();
-    trackEvent({ category: "User Actions", action: "Clicked Reddit", label: "Homepage-Footer" });
+    trackEvent({ category: "User Actions", action: "Clicked Quora", label: "Homepage-Footer" });
     window.open('https://www.reddit.com/r/awe_digital_wellness/', '_blank', 'noopener noreferrer');
+  };
+
+  const handleFacebookOnClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+    trackEvent({ category: "User Actions", action: "Clicked Facebook", label: "Homepage-Footer" });
+    window.open('https://www.facebook.com/p/AWE-Digital-Wellness-61566595893728/', '_blank', 'noopener noreferrer');
   };
 
 
@@ -74,6 +80,12 @@ const Footer: React.FC = () => {
           className="text-black hover:text-gray-800 cursor-pointer transition"
           aria-label="X">
           <FaXTwitter size={48} />
+        </button>
+        <button
+          onClick={handleFacebookOnClick}
+          className="text-blue-600 hover:text-blue-800 cursor-pointer transition"
+          aria-label="Reddit">
+          <FaFacebook size={48} />
         </button>
         <button
           onClick={handleRedditOnClick}
