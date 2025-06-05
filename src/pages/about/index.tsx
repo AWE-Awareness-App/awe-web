@@ -7,9 +7,11 @@ const AboutUsPage: React.FC = () => {
         <Layout activePage="aboutus">
             <div className="mx-auto max-w-6xl px-4 text-blue-950">
                 <div className="flex justify-center items-center space-x-4">
-                    <img src="/images/APA.png" alt="American Psychological Association" className="flex-1 w-1/3 max-h-[111px] object-contain" />
-                    <img src="/images/ISSBA.png" alt="ISSBA" className="flex-1 w-1/3 max-h-[111px] object-contain" />
-                    <img src="/images/HBHL.png" alt="ISSBA" className="flex-1 w-1/3 max-h-[111px] object-contain" />
+                    <img src="/images/APA.png" alt="American Psychological Association" className="flex-1 w-1/4 max-h-[111px] object-contain" />
+                    <img src="/images/ISSBA.png" alt="ISSBA" className="flex-1 w-1/4 max-h-[111px] object-contain" />
+                    <img src="/images/HBHL.png" alt="ISSBA" className="flex-1 w-1/4 max-h-[111px] object-contain" />
+                    <img src="/images/20250502_SfN_logo.png" alt="Society Neruro Science" className="flex-1 w-1/4 max-h-[111px] object-contain" />
+                
                 </div>
                 <h2 className="text-4xl font-bold mb-8">About Us</h2>
                 <h4 className="text-xl font-bold">Leading the Path to Digital Wellness</h4>
