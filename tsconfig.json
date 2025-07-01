@@ -27,7 +27,9 @@
       "@services/*": ["src/services/*"],
       "@repositories/*": ["src/repositories/*"],
       "@interfaces/*": ["src/interfaces/*"],
-      "@config/*": ["config/*"]
+      "@utils/*": ["src/utils/*"],
+      "@lib/*": ["src/lib/*"],
+      "@config/*": ["src/config/*"]
     }
   },
   "include": [

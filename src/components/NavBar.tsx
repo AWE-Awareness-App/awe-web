@@ -145,7 +145,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
     <>
       {/* Navbar */}
       <nav className={`fixed top-0 left-0 w-full z-50 transition-all ${mobileMenuOpen ? "h-auto" : "h-24"}`}>
-        <div className="flex justify-between items-center md:h-20 h-16 mx-auto w-full md:max-w-6xl bg-gray-50 shadow-md rounded-b-xl px-6 py-4">
+        <div className="flex justify-between items-center md:h-20 h-16 mx-auto w-full md:max-w-none bg-gray-50 shadow-md rounded-b-xl px-6 py-4">
           {logo}
           {mobileBurgerMenuButton}
           {desktopNavigation}
@@ -154,7 +154,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
         {signInModalSection}
         {mobileNavigation}
       </nav>
-
+  
       {/* Add spacing to prevent content from being chopped */}
       <div className="mt-20 md:mt-24"></div>
     </>

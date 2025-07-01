@@ -1,308 +1,173 @@
 import { Workshop } from "@interfaces/Workshop";
+import { createMinimalWorkshop, validateWorkshop } from "@utils/workshopUtils";
 
-export const workshops: Workshop[] = [
-    {
-        type: "individual",
-        title: "3-Day Happiness Retreat",
-        description: "TODO",
-        price: "$1499",
-        features: [
-            "Learn how to overcome your negativity biases, anxiety and anger.",
-            "Connect with others ànd learn with real stories.",
-            "Understand the 4 Anchors of Happiness Start to train your joy and purpose without distractions.",
-            "3-Day Intensive Reboot (21 hours)",
-        ],
-        startDate: "12/03/2025",
-        endDate: "15/03/2025",
-        imageSrc: "/images/3day-happiness-retreat.jpg",
-        schedulingLink:""
-    },
-    {
-        type: "individual",
-        title: "30-Day Digital Bootcamp.",
-        description: "TODO",
-        price: "$2999",
-        features: [
-            "24/7 Support",
-            "Motivation and goal setting",
-            "8 individual personalized  sessions",
-            "Positive habit creation and maintenance"
-        ],
-        startDate: "12/03/2025",
-        endDate: "15/03/2025",
-        imageSrc: "/images/30day-digital-bootcamp.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "individual",
-        title: "60-Day Breakthrough & Bonding.",
-        description: "TODO",
-        price: "$3999",
-        features: [
-            "Mix of 6 individual and 6 group sessions",
-            "Mindfulness, Motivation and Compassion",
-            "Build Courage, Curiosity and Connection",
-            "Transform your life and enhance enjoyment"
-        ],
-        startDate: "12/03/2025",
-        endDate: "15/03/2025",
-        imageSrc: "/images/60day-breakthrough-bounding.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "individual",
-        title: "12-Week Digital Recovery.",
-        description: "TODO",
-        price: "$1999",
-        features: [
-            "12 weekly group sessions to sustain change",
-            "Be lead by top  behavioral psycho - educators",
-            "Connect with no shame or stigma",
-            "Find solutions with better stories",
-            "Be accountable for your success and cheer for others who struggle like you"
-        ],
-        startDate: "12/03/2025",
-        endDate: "15/03/2025",
-        imageSrc: "/images/12week-digital-recovery.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "couples",
-        title: "Addiction & Couples",
-        description: "TODO",
-        price: "$1499",
-        features: [
-            "6 Couples sessions and 2 Group sessions",
-            "Change the addiction cycle in your relationship",
-            "Learn how to support and listen to each other",
-            "Avoid the blame & shame game"
-        ],
-        startDate: "20/04/2025",
-        endDate: "22/04/2025",
-        imageSrc: "/images/couples-addiction-couple.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "couples",
-        title: "Communication",
-        description: "TODO",
-        price: "$1499",
-        features: [
-            "12 Couples sessions",
-            "Focus on communication",
-            "Understand history, including perceived traumas",
-            "Cultivate connecton, safety and purpose"
-        ],
-        startDate: "20/04/2025",
-        endDate: "22/04/2025",
-        imageSrc: "/images/couples-communication.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "couples",
-        title: "Sex & Intimacy",
-        description: "TODO",
-        price: "$1999",
-        features: [
-            "6 couples sessions and 1 optional group session",
-            "Regain the fire of fabulous sex and calmness of closeness",
-            "Cultivate desire and attraction",
-            "Stigmatize your sexual preferences"
-        ],
-        startDate: "20/04/2025",
-        endDate: "22/04/2025",
-        imageSrc: "/images/couples-addiction-couple2.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "couples",
-        title: "Parenting 101",
-        description: "TODO",
-        price: "$499",
-        features: [
-            "3 weekly sessions",
-            "Challenge your parenting styles and beliefs",
-            "Learn best practices and tips",
-            "Prevent addictive behaviors in youth"
-        ],
-        startDate: "20/04/2025",
-        endDate: "22/04/2025",
-        imageSrc: "/images/couples-parenting-101.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "couples",
-        title: "Parenting 201",
-        description: "TODO",
-        price: "$1099",
-        features: [
-            "5 weekly sessions",
-            "Prerequisite of Parenting 101",
-            "Advanced parenting in a digital world",
-            "Create resilience and healthy habits for kids"
-        ],
-        startDate: "20/04/2025",
-        endDate: "22/04/2025",
-        imageSrc: "/images/couples-parenting-201.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "family",
-        title: "Better Digitality in Family Workshop",
-        description: "TODO",
-        price: "$499",
-        features: [
-            "For parents and children  8-19 yr old",
-            "Creativity and play in the real world",
-            "Family values and culture",
-            "Family vs.Tech"
-        ],
-        startDate: "20/04/2025",
-        endDate: "22/04/2025",
-        imageSrc: "/images/family-better-digitality.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "family",
-        title: "Single Parent Workshop",
-        description: "TODO",
-        price: "$599",
-        features: [
-            "3 group sessions",
-            "Challenges of single parents",
-            "Children mental health and technology",
-            "How technology can enhance parenting"
-        ],
-        startDate: "20/04/2025",
-        endDate: "22/04/2025",
-        imageSrc: "/images/family-single-parent.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "family",
-        title: "Co-parenting Facilitation",
-        description: "TODO",
-        price: "$899",
-        features: [
-            "3 parent sessions",
-            "Align parents who are no longer together",
-            "Not a mediation, a mature discussion for children direction",
-            "Separated parent realignment for mental wellness"
-        ],
-        startDate: "20/04/2025",
-        endDate: "22/04/2025",
-        imageSrc: "/images/family-co-parenting.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "communities",
-        title: "Youth & Schools (12-18yr)",
-        description: "TODO",
-        price: "Contact Us for Pricing or Free Engagement",
-        features: [
-            "Youth, educators and community",
-            "Culturally sensitive",
-            "Fun and interactive",
-            "Several languages available"
-        ],
-        startDate: "20/04/2025",
-        endDate: "22/04/2025",
-        imageSrc: "/images/communities-youth-school.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "communities",
-        title: "Neurodiversity",
-        description: "TODO",
-        price: "$999",
-        features: [
-            "3-hr workshop",
-            "ADHD / ADD, ASD, Down",
-            "Intellectual Disability and Giftedness",
-            "Think different, learn and value the differences"
-        ],
-        startDate: "20/04/2025",
-        endDate: "22/04/2025",
-        imageSrc: "/images/communities-neurodiversity.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "communities",
-        title: "Cultural Diversity",
-        description: "TODO",
-        price: "$499",
-        features: [
-            "Learn and teach the science of Race",
-            "Bring people together and connect",
-            "Cultural sensivity through examples and stories",
-            "Educate for true equality"
-        ],
-        startDate: "20/04/2025",
-        endDate: "22/04/2025",
-        imageSrc: "/images/communities-cultural-diversity.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "communities",
-        title: "University (18-25yr)",
-        description: "TODO",
-        price: "$999",
-        features: [
-            "Addiction Awareness for University",
-            "Artificial Intelligence in University",
-            "Academic Perseverance and Motivation (Inquire for Staff or Teachers' Training)"
-        ],
-        startDate: "20/04/2025",
-        endDate: "22/04/2025",
-        imageSrc: "/images/communities-university.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "organization",
-        title: "Government",
-        description: "TODO",
-        price: "Contact AWE for a quote",
-        features: [
-            "3-Day Happiness Retreat Workshop.",
-            "30 - Day Digital Bootcamp.",
-            "60 - Day Breakthrough & Bonding.",
-            "12 - Week Digital Recovery."
-        ],
-        startDate: "TBD",
-        endDate: "TBD",
-        imageSrc: "/images/organization-government.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "organization",
-        title: "Business",
-        description: "TODO",
-        price: "$2499",
-        features: [
-            "Digital wellness and productivity",
-            "Mental wellness and motivation",
-            "Purpose and commitment",
-            "Clarity, coherence and accountability"
-        ],
-        startDate: "TBD",
-        endDate: "TBD",
-        imageSrc: "/images/organization-business.jpg",
-        schedulingLink: ""
-    },
-    {
-        type: "organization",
-        title: "NGO / Nonprofit",
-        description: "TODO",
-        price: "Contact AWE for a discounted quote",
-        features: [
-            "Social impact and technology",
-            "Mental wellness education",
-            "Digital awareness best practices",
-            "Community, collaboration and cross - cultural enjoyment"
-        ],
-        startDate: "TBD",
-        endDate: "TBD",
-        imageSrc: "/images/organization-ngo-nonprofit.jpg",
-        schedulingLink: ""
-    },
-];
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://your-api-url.com';
+
+// Import mock data for development
+let mockDataImported: { mockWorkshops: Workshop[] } | null = null;
+
+if (process.env.NODE_ENV === 'development') {
+    try {
+        // Dynamic import to avoid including mock data in production
+        mockDataImported = require('./__mocks__/workshopData');
+    } catch (error) {
+        console.warn('Failed to load mock workshop data:', error);
+    }
+}
+
+/**
+ * Transforms API response data into a valid Workshop object
+ * Handles both new API format and legacy format
+ */
+const transformWorkshopData = (apiWorkshop: any): Workshop => {
+    try {
+        // Handle both string and object counsellor formats
+        let counsellor = apiWorkshop.counsellor;
+        if (typeof counsellor === 'string') {
+            // Convert string counsellor to object
+            const [firstName = '', ...lastNameParts] = counsellor.split(' ');
+            const lastName = lastNameParts.join(' ');
+            counsellor = {
+                id: `temp-${Math.random().toString(36).substr(2, 9)}`,
+                firstName,
+                lastName,
+                email: '',
+                role: 'Counsellor'
+            };
+        }
+
+        // Create a minimal valid workshop with proper typing
+        const workshop = createMinimalWorkshop({
+            ...apiWorkshop,
+            counsellor,
+            // Map legacy field names to new field names
+            ...(apiWorkshop.imageSrc && !apiWorkshop.imageUrl && { imageUrl: apiWorkshop.imageSrc }),
+            ...(apiWorkshop.schedulingLink && !apiWorkshop.bookingUrl && { bookingUrl: apiWorkshop.schedulingLink }),
+            // Ensure type is one of the allowed values
+            type: ['INDIVIDUAL', 'FAMILY', 'ORGANIZATION'].includes(apiWorkshop.type?.toUpperCase())
+                ? apiWorkshop.type.toUpperCase() as 'INDIVIDUAL' | 'FAMILY' | 'ORGANIZATION'
+                : 'INDIVIDUAL', // Default to INDIVIDUAL if invalid
+            // Ensure duration is a number
+            duration: typeof apiWorkshop.duration === 'number' 
+                ? apiWorkshop.duration 
+                : Number(apiWorkshop.duration) || 0,
+            // Ensure price is a string with 2 decimal places
+            price: typeof apiWorkshop.price === 'string' 
+                ? apiWorkshop.price 
+                : typeof apiWorkshop.price === 'number' 
+                    ? apiWorkshop.price.toFixed(2)
+                    : '0.00'
+        });
+
+        // Validate the transformed workshop
+        const missingFields = validateWorkshop(workshop);
+        if (missingFields.length > 0) {
+            console.warn('Workshop is missing required fields:', missingFields, workshop);
+        }
+
+        return workshop;
+    } catch (error) {
+        console.error('Error transforming workshop data:', error, apiWorkshop);
+        // Return a minimal valid workshop to prevent crashes
+        return createMinimalWorkshop({
+            id: `error-${Math.random().toString(36).substr(2, 9)}`,
+            name: 'Error loading workshop',
+            description: 'There was an error loading this workshop data.'
+        });
+    }
+};
+
+// Fetch workshops from API
+export const fetchWorkshops = async (): Promise<Workshop[]> => {
+    try {
+        // Use mock data in development if available and not explicitly disabled
+        if (process.env.NODE_ENV === 'development' && 
+            !process.env.NEXT_PUBLIC_USE_REAL_API && 
+            mockDataImported?.mockWorkshops) {
+            console.warn('Using mock workshop data in development mode');
+            return mockDataImported.mockWorkshops.map(workshop => {
+                // Transform each mock workshop through our standard transformation
+                // This ensures consistency between mock and real data
+                return transformWorkshopData({
+                    ...workshop,
+                    // Add any mock-specific overrides here
+                    id: workshop.id || `mock-${Math.random().toString(36).substr(2, 9)}`,
+                    description: workshop.description || 'This is a mock workshop for development purposes.'
+                });
+            });
+        }
+
+        const response = await fetch(`${API_URL}/workshops`, {
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any authentication headers if needed
+                // 'Authorization': `Bearer ${process.env.API_TOKEN}`
+            },
+        });
+        
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            console.error('Failed to fetch workshops:', {
+                status: response.status,
+                statusText: response.statusText,
+                error: errorData
+            });
+            throw new Error(`Failed to fetch workshops: ${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        
+        // Ensure data is an array
+        if (!Array.isArray(data)) {
+            console.error('Unexpected API response format:', data);
+            throw new Error('Invalid workshops data format received from server');
+        }
+
+        return data.map(workshop => {
+            try {
+                return transformWorkshopData(workshop);
+            } catch (error) {
+                console.error('Error transforming workshop data:', error, workshop);
+                // Return a minimal valid workshop object to prevent app crashes
+                return {
+                    id: workshop.id || 'error-' + Math.random().toString(36).substr(2, 9),
+                    name: 'Error loading workshop',
+                    description: 'There was an error loading this workshop.',
+                    imageUrl: '',
+                    duration: 0,
+                    startDate: new Date().toISOString(),
+                    price: '0.00',
+                    bookingUrl: '#',
+                    type: 'INDIVIDUAL',
+                    counsellor: { id: '', firstName: '', lastName: '', email: '', role: '' },
+                    title: 'Error loading workshop',
+                    imageSrc: '',
+                    schedulingLink: '#',
+                    features: [],
+                    location: 'Online',
+                    format: 'Workshop',
+                    endDate: new Date().toISOString(),
+                    counsellorName: 'AWE Counsellor'
+                };
+            }
+        });
+    } catch (error) {
+        console.error('Error in fetchWorkshops:', error);
+        // Return an empty array instead of throwing to prevent UI crashes
+        // You might want to implement error boundaries in your components
+        // to handle these cases gracefully
+        return [];
+    }
+};
+
+// Get workshops by type
+export const getWorkshopsByType = async (type: string): Promise<Workshop[]> => {
+    const workshops = await fetchWorkshops();
+    return workshops.filter(workshop => workshop.type.toLowerCase() === type.toLowerCase());
+};
+
+// Get workshop by ID
+export const getWorkshopById = async (id: string): Promise<Workshop | undefined> => {
+    const workshops = await fetchWorkshops();
+    return workshops.find(workshop => workshop.id === id);
+};
