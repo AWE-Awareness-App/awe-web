@@ -6,7 +6,7 @@ const PromoSection: React.FC = () => {
 
       <div className="flex flex-col md:flex-row items-center gap-8">
         <img
-          src="images/pexels-jack-sparrow-4045033.jpg"
+          src="https://awe-images-erdwcug9h5c2gjbn.z01.azurefd.net/image/pexels-jack-sparrow-4045033.jpg"
           className="rounded-2xl object-contain md:w-1/2"
         />
         <div className="flex flex-col justify-center items-center text-center md:w-1/2">
@@ -19,7 +19,7 @@ const PromoSection: React.FC = () => {
 
       <div className="flex flex-col md:flex-row-reverse items-center gap-8">
         <img
-          src="images/pexels-javaistan-17471057.jpg"
+          src="https://awe-images-erdwcug9h5c2gjbn.z01.azurefd.net/image/pexels-javaistan-17471057.jpg"
           className="rounded-2xl object-contain md:w-1/2"
         />
         <div className="flex flex-col justify-center items-center text-center md:w-1/2">
@@ -32,7 +32,7 @@ const PromoSection: React.FC = () => {
 
       <div className="flex flex-col md:flex-row items-center gap-8">
         <img
-          src="images/pexels-cottonbro-5999069.jpg"
+          src="https://awe-images-erdwcug9h5c2gjbn.z01.azurefd.net/image/pexels-cottonbro-5999069.jpg"
           className="rounded-2xl object-contain md:w-1/2"
         />
         <div className="flex flex-col justify-center items-center text-center md:w-1/2">
