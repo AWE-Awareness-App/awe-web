@@ -27,14 +27,16 @@
       "@services/*": ["src/services/*"],
       "@repositories/*": ["src/repositories/*"],
       "@interfaces/*": ["src/interfaces/*"],
+      "@mappers/*": ["src/mappers/*"],
       "@utils/*": ["src/utils/*"],
       "@lib/*": ["src/lib/*"],
       "@config/*": ["src/config/*"]
     }
   },
   "include": [
-    "src"
-, "next.config.tsx"  ],
+    "src",
+    "next.config.tsx"
+  ],
   "exclude": [
     "node_modules"
   ]
