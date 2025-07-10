@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "flowbite-react";
+import { signIn } from "next-auth/react"
 
 interface SignUpModalProp {
     isSignUpModalOpen: boolean;
@@ -12,6 +13,48 @@ const SignUpModal: React.FC<SignUpModalProp> = ({
     onClose,
     onSwitchToSignInModal,
 }) => {
+
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState<string | null>(null);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setError(null);
+        try {
+            const res = await fetch('api/auth/register',
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email,
+                        password,
+                        firstName,
+                        lastName,
+                        role: 'PATIENT',
+                    }),
+                }
+            );
+
+            if (!res.ok) {
+                const err = await res.json().catch(() => ({}));
+                throw new Error(err.message || 'Sign up failed');
+            }
+
+            // Auto login via NextAuth credentials provider
+            await signIn('credentials', {
+                redirect: true,
+                email,
+                password,
+                callbackUrl: '/',
+            });
+        } catch (err: any) {
+            setError(err.message || 'Unexpected error');
+        }
+    };
+
     return (
         <Modal
             show={isSignUpModalOpen}
@@ -47,30 +90,32 @@ const SignUpModal: React.FC<SignUpModalProp> = ({
                             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                                 Sign Up
                             </h3>
-                            <form>
+                            <form onSubmit={handleSubmit}>
                                 <div className="mb-4">
                                     <label
-                                        htmlFor="name"
+                                        htmlFor="firstName"
                                         className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
                                     >
-                                        Name
+                                        First Name
                                     </label>
                                     <input
                                         type="text"
-                                        id="name"
+                                        id="firstName"
+                                        onChange={e => setFirstName(e.target.value)}
                                         className="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                     />
                                 </div>
                                 <div className="mb-4">
                                     <label
-                                        htmlFor="age"
+                                        htmlFor="lastName"
                                         className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
                                     >
-                                        Age
+                                        Last Name
                                     </label>
                                     <input
-                                        type="number"
-                                        id="age"
+                                        type="text"
+                                        id="lastName"
+                                        onChange={e => setLastName(e.target.value)}
                                         className="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                     />
                                 </div>
@@ -84,6 +129,7 @@ const SignUpModal: React.FC<SignUpModalProp> = ({
                                     <input
                                         type="email"
                                         id="email"
+                                        onChange={e => setEmail(e.target.value)}
                                         className="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                     />
                                 </div>
@@ -98,12 +144,13 @@ const SignUpModal: React.FC<SignUpModalProp> = ({
                                     <input
                                         type="password"
                                         id="password"
+                                        onChange={e => setPassword(e.target.value)}
                                         className="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                     />
                                 </div>
                                 <button
                                     className="mt-4 w-full bg-blue-700 text-white py-2 rounded"
-                                    type="button"
+                                    type="submit"
                                 >
                                     Sign up
                                 </button>
@@ -121,7 +168,7 @@ const SignUpModal: React.FC<SignUpModalProp> = ({
                             </form>
                         </div>
                         {/* Right Column*/}
-                        <div className="w-1/2 md:w-1/2 items-center justify-center">
+                        {/*<div className="w-1/2 md:w-1/2 items-center justify-center">
                             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                                 Sign up with social icons
                             </h3>
@@ -159,7 +206,7 @@ const SignUpModal: React.FC<SignUpModalProp> = ({
                                     Continue with Google
                                 </button>
                             </div>
-                        </div>
+                        </div>*/}
                     </div>
                 </ModalBody>
                 <ModalFooter className="justify-center">
