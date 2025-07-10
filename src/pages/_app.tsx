@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
+import { SessionProvider } from 'next-auth/react';
 import { AppProps } from 'next/app';
 import { initializeAnalytics, trackPageView } from '../services/Analytics';
 import GoogleAnalyticsProvider from '../services/GoogleAnalytics';
 import UnderConstruction from './under-construction'; // Path to your maintenance page
 import '../styles/globals.css';
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
     const [isUnderMaintenance, setIsUnderMaintenance] = useState(false);
 
     useEffect(() => {
@@ -41,7 +42,14 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
         }
     }, []);
 
-    return isUnderMaintenance ? <UnderConstruction /> : <Component {...pageProps} />;
+    return (
+        <SessionProvider session={session}>
+            {isUnderMaintenance
+                ? <UnderConstruction />
+                : <Component {...pageProps} />
+            }
+        </SessionProvider>
+    );
 };
 
 export default MyApp;

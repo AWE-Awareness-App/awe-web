@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "flowbite-react";
+import { signIn } from "next-auth/react"
 
 interface SignInModalProp {
     isSignInModalOpen: boolean;
@@ -12,10 +13,47 @@ const SignInModal: React.FC<SignInModalProp> = ({
     onClose,
     onSwitchToSignUpModal,
 }) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState<string | null>(null);
+
+    const validateEmail = (e: string) =>
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!validateEmail(email)) {
+            return setError('Please enter a valid email address.');
+        }
+        if (!password) {
+            return setError('Password is required.');
+        }
+        setError(null);
+
+        const result = await signIn('credentials', {
+            redirect: false,
+            email: email,
+            password,
+            callbackUrl: '/'
+        });
+
+        if (result?.error) {
+            if (result.error === 'CredentialsSignin') {
+                setError('Invalid email or password.');
+            } else {
+                setError(result.error);
+            }
+        } else if (result?.ok && result.url) {
+            window.location.href = result.url;
+        }
+    };
+
     return (
         <Modal
             show={isSignInModalOpen}
             onClose={onClose}
+            onSubmit={handleSubmit}
             tabIndex={-1}
             className="inset-0 
             z-50 
@@ -59,6 +97,7 @@ const SignInModal: React.FC<SignInModalProp> = ({
                                         type="email"
                                         id="email"
                                         placeholder="name@company.com"
+                                        onChange={e => setEmail(e.target.value)}
                                         className="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                     />
                                 </div>
@@ -74,6 +113,7 @@ const SignInModal: React.FC<SignInModalProp> = ({
                                         type="password"
                                         id="password"
                                         placeholder="••••••••"
+                                        onChange={e => setPassword(e.target.value)}
                                         className="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
                                     />
                                     <div className="text-right mt-1">
@@ -91,7 +131,7 @@ const SignInModal: React.FC<SignInModalProp> = ({
                             </form>
                         </div>
                         {/* Right Column*/}
-                        <div className="w-1/2 md:w-1/2 items-center justify-center">
+                        {/*<div className="w-1/2 md:w-1/2 items-center justify-center">
                             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                                 Sign in with social icons
                             </h3>
@@ -129,7 +169,7 @@ const SignInModal: React.FC<SignInModalProp> = ({
                                     Continue with Google
                                 </button>
                             </div>
-                        </div>
+                        </div>*/}
                     </div>
                 </ModalBody>
                 <ModalFooter className="justify-center">
