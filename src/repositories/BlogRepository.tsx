@@ -80,20 +80,39 @@ export const fetchBlogPosts = async (page: number = 1, limit: number = 10): Prom
 
 // Get blog post by slug
 export const getBlogPostBySlug = async (slug: string): Promise<BlogPost | undefined> => {
-  // Fetch all posts (with a high limit to ensure we find the post)
-  const posts = await fetchBlogPosts(1, 100);
-  return posts.find(post => post.slug === slug);
+  // Try to fetch the specific post directly first
+  const url = `${API_BASE_URL}${API_ENDPOINTS.BLOGS}/${slug}`;
+  
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      cache: 'no-store'
+    });
+    
+    if (response.ok) {
+      const postData = await response.json();
+      const transformedPost = transformBlogPostData(postData);
+      return transformedPost;
+    }
+    
+  } catch (error) {
+    console.error('Error in getBlogPostBySlug:', error);
+  }
+  
+  // Fallback to fetching all posts if direct fetch fails
+  try {
+    const posts = await fetchBlogPosts(1, 100);
+    return posts.find(post => post.slug === slug);
+  } catch (error) {
+    console.error('Error in fallback fetch:', error);
+    return undefined;
+  }
 };
 
 // Get all blog posts
 export const getAllBlogPosts = async (page: number = 1, limit: number = 10): Promise<BlogPost[]> => {
   return await fetchBlogPosts(page, limit);
-};
-
-// Get blog posts by category
-export const getBlogPostsByCategory = async (category: string, page: number = 1, limit: number = 10): Promise<BlogPost[]> => {
-  // Note: This implementation fetches all posts and filters client-side
-  // For large datasets, consider implementing server-side filtering
-  const posts = await fetchBlogPosts(page, limit);
-  return posts.filter(post => post.category.toLowerCase() === category.toLowerCase());
 };

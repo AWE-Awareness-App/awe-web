@@ -1,11 +1,13 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import ReactMarkdown from 'react-markdown';
 import DefaultLayout from '../../components/DefaultLayout';
-import { getAllBlogPosts } from '@repositories/BlogRepository';
+import { getBlogPostBySlug } from '@repositories/BlogRepository';
+import { BlogPost } from '@interfaces/BlogPost';
 
 interface BlogPostPageProps {
-  post: any;
+  post: BlogPost;
 }
 
 export default function BlogPostPage({ post }: BlogPostPageProps) {
@@ -23,7 +25,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
     <DefaultLayout activePage="blog">
       <div className="min-h-screen bg-gray-50">
       <Head>
-        <title>{post.title} - AWE Blog</title>
+        <title>{`${post.title} - AWE Blog`}</title>
         <meta name="description" content={post.excerpt} />
       </Head>
 
@@ -37,10 +39,18 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
             <span>{post.date}</span>
             <span className="mx-2">•</span>
             <span>{post.readTime}</span>
-            <span className="mx-2">•</span>
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-              {post.category}
-            </span>
+            {Array.isArray(post.tags) && post.tags.length > 0 && (
+              <>
+                <span className="mx-2">•</span>
+                <div className="flex flex-wrap gap-2">
+                  {post.tags.map((tag, index) => (
+                    <span key={index} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
           
           <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
@@ -50,9 +60,17 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
           <div className="mt-4 flex items-center">
             <div className="flex-shrink-0">
               <span className="sr-only">{post.author}</span>
-              <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
-                {post.author.charAt(0)}
-              </div>
+              {post.authorImageUrl ? (
+                <img
+                  className="h-10 w-10 rounded-full"
+                  src={post.authorImageUrl}
+                  alt={post.author}
+                />
+              ) : (
+                <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
+                  {post.author?.charAt(0) || '?'}
+                </div>
+              )}
             </div>
             <div className="ml-3">
               <p className="text-sm font-medium text-gray-900">{post.author}</p>
@@ -70,9 +88,57 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
         </div>
 
         <div className="prose prose-orange prose-lg max-w-none">
-          <p className="text-xl text-gray-700 leading-8">
-            {post.content}
-          </p>
+          <div className="text-gray-700 leading-8">
+            <ReactMarkdown
+              components={{
+                p: ({ children }) => <p className="text-xl mb-4">{children}</p>,
+                h1: ({ children }) => <h1 className="text-3xl font-bold mt-8 mb-4">{children}</h1>,
+                h2: ({ children }) => <h2 className="text-2xl font-bold mt-6 mb-3">{children}</h2>,
+                h3: ({ children }) => <h3 className="text-xl font-bold mt-5 mb-2">{children}</h3>,
+                ul: ({ children }) => <ul className="list-disc pl-6 mb-4">{children}</ul>,
+                ol: ({ children }) => <ol className="list-decimal pl-6 mb-4">{children}</ol>,
+                li: ({ children }) => <li className="mb-2">{children}</li>,
+                a: ({ children, href }) => (
+                  <a 
+                    href={href}
+                    className="text-blue-600 hover:underline" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    {children}
+                  </a>
+                ),
+                blockquote: ({ children }) => (
+                  <blockquote className="border-l-4 border-orange-300 pl-4 italic my-4">
+                    {children}
+                  </blockquote>
+                ),
+                // Simplified code block handling
+                code: ({ className, children }) => (
+                  <code className="bg-gray-100 px-1.5 py-0.5 rounded">
+                    {children}
+                  </code>
+                ),
+                pre: ({ children }) => (
+                  <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto my-4">
+                    {children}
+                  </pre>
+                ),
+                img: ({ src, alt }) => (
+                  <div className="my-6">
+                    <img 
+                      src={src}
+                      alt={alt || ''}
+                      className="rounded-lg shadow-md w-full h-auto"
+                      loading="lazy"
+                    />
+                  </div>
+                )
+              }}
+            >
+              {post.content}
+            </ReactMarkdown>
+          </div>
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-200">
@@ -106,31 +172,37 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await getAllBlogPosts();
-  const paths = posts.map((post) => ({
-    params: { slug: post.slug },
-  }));
-
+  // Return no paths at build time, and generate pages on-demand
   return {
-    paths,
-    fallback: true,
+    paths: [],
+    fallback: 'blocking' as const,
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { slug } = params as { slug: string };
-  const post = getAllBlogPosts().then((posts) => posts.find((p) => p.slug === slug));
+  try {
+    const { slug } = params as { slug: string };
+    
+    // First try to get the post by ID if the slug is a valid ID
+    let post = await getBlogPostBySlug(slug);
+    
+    if (!post) {
+      console.log(`Post with slug ${slug} not found`);
+      return {
+        notFound: true,
+      };
+    }
 
-  if (!post) {
+    return {
+      props: {
+        post,
+      },
+      revalidate: 60, // Regenerate the page every 60 seconds
+    };
+  } catch (error) {
+    console.error('Error in getStaticProps:', error);
     return {
       notFound: true,
     };
   }
-
-  return {
-    props: {
-      post,
-    },
-    revalidate: 60, // Regenerate the page every 60 seconds
-  };
 };

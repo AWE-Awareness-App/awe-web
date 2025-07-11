@@ -5,7 +5,7 @@ export interface BlogPost {
   slug: string;
   date: string;
   author: string;
-  category: string;
+  authorImageUrl: string;
   readTime: string;
   image: string;
   content: string;

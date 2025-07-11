@@ -1,24 +1,14 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import DefaultLayout from '@components/DefaultLayout';
-import { getAllBlogPosts } from '@repositories/BlogRepository';
+import { fetchBlogPosts } from '@repositories/BlogRepository';
 import { BlogCard } from '@components/blog/BlogCard';
 import { useNewsletterDialog } from '../../hooks/useNewsletterDialog';
 import NewsletterDialog from '@components/newsletter/NewsletterDialog';
+import { BlogPost } from '@interfaces/BlogPost';
 
 interface BlogsPageProps {
-  posts: Array<{
-    id: string;
-    title: string;
-    excerpt: string;
-    slug: string;
-    date: string;
-    author: string;
-    category: string;
-    readTime: string;
-    image: string;
-    content: string;
-  }>;
+  posts: BlogPost[];
 }
 
 export default function BlogsPage({ posts }: BlogsPageProps) {
@@ -71,7 +61,7 @@ export default function BlogsPage({ posts }: BlogsPageProps) {
 export const getStaticProps: GetStaticProps<BlogsPageProps> = async () => {
   try {
     console.log('Fetching blog posts...');
-    const posts = await getAllBlogPosts(1, 10); // Page 1, 10 items per page
+    const posts = await fetchBlogPosts(1, 10); // Page 1, 10 items per page
     console.log('Fetched posts:', posts.length);
     
     return {
