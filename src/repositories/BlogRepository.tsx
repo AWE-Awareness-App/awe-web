@@ -6,7 +6,6 @@ import { transformBlogPostData } from "@mappers/blogMappers";
 export const fetchBlogPosts = async (page: number = 1, limit: number = 10): Promise<BlogPost[]> => {
   try {
     const url = `${API_BASE_URL}${API_ENDPOINTS.BLOGS}?page=${page}&limit=${limit}`;
-    console.log('Fetching blog posts from:', url);
     
     const response = await fetch(url, {
       headers: {
@@ -15,8 +14,6 @@ export const fetchBlogPosts = async (page: number = 1, limit: number = 10): Prom
       },
       cache: 'no-store' // Prevent caching during development
     });
-    
-    console.log('Response status:', response.status);
     
     if (!response.ok) {
       let errorData;
@@ -34,9 +31,7 @@ export const fetchBlogPosts = async (page: number = 1, limit: number = 10): Prom
         headers: Object.fromEntries(response.headers.entries())
       });
       
-      // If we get a 404, return an empty array instead of throwing
       if (response.status === 404) {
-        console.log('No blog posts found, returning empty array');
         return [];
       }
       
@@ -48,7 +43,6 @@ export const fetchBlogPosts = async (page: number = 1, limit: number = 10): Prom
       throw new Error('Invalid JSON response from server');
     });
     
-    // Handle paginated response
     const posts = Array.isArray(data) ? data : (data.items || []);
     
     return posts.map((post: any) => {
@@ -56,7 +50,6 @@ export const fetchBlogPosts = async (page: number = 1, limit: number = 10): Prom
         return transformBlogPostData(post);
       } catch (error) {
         console.error('Error transforming blog post data:', error, post);
-        // Return a minimal valid post object to prevent app crashes
         return {
           id: post.id || 'error-' + Math.random().toString(36).substr(2, 9),
           title: 'Error loading post',
@@ -73,14 +66,12 @@ export const fetchBlogPosts = async (page: number = 1, limit: number = 10): Prom
     });
   } catch (error) {
     console.error('Error in fetchBlogPosts:', error);
-    // Return an empty array instead of throwing to prevent UI crashes
     return [];
   }
 };
 
 // Get blog post by slug
 export const getBlogPostBySlug = async (slug: string): Promise<BlogPost | undefined> => {
-  // Try to fetch the specific post directly first
   const url = `${API_BASE_URL}${API_ENDPOINTS.BLOGS}/${slug}`;
   
   try {
@@ -102,7 +93,6 @@ export const getBlogPostBySlug = async (slug: string): Promise<BlogPost | undefi
     console.error('Error in getBlogPostBySlug:', error);
   }
   
-  // Fallback to fetching all posts if direct fetch fails
   try {
     const posts = await fetchBlogPosts(1, 100);
     return posts.find(post => post.slug === slug);

@@ -38,7 +38,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
           <div className="flex items-center text-sm text-gray-500 mb-4">
             <span>{post.date}</span>
             <span className="mx-2">•</span>
-            <span>{post.readTime}</span>
+            <span>{post.readTime} mins</span>
             {Array.isArray(post.tags) && post.tags.length > 0 && (
               <>
                 <span className="mx-2">•</span>

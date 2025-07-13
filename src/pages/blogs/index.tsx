@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import DefaultLayout from '@components/DefaultLayout';
-import { fetchBlogPosts } from '@repositories/BlogRepository';
+import { getAllBlogPosts } from '@repositories/BlogRepository';
 import { BlogCard } from '@components/blog/BlogCard';
 import { useNewsletterDialog } from '../../hooks/useNewsletterDialog';
 import NewsletterDialog from '@components/newsletter/NewsletterDialog';
@@ -31,7 +31,7 @@ export default function BlogsPage({ posts }: BlogsPageProps) {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {posts && posts.length > 0 ? (
               posts.map((post) => (
-                <BlogCard key={post.id} post={post} />
+                <BlogCard post={post} />
               ))
             ) : (
               <div className="col-span-3 text-center py-12">
@@ -60,25 +60,24 @@ export default function BlogsPage({ posts }: BlogsPageProps) {
 
 export const getStaticProps: GetStaticProps<BlogsPageProps> = async () => {
   try {
-    console.log('Fetching blog posts...');
-    const posts = await fetchBlogPosts(1, 10); // Page 1, 10 items per page
-    console.log('Fetched posts:', posts.length);
-    
+    const posts = await getAllBlogPosts();
+    posts.forEach((post) => {
+      console.log(post.tags);
+      post.tags = Array.isArray(post.tags) ? post.tags : (post.tags ? [post.tags] : ['Uncategorized']);
+    });
     return {
       props: {
-        posts: JSON.parse(JSON.stringify(posts || [])) // Ensure dates are serialized and handle undefined
+        posts: JSON.parse(JSON.stringify(posts || []))
       },
-      // Re-generate the page at most once every hour
       revalidate: 3600
     };
   } catch (error) {
     console.error('Error in getStaticProps:', error);
-    // Return empty posts on error
     return {
       props: {
         posts: []
       },
-      revalidate: 60 // Try again in 1 minute on error
+      revalidate: 60
     };
   }
 };

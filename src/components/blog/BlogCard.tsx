@@ -27,9 +27,15 @@ export const BlogCard = ({ post }: BlogCardProps) => {
           </h3>
           <p className="text-gray-600 mb-4 flex-1">{post.excerpt}</p>
           <div className="flex items-center justify-between mt-auto">
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-              {post.tags}
-            </span>
+            {Array.isArray(post.tags) && post.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {post.tags.map((tag, index) => (
+                  <span key={index} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            )}
             <span className="text-sm font-medium text-blue-600 group-hover:underline">
               Read more →
             </span>
