@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
   const handleInstagramOnClick = (event: React.MouseEvent) => {
     event.preventDefault();
     trackEvent({ category: "User Actions", action: "Clicked Instragram", label: "Homepage-Footer" });
-    window.open('https://www.instagram.com/awe_digital_wellness?igsh=MWRjcnFhbG5kNzFiMA%3D%3D&utm_source=qr', '_blank', 'noopener noreferrer');
+    window.open('https://www.instagram.com/awe.wellness?fbclid=IwY2xjawLguOpleHRuA2FlbQIxMAABHqKlzmWU6hQFN0JuOdLwXH1H2If5UQ3M881d2JhnBOeIA0VK8EfZgxPmRKlC_aem_1eUNnYFNG09RYZeTKKbVIA', '_blank', 'noopener noreferrer');
   };
 
   const handleYoutubeOnClick = (event: React.MouseEvent) => {
