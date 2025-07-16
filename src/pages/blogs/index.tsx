@@ -62,7 +62,6 @@ export const getStaticProps: GetStaticProps<BlogsPageProps> = async () => {
   try {
     const posts = await getAllBlogPosts();
     posts.forEach((post) => {
-      console.log(post.tags);
       post.tags = Array.isArray(post.tags) ? post.tags : (post.tags ? [post.tags] : ['Uncategorized']);
     });
     return {

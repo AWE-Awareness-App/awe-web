@@ -27,6 +27,13 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
       key: "specialistServices" 
     },
     { 
+      name: "Corporate Services", 
+      title: "Corporate Services",
+      description: "Tailored programs for remote-first teams.",
+      href: "/corporate-services", 
+      key: "corporateServices" 
+    },
+    { 
       name: "Workshops", 
       title: "Workshop Services",
       description: "Engaging sessions to help you navigate the digital world.",
