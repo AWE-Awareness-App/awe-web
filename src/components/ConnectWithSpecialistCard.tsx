@@ -15,7 +15,7 @@ const ConnectWithSpecialistCard: React.FC<ConnectWithSpecialistCardProps> = ({ t
         <div className="bg-white shadow-xl rounded-2xl border p-8 m-4 text-left hover:shadow-2xl transition-shadow duration-300">
             {/* Title & Description */}
             <div>
-                <h3 className="text-4xl font-semibold text-blue-800 h-9">{title}</h3>
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-blue-800">{title}</h3>
                 <p className="text-gray-600 h-20 flex items-center text-sm">{description}</p>
 
                 {/* Thin horizontal line */}
@@ -26,7 +26,7 @@ const ConnectWithSpecialistCard: React.FC<ConnectWithSpecialistCardProps> = ({ t
 
             {/* Session Book Now */}
             <div className="mt-4 mb-4">
-                <h2 className="text-3xl font-bold text-black">{price}</h2>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black">{price}</h2>
                 <p className="text-gray-600">Per Session</p>
                 <button onClick={handleOnClick} className="p-3 bg-blue-800 text-white rounded-lg w-[75%] hover:bg-blue-500 transition-colors mt-4">
                     Book Now
