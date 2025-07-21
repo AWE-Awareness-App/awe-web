@@ -1,3 +1,4 @@
+import { useSession, signOut } from "next-auth/react";
 import React, { useState } from "react";
 import { FaRegUserCircle, FaBars, FaTimes } from "react-icons/fa";
 import { MdCheckCircle } from "react-icons/md";
@@ -16,29 +17,32 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
-  const [isSignIn, setIsSignIn] = useState(false);
+
+  const { data: session, status } = useSession()
+  const isSignIn = status === "authenticated"
+  console.log(isSignIn)
 
   const healthcareOptions = [
-    { 
-      name: "Specialist Services", 
+    {
+      name: "Specialist Services",
       title: "Specialist Services",
       description: "Personalized support for your journey.",
-      href: "/specialist-services", 
-      key: "specialistServices" 
+      href: "/specialist-services",
+      key: "specialistServices"
     },
-    { 
-      name: "Corporate Services", 
+    {
+      name: "Corporate Services",
       title: "Corporate Services",
       description: "Tailored programs for remote-first teams.",
-      href: "/corporate-services", 
-      key: "corporateServices" 
+      href: "/corporate-services",
+      key: "corporateServices"
     },
-    { 
-      name: "Workshops", 
+    {
+      name: "Workshops",
       title: "Workshop Services",
       description: "Engaging sessions to help you navigate the digital world.",
-      href: "/workshop-services", 
-      key: "workshopServices" 
+      href: "/workshop-services",
+      key: "workshopServices"
     },
   ];
 
@@ -59,26 +63,31 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
     </a>
 
   const signInButtonSection =
-    <div className="relative whitespace-nowrap hidden">
-      {isSignIn ? (
-        <button 
-          className="flex items-center space-x-1.5 text-gray-700 hover:text-gray-900 transition-colors"
-          onClick={() => setIsSignInModalOpen(true)}
-        >
-          <FaRegUserCircle className="text-base flex-shrink-0" />
-          <span className="text-sm font-medium">My Account</span>
-        </button>
-      ) : (
-        <button
-          className="flex items-center space-x-1.5 px-3 py-1.5 text-sm font-medium text-blue-700 hover:text-blue-800 hover:bg-blue-50 rounded-md transition-colors border border-blue-100 whitespace-nowrap"
-          type="button"
-          onClick={() => setIsSignInModalOpen(true)}
-        >
-          <FaRegUserCircle className="text-base flex-shrink-0" />
-          <span>Sign In</span>
-        </button>
-      )}
-    </div>
+    <span>
+      {
+        isSignIn && (
+          //  <FaRegUserCircle className="text-gray-700 text-xl hover:text-gray-900 cursor-pointer" />
+          <button
+            className="text-gray-700"
+            type="button"
+            onClick={() => signOut()}
+          >
+            Sign Out
+          </button>
+        )
+      }
+      {
+        !isSignIn && (
+          <button
+            className="text-gray-700"
+            type="button"
+            onClick={() => setIsSignInModalOpen(true)}
+          >
+            Sign In
+          </button>
+        )
+      }
+    </span>
 
   const signInModalSection =
     <div>
@@ -94,8 +103,8 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
     </div>
 
   var mobileBurgerMenuButton =
-    <button 
-      onClick={toggleMobileMenu} 
+    <button
+      onClick={toggleMobileMenu}
       className="md:hidden p-2 -mr-2 text-gray-700 hover:text-gray-900 rounded-full hover:bg-gray-100 transition-colors"
       aria-label="Toggle menu"
     >
@@ -107,28 +116,27 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
       {navItems.map((item) =>
         item.type === "service" ? (
           <li key={item.key} className="relative">
-            <button 
-              onClick={toggleDropdown} 
-              className={`flex items-center px-4 py-2.5 mx-1 rounded-lg transition-colors ${
-                activePage === item.key 
-                  ? "text-orange-600 bg-orange-50 font-medium" 
-                  : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              }`}
+            <button
+              onClick={toggleDropdown}
+              className={`flex items-center px-4 py-2.5 mx-1 rounded-lg transition-colors ${activePage === item.key
+                ? "text-orange-600 bg-orange-50 font-medium"
+                : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                }`}
             >
               {item.name}
-              <svg 
-                className={`w-3 h-3 ms-2 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} 
-                aria-hidden="true" 
-                xmlns="http://www.w3.org/2000/svg" 
-                fill="none" 
+              <svg
+                className={`w-3 h-3 ms-2 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`}
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
                 viewBox="0 0 10 6"
               >
-                <path 
-                  stroke="currentColor" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth="1.5" 
-                  d="m1 1 4 4 4-4" 
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="1.5"
+                  d="m1 1 4 4 4-4"
                 />
               </svg>
             </button>
@@ -137,9 +145,9 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
                 <h3 className="text-lg font-semibold text-gray-800 mb-3 px-2">Explore Our Services</h3>
                 <div className="space-y-3">
                   {healthcareOptions.map((option) => (
-                    <a 
-                      key={option.key} 
-                      href={option.href} 
+                    <a
+                      key={option.key}
+                      href={option.href}
                       className={`block p-3 rounded-lg transition-colors ${activePage === option.key ? "bg-orange-50 border-l-4 border-orange-500" : "hover:bg-gray-50"}`}
                     >
                       <h4 className="font-medium text-gray-900">{option.title}</h4>
@@ -153,13 +161,12 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
           </li>
         ) : (
           <li key={item.key}>
-            <a 
-              href={item.href} 
-              className={`flex items-center px-4 py-2.5 mx-1 rounded-lg transition-colors ${
-                activePage === item.key 
-                  ? "text-orange-600 bg-orange-50 font-medium" 
-                  : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-              }`}
+            <a
+              href={item.href}
+              className={`flex items-center px-4 py-2.5 mx-1 rounded-lg transition-colors ${activePage === item.key
+                ? "text-orange-600 bg-orange-50 font-medium"
+                : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                }`}
             >
               {item.name}
               {activePage === item.key && <MdCheckCircle className="ml-1.5 text-orange-500" />}
@@ -172,58 +179,57 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
   var mobileNavigation =
     <div className={`md:hidden ${mobileMenuOpen ? "" : "hidden"} bg-gray-50 shadow-md rounded-b-xl px-4 py-3`}>
       <div className="flex flex-col space-y-3">
-      {navItems.map((item) =>
-        item.type === "service" ? (
-          <div key={item.key}>
-            <button 
-              onClick={toggleDropdown} 
-              className={`flex items-center justify-between w-full text-left px-4 py-3 my-1 rounded-lg transition-colors ${
-                activePage === item.key 
-                  ? "text-orange-600 bg-orange-50 font-medium" 
+        {navItems.map((item) =>
+          item.type === "service" ? (
+            <div key={item.key}>
+              <button
+                onClick={toggleDropdown}
+                className={`flex items-center justify-between w-full text-left px-4 py-3 my-1 rounded-lg transition-colors ${activePage === item.key
+                  ? "text-orange-600 bg-orange-50 font-medium"
                   : "text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              <span>{item.name}</span>
-              <svg 
-                className={`w-3 h-3 ms-2 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} 
-                aria-hidden="true" 
-                xmlns="http://www.w3.org/2000/svg" 
-                fill="none" 
-                viewBox="0 0 10 6"
+                  }`}
               >
-                <path 
-                  stroke="currentColor" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth="1.5" 
-                  d="m1 1 4 4 4-4" 
-                />
-              </svg>
-            </button>
-            {dropdownOpen && (
-              <div className="mt-2 bg-white text-gray-700 shadow-lg rounded-lg w-full p-3">
-                <h3 className="text-lg font-semibold text-gray-800 mb-3 px-2">Our Services</h3>
-                <div className="space-y-3">
-                  {healthcareOptions.map((option) => (
-                    <a 
-                      key={option.key} 
-                      href={option.href} 
-                      className={`block p-3 rounded-lg transition-colors ${activePage === option.key ? "bg-orange-50 border-l-4 border-orange-500" : "hover:bg-gray-50"}`}
-                    >
-                      <h4 className="font-medium text-gray-900">{option.title}</h4>
-                      <p className="text-sm text-gray-600 mt-1">{option.description}</p>
-                    </a>
-                  ))}
+                <span>{item.name}</span>
+                <svg
+                  className={`w-3 h-3 ms-2 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`}
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 10 6"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                    d="m1 1 4 4 4-4"
+                  />
+                </svg>
+              </button>
+              {dropdownOpen && (
+                <div className="mt-2 bg-white text-gray-700 shadow-lg rounded-lg w-full p-3">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-3 px-2">Our Services</h3>
+                  <div className="space-y-3">
+                    {healthcareOptions.map((option) => (
+                      <a
+                        key={option.key}
+                        href={option.href}
+                        className={`block p-3 rounded-lg transition-colors ${activePage === option.key ? "bg-orange-50 border-l-4 border-orange-500" : "hover:bg-gray-50"}`}
+                      >
+                        <h4 className="font-medium text-gray-900">{option.title}</h4>
+                        <p className="text-sm text-gray-600 mt-1">{option.description}</p>
+                      </a>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
-        ) : (
-          <a key={item.key} href={item.href} className={`block px-4 py-2 ${activePage === item.key ? "text-orange-500 font-bold" : "hover:text-gray-600"}`}>
-            {item.name}
-          </a>
-        )
-      )}
+              )}
+            </div>
+          ) : (
+            <a key={item.key} href={item.href} className={`block px-4 py-2 ${activePage === item.key ? "text-orange-500 font-bold" : "hover:text-gray-600"}`}>
+              {item.name}
+            </a>
+          )
+        )}
         {/*languageSection*/}
       </div>
     </div>
@@ -247,7 +253,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
         {signInModalSection}
         {mobileNavigation}
       </nav>
-  
+
       {/* Add spacing to prevent content from being chopped */}
       <div className="mt-20 md:mt-24"></div>
     </>
