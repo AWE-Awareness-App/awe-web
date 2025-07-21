@@ -119,8 +119,8 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
             <button
               onClick={toggleDropdown}
               className={`flex items-center px-4 py-2.5 mx-1 rounded-lg transition-colors ${activePage === item.key
-                  ? "text-orange-600 bg-orange-50 font-medium"
-                  : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                ? "text-orange-600 bg-orange-50 font-medium"
+                : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                 }`}
             >
               {item.name}
@@ -164,8 +164,8 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
             <a
               href={item.href}
               className={`flex items-center px-4 py-2.5 mx-1 rounded-lg transition-colors ${activePage === item.key
-                  ? "text-orange-600 bg-orange-50 font-medium"
-                  : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                ? "text-orange-600 bg-orange-50 font-medium"
+                : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
                 }`}
             >
               {item.name}
@@ -185,8 +185,8 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
               <button
                 onClick={toggleDropdown}
                 className={`flex items-center justify-between w-full text-left px-4 py-3 my-1 rounded-lg transition-colors ${activePage === item.key
-                    ? "text-orange-600 bg-orange-50 font-medium"
-                    : "text-gray-700 hover:bg-gray-100"
+                  ? "text-orange-600 bg-orange-50 font-medium"
+                  : "text-gray-700 hover:bg-gray-100"
                   }`}
               >
                 <span>{item.name}</span>
