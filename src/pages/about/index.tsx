@@ -83,8 +83,8 @@ const AboutUsPage: React.FC = () => {
                 <h4 className="text-xl font-bold my-4">Dr. Clara Dawkins, MD, MRCGP - Chief Clinical Officer</h4>
                 <span>
                     A renowned medical expert in addiction science, Dr. Dawkins brings cutting-edge research and clinical
-                    expertise to our therapeutic approach. Her pioneerig work in addiction, e d ucation and outreach has
-                    helped thousands understand and overcoe compulsions and addiction. She has worked and studied in
+                    expertise to our therapeutic approach. Her pioneering work in addiction, education and outreach has
+                    helped thousands understand and overcome compulsions and addiction. She has worked and studied in
                     Europe (UK), Oceania (NZ) and the Americas, including Boston and Boota. She spent over a decade in
                     the NH and another ecade in community and family health, specializing n addiction medicine. At
                     AWE, she leads our clinical research initiatives and ensures all our interventions are grounde in science.
