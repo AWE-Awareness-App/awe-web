@@ -87,7 +87,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
             />
           </div>
 
-          <div className="prose prose-orange prose-lg w-full">
+          <div className="w-full overflow-x-hidden">
             <div className="text-gray-700 leading-8">
               <ReactMarkdown
                 components={{
