@@ -23,8 +23,8 @@ const AboutUsPage: React.FC = () => {
                 <h2 className="text-4xl font-bold mb-8">About Us</h2>
                 <h4 className="text-xl font-bold">Leading the Path to Digital Wellness</h4>
                 <p>
-                    At AWE, we are on a mission to help people reclaim their time, attention, and well - being in an increasingly
-                    online world.Our team brings together world - class expertise in addiction science, technology, digital
+                    At AWE, we are on a mission to help people reclaim their time, attention, and well-being in an increasingly
+                    online world. Our team brings together world - class expertise in addiction science, technology, digital
                     health, and personal coaching to create evidence - based solutions for digital dependency towards real
                     connections and enjoyment.
                 </p>
