@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "flowbite-react";
 import { signIn } from "next-auth/react"
+import Link from "next/link";
 
 interface SignUpModalProp {
     isSignUpModalOpen: boolean;
@@ -156,13 +157,13 @@ const SignUpModal: React.FC<SignUpModalProp> = ({
                                 </button>
                                 <p className="text-xs mt-2 text-gray-500">
                                     By signing up, you agree to the{" "}
-                                    <a href="#" className="underline">
-                                        Terms of Service
-                                    </a>{" "}
-                                    and{" "}
-                                    <a href="#" className="underline">
-                                        Privacy Policy
-                                    </a>
+                                    <Link href="/privacy"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="underline"
+                                    >
+                                        Terms and conditions
+                                    </Link>
                                     .
                                 </p>
                             </form>
