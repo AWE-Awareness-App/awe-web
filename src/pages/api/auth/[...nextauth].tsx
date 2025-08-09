@@ -11,32 +11,38 @@ export default NextAuth({
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials) {
+                try {
+                    const res = await fetch(`${API_BASE_URL}${API_ENDPOINTS.LOGIN}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: credentials?.email,
+                            password: credentials?.password
+                        })
+                    });
 
-                const res = await fetch(`${API_BASE_URL}${API_ENDPOINTS.LOGIN}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email: credentials?.email,
-                        password: credentials?.password
-                    })
-                });
+                    //if error 
+                    if (!res.ok) {
+                        return null
+                    }
 
-                //if error 
-                if (!res.ok) {
-                    const { message } = await res.json().catch(() => ({}));
-                    throw new Error(message || 'Invalid credentials');
-                }
+                    const data = await res.json();
+                    // Suppose your API returns { token: string, user: { id, name, email, … } }
 
-                const data = await res.json();
-                // Suppose your API returns { token: string, user: { id, name, email, … } }
+                    const user = data.user;
 
-                const user = { id: '1', name: 'admin', email: credentials?.email, accessToken: data.token };
-
-                return {
-                    id: user.id,
-                    name: user.name,
-                    email: user.email,
-                    accessToken: data.token
+                    return {
+                        id: user.id,
+                        email: user.email,
+                        firstName: user.firstName,
+                        lastName: user.lastName,
+                        role: user.role,
+                        accessToken: data.token
+                    }
+                } catch (err) {
+                    console.error('Credentials authorize error:', err);
+                    // throw so NextAuth returns a generic CredentialsSignin error
+                    throw new Error('CredentialsSignin');
                 }
             }
         })
@@ -44,9 +50,6 @@ export default NextAuth({
     callbacks: {
         // Persist the API token into NextAuth's JWT
         async jwt({ token, user }) {
-            if (user?.accessToken) {
-                token.accessToken = user.accessToken;
-            }
             return token;
         },
 
