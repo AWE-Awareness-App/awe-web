@@ -2,6 +2,7 @@ import React from "react";
 import { FaPlus, FaCalendarAlt, FaMapMarkerAlt, FaUserTie } from "react-icons/fa";
 import { Workshop } from "@interfaces/Workshop";
 import { cn, formatDate, formatCurrency, formatDuration } from "@lib/utils";
+import { isDateBeforeNow } from "@utils/dateUtils";
 
 interface WorkshopServicesCardProps {
   workshop: Workshop;
@@ -52,8 +53,8 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
     >
       {/* Workshop Image */}
       <div className="w-full h-48 bg-gray-200 overflow-hidden">
-        <img 
-          src={imageUrl} 
+        <img
+          src={imageUrl}
           alt={workshop.title || workshop.name}
           className="w-full h-full object-cover"
           onError={(e) => {
@@ -63,13 +64,13 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
           }}
         />
       </div>
-      
+
       <div className="p-6 flex-grow flex flex-col">
         {/* Title - Use title if available, fallback to name */}
         <h3 className="font-bold text-2xl text-blue-800 mb-2">
           {workshop.title || workshop.name}
         </h3>
-        
+
         {/* Price */}
         <div className="text-2xl font-bold text-blue-950 mb-4">
           {formatPrice(workshop.price)}
@@ -83,7 +84,7 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
             <div>
               <div className="font-medium">Duration:</div>
               <div>{formatDuration(workshop.duration)}</div>
-              {workshop.startDate && (
+              {workshop.startDate && !isDateBeforeNow(workshop.startDate) && (
                 <div className="text-sm text-gray-600">
                   Starts: {formatDate(workshop.startDate, { month: 'short', day: 'numeric', year: 'numeric' })}
                 </div>
@@ -95,7 +96,7 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
               )}
             </div>
           </div>
-          
+
           {/* Location */}
           <div className="flex items-start text-gray-700">
             <FaMapMarkerAlt className="mr-2 text-blue-600 mt-1 flex-shrink-0" />
@@ -105,7 +106,7 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
               <div className="text-sm text-gray-600">{workshop.format || 'Workshop'}</div>
             </div>
           </div>
-          
+
           {/* Counsellor */}
           <div className="flex items-start text-gray-700">
             <FaUserTie className="mr-2 text-blue-600 mt-1 flex-shrink-0" />
@@ -134,8 +135,8 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
                 </ul>
               ) : (
                 <p className="text-gray-700">
-                  {workshop.description.length > 200 
-                    ? `${workshop.description.substring(0, 200).replace(/\\n/g, ' ')}...` 
+                  {workshop.description.length > 200
+                    ? `${workshop.description.substring(0, 200).replace(/\\n/g, ' ')}...`
                     : workshop.description.replace(/\\n/g, ' ')}
                 </p>
               )
@@ -182,7 +183,7 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
           )}
           disabled={!workshop.bookingUrl && !onBookNow}
         >
-          {workshop.bookingUrl || onBookNow 
+          {workshop.bookingUrl || onBookNow
             ? workshop.type === 'INDIVIDUAL' ? 'Book Session' : 'Register Now'
             : 'Coming Soon'}
         </button>
