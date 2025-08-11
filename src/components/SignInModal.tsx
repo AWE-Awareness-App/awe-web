@@ -40,9 +40,9 @@ const SignInModal: React.FC<SignInModalProp> = ({
 
         if (result?.error) {
             if (result.error === 'CredentialsSignin') {
-                setError('Invalid email or password.');
+                setError('The email or password you entered is incorrect. Please try again.');
             } else {
-                setError(result.error);
+                setError('An unexpected error occurred. Please try again later.');
             }
         } else if (result?.ok && result.url) {
             window.location.href = result.url;
@@ -53,7 +53,6 @@ const SignInModal: React.FC<SignInModalProp> = ({
         <Modal
             show={isSignInModalOpen}
             onClose={onClose}
-            onSubmit={handleSubmit}
             tabIndex={-1}
             className="inset-0 
             z-50 
@@ -85,7 +84,12 @@ const SignInModal: React.FC<SignInModalProp> = ({
                             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                                 Sign in
                             </h3>
-                            <form>
+                            <form onSubmit={handleSubmit}>
+                                {error && (
+                                    <div className="mb-4 text-sm text-red-600">
+                                        {error}
+                                    </div>
+                                )}
                                 <div className="mb-4">
                                     <label
                                         htmlFor="email"
