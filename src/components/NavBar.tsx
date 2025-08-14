@@ -2,7 +2,7 @@ import { useSession, signOut } from "next-auth/react";
 import React, { useState } from "react";
 import { FaRegUserCircle, FaBars, FaTimes } from "react-icons/fa";
 import { MdCheckCircle } from "react-icons/md";
-import AuthSection from "src/pages/sections/AuthSection";
+import AuthSection from "@components/sections/AuthSection";
 
 interface NavBarProps {
   logoPath: string;

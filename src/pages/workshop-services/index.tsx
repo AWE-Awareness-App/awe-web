@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../../components/DefaultLayout.tsx";
-import WorkshopBigCardsSection from "./sections/WorkshopBigCardsSection.tsx";
+import WorkshopBigCardsSection from "../../components/workshop-services/WorkshopBigCardsSection.tsx";
 
 const WorkshopServicesPage: React.FC = () => {
   return (

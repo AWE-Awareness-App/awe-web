@@ -23,6 +23,7 @@ export const createMinimalWorkshop = (overrides: Partial<Workshop> = {}): Worksh
         duration: overrides.duration || 0,
         startDate: overrides.startDate || now,
         price: overrides.price || '0.00',
+        maxSeats: overrides.maxSeats || 0,
         bookingUrl: overrides.bookingUrl || '#',
         type: overrides.type || 'INDIVIDUAL',
         counsellor: overrides.counsellor || defaultCounsellor,

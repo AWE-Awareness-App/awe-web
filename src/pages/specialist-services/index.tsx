@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "../../components/DefaultLayout.tsx";
-import ConnectWithSpecialistSection from "./sections/ConnectWithSpecialistSection.tsx";
+import ConnectWithSpecialistSection from "../../components/specialist-services/ConnectWithSpecialistSection.tsx";
 
 const SpecialistServicesPage: React.FC = () => {
     return (

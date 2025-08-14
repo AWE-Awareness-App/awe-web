@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import WorkshopServicesCard from "@components/WorkshopServicesCard";
 import { Workshop } from "@interfaces/Workshop";
-import { getWorkshopsByType } from "@repositories/WorkshopRepository";
 
 // Define workshop type display names and colors
 const WORKSHOP_TYPES = [
@@ -37,21 +36,21 @@ const WorkshopBigCardsSection: React.FC = () => {
                 if (isMounted) {
                     setError("Failed to load workshops. Please try again later.");
                     // Fallback to local data if API fails
-                    try {
-                        const localWorkshops = [];
-                        for (const type of WORKSHOP_TYPES) {
-                            const typeWorkshops = await getWorkshopsByType(type.id);
-                            localWorkshops.push(...typeWorkshops);
-                        }
-                        if (isMounted) {
-                            setWorkshops(localWorkshops);
-                        }
-                    } catch (e) {
-                        console.error("Failed to load local workshops:", e);
-                        if (isMounted) {
-                            setError("Failed to load workshops. Please refresh the page to try again.");
-                        }
-                    }
+                    //try {
+                    //    const localWorkshops = [];
+                    //    for (const type of WORKSHOP_TYPES) {
+                    //        const typeWorkshops = await getWorkshopsByType(type.id);
+                    //        localWorkshops.push(...typeWorkshops);
+                    //    }
+                    //    if (isMounted) {
+                    //        setWorkshops(localWorkshops);
+                    //    }
+                    //} catch (e) {
+                    //    console.error("Failed to load local workshops:", e);
+                    //    if (isMounted) {
+                    //        setError("Failed to load workshops. Please refresh the page to try again.");
+                    //    }
+                    //}
                 }
             } finally {
                 if (isMounted) {

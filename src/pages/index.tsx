@@ -1,10 +1,10 @@
 import React from 'react';
 import Layout from "../components/DefaultLayout.tsx";
-import HeroSection from './sections/HeroSection.tsx';
-import FeatureSection from './sections/FeatureSection.tsx';
-import PromoSection from './sections/PromoSection.tsx';
-import VideoSection from './sections/VideoSection.tsx';
-import SpecialistsSection from './sections/SpecialistsSection.tsx';
+import HeroSection from '../components/sections/HeroSection.tsx';
+import FeatureSection from '../components/sections/FeatureSection.tsx';
+import PromoSection from '../components/sections/PromoSection.tsx';
+import VideoSection from '../components/sections/VideoSection.tsx';
+import SpecialistsSection from '../components/sections/SpecialistsSection.tsx';
 const HomePage: React.FC = () => {
     return (
         <Layout activePage="home">
