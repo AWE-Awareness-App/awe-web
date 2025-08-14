@@ -1,5 +1,5 @@
 import DefaultLayout from '@components/DefaultLayout';
-import CorporateWellnessSection from './section/CorporateWellnessSection';
+import CorporateWellnessSection from '../../components/corporate-services/CorporateWellnessSection';
 
 const CorporateServicesPage = () => {
   return (

@@ -13,5 +13,7 @@ export const API_ENDPOINTS = {
   REGISTER: '/auth/register',
   //USERS
   GET_COUNSELLORS: '/users/counsellors',
+  //WORKSHOPBOOKINGS
+  WORKSHOP_BOOKINGS: '/workshopBookings',
   // Add other API endpoints here as needed
 } as const;

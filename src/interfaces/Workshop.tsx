@@ -14,6 +14,7 @@ export interface Workshop {
     imageUrl: string;
     duration: number; // in hours
     startDate: string;
+    maxSeats: number;
     price: string; // formatted as string with 2 decimal places
     bookingUrl: string;
     type: 'INDIVIDUAL' | 'FAMILY' | 'ORGANIZATION' | string; // Allow string for backward compatibility
