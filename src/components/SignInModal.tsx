@@ -59,17 +59,18 @@ const SignInModal: React.FC<SignInModalProp> = ({
       dismissible
     >
       <div className="p-6 md:p-8 text-center">
-        <ModalHeader className="flex flex-col items-center text-center">
-          <div className="text-2xl font-bold flex items-center justify-center">
-            Welcome Back
-            <span className="ml-2">👋</span>
+        <ModalHeader className="mb-4">
+          <div className="text-center w-full">
+            <div className="text-2xl font-bold flex items-center justify-center">
+              Welcome Back <span className="ml-2">👋</span>
+            </div>
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+              Thank you for using AWE. Please share with your network and
+              community. Have fun and enjoy. Don't forget not to stay on the
+              internet more than you should — that even includes our community.
+              We care.
+            </p>
           </div>
-          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 max-w-md">
-            Thank you for using AWE. Please share with your network and
-            community. Have fun and enjoy. Don't forget not to stay on the
-            internetmore than you should - that even includes our community. We
-            care.
-          </p>
         </ModalHeader>
 
         <ModalBody>
