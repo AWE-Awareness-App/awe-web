@@ -62,7 +62,7 @@ const SignUpModal: React.FC<SignUpModalProp> = ({
       className="inset-0 z-50 flex items-center justify-center max-w-lg mx-auto rounded-lg"
       dismissible
     >
-      <div className="p-6 md:p-8 w-full">
+      <div className="p-6 md:p-8 w-full max-h-[90vh] overflow-y-auto">
         {/* Centered Welcome Back + paragraph */}
         <ModalHeader className="mb-4">
           <div className="text-center w-full">

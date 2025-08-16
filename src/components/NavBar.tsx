@@ -74,7 +74,6 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
   const signInButtonSection = (
     <span>
       {isSignIn && (
-        //  <FaRegUserCircle className="text-gray-700 text-xl hover:text-gray-900 cursor-pointer" />
         <button
           className="text-gray-700"
           type="button"
@@ -105,7 +104,6 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
 
   const languageAndSignInSection = (
     <div className="hidden md:flex items-center space-x-4">
-      {/*languageSection*/}
       {signInButtonSection}
     </div>
   );
@@ -287,39 +285,37 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
             </a>
           )
         )}
-        {/*languageSection*/}
+        {/* ✅ Added Sign In/Sign Out in mobile */}
+        <div className="mt-3">{signInButtonSection}</div>
       </div>
     </div>
   );
 
   return (
-    <>
-      {/* Navbar */}
-      <nav
-        className={`fixed top-0 left-0 w-full z-50 transition-all ${
-          mobileMenuOpen ? "h-auto" : "h-24"
-        }`}
-      >
-        <div className="flex items-center md:h-20 h-16 w-full bg-gray-50 shadow-md rounded-b-xl px-6 py-4">
-          <div className="flex items-center w-full">
-            {logo}
-            <div className="hidden md:flex items-center ml-8">
-              {desktopNavigation}
-            </div>
-          </div>
-          <div className="flex items-center ml-auto">
-            {languageAndSignInSection}
-            {mobileBurgerMenuButton}
+  <>
+    {/* Navbar */}
+    <nav
+      className="relative w-full z-50"
+    >
+      <div className="flex items-center md:h-20 h-16 w-full bg-gray-50 shadow-md rounded-b-xl px-6 py-4">
+        <div className="flex items-center w-full">
+          {logo}
+          <div className="hidden md:flex items-center ml-8">
+            {desktopNavigation}
           </div>
         </div>
-        {signInModalSection}
-        {mobileNavigation}
-      </nav>
+        <div className="flex items-center ml-auto">
+          {languageAndSignInSection}
+          {mobileBurgerMenuButton}
+        </div>
+      </div>
+      {signInModalSection}
+      {mobileNavigation}
+    </nav>
+    <div className="mt-0 md:mt-0"></div>
+  </>
+);
 
-      {/* Add spacing to prevent content from being chopped */}
-      <div className="mt-20 md:mt-24"></div>
-    </>
-  );
 };
 
 export default NavBar;
