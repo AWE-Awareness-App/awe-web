@@ -1,9 +1,22 @@
 import { API_BASE_URL, API_ENDPOINTS } from "@config/api";
-import { BlogPost } from "@interfaces/BlogPost";
-import { transformBlogPostData } from "@mappers/blogMappers";
+import { BasicBlogPost, BlogPost } from "../generated";
+import { transformBasicBlogPostData, transformBlogPostData } from "@mappers/blogMappers";
 
-// Fetch blog posts from API
-export const fetchBlogPosts = async (page: number = 1, limit: number = 10): Promise<BlogPost[]> => {
+// Type for the API response structure
+interface BlogListResponse {
+  items: BlogPost[];
+  pagination?: {
+    totalItems: number;
+    totalPages: number;
+    currentPage: number;
+    itemsPerPage: number;
+  };
+}
+
+/**
+ * Fetches blog posts from the API with pagination
+ */
+export const fetchBlogPosts = async (page: number = 1, limit: number = 10): Promise<BasicBlogPost[]> => {
   try {
     const url = `${API_BASE_URL}${API_ENDPOINTS.BLOGS}?page=${page}&limit=${limit}`;
     
@@ -28,7 +41,6 @@ export const fetchBlogPosts = async (page: number = 1, limit: number = 10): Prom
         status: response.status,
         statusText: response.statusText,
         error: errorData,
-        headers: Object.fromEntries(response.headers.entries())
       });
       
       if (response.status === 404) {
@@ -38,40 +50,29 @@ export const fetchBlogPosts = async (page: number = 1, limit: number = 10): Prom
       throw new Error(`Failed to fetch blog posts: ${response.status} ${response.statusText}`);
     }
 
-    const data = await response.json().catch(e => {
+    const data: BlogListResponse | BlogPost[] = await response.json().catch(e => {
       console.error('Error parsing JSON response:', e);
       throw new Error('Invalid JSON response from server');
     });
     
     const posts = Array.isArray(data) ? data : (data.items || []);
     
-    return posts.map((post: any) => {
-      try {
-        return transformBlogPostData(post);
-      } catch (error) {
-        console.error('Error transforming blog post data:', error, post);
-        return {
-          id: post.id || 'error-' + Math.random().toString(36).substr(2, 9),
-          title: 'Error loading post',
-          excerpt: 'There was an error loading this blog post.',
-          slug: 'error-loading-post',
-          date: new Date().toISOString(),
-          author: 'Unknown',
-          category: 'Error',
-          readTime: '1 min read',
-          image: '',
-          content: 'There was an error loading this blog post.'
-        };
-      }
-    });
+    return posts.map(post => transformBasicBlogPostData(post));
   } catch (error) {
     console.error('Error in fetchBlogPosts:', error);
     return [];
   }
 };
 
-// Get blog post by slug
+/**
+ * Fetches a single blog post by its slug
+ */
 export const getBlogPostBySlug = async (slug: string): Promise<BlogPost | undefined> => {
+  if (!slug) {
+    console.error('No slug provided to getBlogPostBySlug');
+    return undefined;
+  }
+
   const url = `${API_BASE_URL}${API_ENDPOINTS.BLOGS}/${slug}`;
   
   try {
@@ -85,24 +86,24 @@ export const getBlogPostBySlug = async (slug: string): Promise<BlogPost | undefi
     
     if (response.ok) {
       const postData = await response.json();
-      const transformedPost = transformBlogPostData(postData);
-      return transformedPost;
+      return transformBlogPostData(postData);
     }
     
+    if (response.status === 404) {
+      console.warn(`Blog post not found with slug: ${slug}`);
+      return undefined;
+    }
+    
+    throw new Error(`Failed to fetch blog post: ${response.status} ${response.statusText}`);
   } catch (error) {
-    console.error('Error in getBlogPostBySlug:', error);
-  }
-  
-  try {
-    const posts = await fetchBlogPosts(1, 100);
-    return posts.find(post => post.slug === slug);
-  } catch (error) {
-    console.error('Error in fallback fetch:', error);
+    console.error(`Error in getBlogPostBySlug for slug ${slug}:`, error);
     return undefined;
   }
 };
 
-// Get all blog posts
-export const getAllBlogPosts = async (page: number = 1, limit: number = 10): Promise<BlogPost[]> => {
-  return await fetchBlogPosts(page, limit);
+/**
+ * Get all blog posts with pagination
+ */
+export const getAllBlogPosts = async (page: number = 1, limit: number = 10): Promise<BasicBlogPost[]> => {
+  return fetchBlogPosts(page, limit);
 };

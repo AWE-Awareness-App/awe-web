@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import WorkshopServicesCard from "@components/WorkshopServicesCard";
-import { Workshop } from "@interfaces/Workshop";
-import { getWorkshopsByType } from "@repositories/WorkshopRepository";
+import { getWorkshopsByType, Workshop } from "@repositories/WorkshopRepository";
+import { usePayment } from "../../../hooks/usePayment";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import { API_BASE_URL, API_ENDPOINTS } from "@config/api";
 
 // Define workshop type display names and colors
 const WORKSHOP_TYPES = [
@@ -16,6 +19,8 @@ const WorkshopBigCardsSection: React.FC = () => {
     const [workshops, setWorkshops] = useState<Workshop[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const { handleCheckout, isLoading: isProcessingPayment } = usePayment();
+    const router = useRouter();
 
     useEffect(() => {
         let isMounted = true;
@@ -161,13 +166,15 @@ const WorkshopBigCardsSection: React.FC = () => {
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {typeWorkshops.map((workshop) => (
+                                {typeWorkshops.map((workshop: Workshop & { isFree?: boolean }, index) => (
                                     <WorkshopServicesCard
-                                        key={workshop.id}
-                                        workshop={workshop}
-                                        className="h-full"
-                                        onBookNow={handleBookNow}
-                                    />
+                                    key={workshop.id || index}
+                                    workshop={workshop}
+                                    className="h-full"
+                                    bgColor={`${type.bgColor} hover:shadow-lg transition-shadow duration-300`}
+                                    onBookNow={handleBookNow}
+                                    
+                                />
                                 ))}
                             </div>
                         </section>
