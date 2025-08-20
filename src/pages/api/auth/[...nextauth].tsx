@@ -1,6 +1,7 @@
 import NextAuth, { type AuthOptions, type User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { login, validateToken, type LoginResponse } from '../../../services/authService';
+import { login, validateToken } from '../../../services/authService';
+import { API_BASE_URL, API_ENDPOINTS } from '../../../config/api';
 
 // Extend the User type to include our custom fields
 declare module 'next-auth' {
@@ -9,6 +10,9 @@ declare module 'next-auth' {
     name?: string | null;
     email?: string | null;
     accessToken?: string;
+    firstName?: string;
+    lastName?: string;
+    role?: string;
   }
   
   interface Session {
@@ -17,6 +21,9 @@ declare module 'next-auth' {
       id: string;
       name?: string | null;
       email?: string | null;
+      firstName?: string;
+      lastName?: string;
+      role?: string;
     };
   }
 }
@@ -35,6 +42,33 @@ export const authOptions: AuthOptions = {
         }
 
         try {
+          // First try the API login
+          const res = await fetch(`${API_BASE_URL}${API_ENDPOINTS.LOGIN}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: credentials.email,
+              password: credentials.password
+            })
+          });
+
+          if (res.ok) {
+            const data = await res.json();
+            const user = data.user;
+            
+            // Create a user object with the API response
+            return {
+              id: user.id,
+              email: user.email,
+              name: user.firstName ? `${user.firstName} ${user.lastName || ''}`.trim() : user.email?.split('@')[0] || '',
+              firstName: user.firstName,
+              lastName: user.lastName,
+              role: user.role,
+              accessToken: data.token
+            };
+          }
+
+          // Fall back to the auth service if API login fails
           const authResponse = await login(credentials.email, credentials.password);
           
           // Ensure we have the required fields
@@ -47,10 +81,8 @@ export const authOptions: AuthOptions = {
             id: authResponse.user.id,
             email: authResponse.user.email || '',
             name: authResponse.user.firstName || authResponse.user.email?.split('@')[0] || '',
+            accessToken: authResponse.token
           };
-
-          // Add the access token to the user object
-          (user as any).accessToken = authResponse.token;
           
           return user;
         } catch (error) {
@@ -65,9 +97,12 @@ export const authOptions: AuthOptions = {
     async jwt({ token, user, account }) {
       // Initial sign in
       if (account && user) {
-        // Only set the token on initial sign in
+        // Set user data in the token
         token.id = user.id;
         token.accessToken = (user as any).accessToken;
+        token.firstName = (user as any).firstName;
+        token.lastName = (user as any).lastName;
+        token.role = (user as any).role;
       }
 
       // In development, validate the token on each request
@@ -88,8 +123,11 @@ export const authOptions: AuthOptions = {
     },
     async session({ session, token }) {
       if (session.user) {
-        // Add the user ID to the session
+        // Add the user data to the session
         session.user.id = token.sub || token.id as string;
+        session.user.firstName = token.firstName as string;
+        session.user.lastName = token.lastName as string;
+        session.user.role = token.role as string;
         
         // Add the access token to the session
         (session as any).accessToken = token.accessToken as string;

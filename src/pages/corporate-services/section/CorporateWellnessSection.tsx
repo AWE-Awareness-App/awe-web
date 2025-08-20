@@ -27,7 +27,8 @@ const CorporateWellnessSection: React.FC = () => {
                 referenceDiscount="Free 15-Min Strategy Call"
                 price=" $1,299"
                 features={CorporateWellnessFeatures}
-                handleOnClick={handleCorporateWellnessButtonClicked}
+                onClick={handleCorporateWellnessButtonClicked}
+                isSelected={false}
             />
         </div>
     );

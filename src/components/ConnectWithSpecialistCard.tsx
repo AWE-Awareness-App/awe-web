@@ -7,10 +7,11 @@ interface ConnectWithSpecialistCardProps {
     referenceDiscount: string;
     price: string;
     features: string[];
-    handleOnClick: MouseEventHandler
+    onClick: () => void;
+    isSelected: boolean;
 }
 
-const ConnectWithSpecialistCard: React.FC<ConnectWithSpecialistCardProps> = ({ title, description, referenceDiscount, price, features, handleOnClick }) => {
+const ConnectWithSpecialistCard: React.FC<ConnectWithSpecialistCardProps> = ({ title, description, referenceDiscount, price, features, onClick, isSelected }) => {
     return (
         <div className="bg-white shadow-xl rounded-2xl border p-8 m-4 text-left hover:shadow-2xl transition-shadow duration-300">
             {/* Title & Description */}
@@ -28,7 +29,7 @@ const ConnectWithSpecialistCard: React.FC<ConnectWithSpecialistCardProps> = ({ t
             <div className="mt-4 mb-4">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black">{price}</h2>
                 <p className="text-gray-600">Per Session</p>
-                <button onClick={handleOnClick} className="p-3 bg-blue-800 text-white rounded-lg w-[75%] hover:bg-blue-500 transition-colors mt-4">
+                <button onClick={onClick} className="p-3 bg-blue-800 text-white rounded-lg w-[75%] hover:bg-blue-500 transition-colors mt-4">
                     Book Now
                 </button>
             </div>

@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { FaPlus, FaCalendarAlt, FaMapMarkerAlt, FaUserTie, FaSpinner } from "react-icons/fa";
-import { Workshop } from "@generated/api";
 import { cn, formatDate, formatCurrency, formatDuration } from "@lib/utils";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import { isDateBeforeNow } from "@utils/dateUtils";
+import { Workshop } from "@generated/api";
 
-interface WorkshopServicesCardProps {
-  workshop: Workshop & { isFree?: boolean };
+export interface WorkshopServicesCardProps {
+  workshop: Workshop;
   className?: string;
   bgColor?: string;
   onPurchaseInitiated?: (workshop: Workshop) => Promise<void>;
-  onBookNow?: (workshop: Workshop) => void; // Keep for backward compatibility
+  onBookNow?: (workshop: Workshop) => void;
 }
 
 const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
@@ -21,6 +23,7 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
 }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const router = useRouter();
+  const { status } = useSession();
 
   const handleBookNow = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -84,7 +87,7 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
       {/* Workshop Image */}
       <div className="w-full h-48 bg-gray-200 overflow-hidden">
         <img 
-          src={imageUrl} 
+          src={imageUrl}
           alt={workshop.name}
           className="w-full h-full object-cover"
           onError={(e) => {
@@ -94,16 +97,20 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
           }}
         />
       </div>
-      
+
       <div className="p-6 flex-grow flex flex-col">
         {/* Title - Use title if available, fallback to name */}
         <h3 className="font-bold text-2xl text-blue-800 mb-2">
           {workshop.name}
         </h3>
-        
+
         {/* Price */}
         <div className="text-2xl font-bold text-blue-950 mb-4">
-          {formatPrice(workshop.price)}
+          {workshop.price === 0 ? (
+            <span className="text-green-600 font-semibold">Free</span>
+          ) : (
+            formatCurrency(workshop.price, 'USD')
+          )}
         </div>
 
         {/* Workshop details */}
@@ -114,14 +121,14 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
             <div>
               <div className="font-medium">Duration:</div>
               <div>{formatDuration(workshop.duration)}</div>
-              {workshop.startDate && (
+              {workshop.startDate && !isDateBeforeNow(workshop.startDate) && (
                 <div className="text-sm text-gray-600">
-                  Starts: {formatDate(workshop.startDate, { month: 'short', day: 'numeric', year: 'numeric' })}
+                  Date: {formatDate(workshop.startDate, { month: 'short', day: 'numeric', year: 'numeric' })}
                 </div>
               )}
             </div>
           </div>
-          
+
           {/* Counsellor */}
           <div className="flex items-start text-gray-700">
             <FaUserTie className="mr-2 text-blue-600 mt-1 flex-shrink-0" />
@@ -141,8 +148,8 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
                   {workshop.description
                     .replace(/\\n/g, '\n')  // Replace escaped newlines with actual newlines
                     .split('\n')
-                    .filter(line => line.trim() !== '')
-                    .map((line, index) => (
+                    .filter((line: string) => line.trim() !== '')
+                    .map((line: string, index: number) => (
                       <li key={index} className="text-gray-700">
                         {line.trim()}
                       </li>
@@ -150,8 +157,8 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
                 </ul>
               ) : (
                 <p className="text-gray-700">
-                  {workshop.description.length > 200 
-                    ? `${workshop.description.substring(0, 200).replace(/\\n/g, ' ')}...` 
+                  {workshop.description.length > 200
+                    ? `${workshop.description.substring(0, 200).replace(/\\n/g, ' ')}...`
                     : workshop.description.replace(/\\n/g, ' ')}
                 </p>
               )
@@ -163,16 +170,15 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
       </div>
 
       {/* Book Now Button */}
-      <div className="mt-8 mb-2 mx-8">
+      <div className="mt-auto px-6 pb-6 pt-4">
         <button
           onClick={handleBookNow}
           disabled={isProcessing}
           className={cn(
-            "mt-4 w-full py-3 px-6 rounded-lg font-semibold text-white transition-colors duration-200 shadow-md hover:shadow-lg flex items-center justify-center space-x-2",
+            "w-full py-3 px-6 rounded-lg font-semibold text-white transition-colors duration-200 shadow-md hover:shadow-lg flex items-center justify-center space-x-2",
             {
-              'bg-purple-600 hover:bg-purple-700': Boolean(workshop.isFree),
-              'bg-blue-600 hover:bg-blue-700': !workshop.isFree,
-              'opacity-75 cursor-not-allowed': isProcessing
+              'bg-purple-600 hover:bg-purple-700': workshop.price === 0,
+              'bg-blue-600 hover:bg-blue-700': workshop.price > 0,
             }
           )}
         >
@@ -181,12 +187,10 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
               <FaSpinner className="animate-spin" />
               <span>Processing...</span>
             </>
-          ) : workshop.isFree ? (
-            'Register Now'
-          ) : workshop.type === 'INDIVIDUAL' ? (
-            'Book Session'
+          ) : workshop.bookingUrl || onBookNow ? (
+            workshop.type === 'INDIVIDUAL' ? 'Book Session' : 'Register Now'
           ) : (
-            'Register Now'
+            'Coming Soon'
           )}
         </button>
         {workshop.bookingUrl && (

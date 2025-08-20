@@ -7,11 +7,19 @@ interface SpecialistCardProps {
     languages: string;
     imageSrc: string;
     linkedInUrl: string | undefined;
+    onClick?: () => void;
 }
 
-const SpecialistCard: React.FC<SpecialistCardProps> = ({ name, role, languages, imageSrc, linkedInUrl }) => {
+const SpecialistCard: React.FC<SpecialistCardProps> = ({ name, role, languages, imageSrc, linkedInUrl, onClick }) => {
     return (
-        <div className="relative rounded-lg shadow-lg overflow-hidden">
+        <div
+            {...(onClick ? { onClick } : {})}
+            className={`
+            relative rounded-lg shadow-lg overflow-hidden cursor-pointer
+            transition-opacity duration-300
+            ${onClick ? "cursor-pointer hover:opacity-70" : ""}
+            `}
+        >
             {/* Profile Image */}
             <img src={imageSrc} alt={name} className="w-full h-80 object-cover" />
 
