@@ -1,29 +1,18 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
-import { format } from 'date-fns';
 import DefaultLayout from '@components/DefaultLayout';
 import { getAllBlogPosts } from '@repositories/BlogRepository';
 import { BlogCard } from '@components/blog/BlogCard';
 import { useNewsletterDialog } from '../../hooks/useNewsletterDialog';
 import NewsletterDialog from '@components/newsletter/NewsletterDialog';
-import { BasicBlogPost, BlogPost } from '../../generated';
-
-// Client-side only component to handle date formatting
-const FormattedDate = ({ dateString }: { dateString: string }) => {
-  const [formattedDate, setFormattedDate] = useState('');
-
-  useEffect(() => {
-    // This effect only runs on the client side
-    const date = new Date(dateString);
-    setFormattedDate(format(date, 'MMMM d, yyyy'));
-  }, [dateString]);
-
-  return <span>{formattedDate}</span>;
-};
+import { BasicBlogPost } from '../../generated';
 
 
-export default function BlogsPage(posts: BasicBlogPost[]) {
+interface BlogsPageProps {
+  posts: BasicBlogPost[];
+}
+
+export default function BlogsPage({ posts = [] }: BlogsPageProps) {
   const { isOpen, openDialog, closeDialog } = useNewsletterDialog();
 
   return (
@@ -74,12 +63,14 @@ export default function BlogsPage(posts: BasicBlogPost[]) {
 export const getStaticProps: GetStaticProps<{ posts: BasicBlogPost[] }> = async () => {
   try {
     const posts = await getAllBlogPosts();
-    posts.forEach((post) => {
-      post.tags = Array.isArray(post.tags) ? post.tags : (post.tags ? [post.tags] : ['Uncategorized']);
-    });
+    console.log('Fetched posts:', posts);
+    
+    // Ensure we're returning plain objects that can be serialized to JSON
+    const serializedPosts = JSON.parse(JSON.stringify(posts || []));
+    
     return {
       props: {
-        posts: JSON.parse(JSON.stringify(posts || []))
+        posts: serializedPosts
       },
       revalidate: 3600
     };

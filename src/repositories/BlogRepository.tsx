@@ -1,17 +1,7 @@
 import { API_BASE_URL, API_ENDPOINTS } from "@config/api";
 import { BasicBlogPost, BlogPost } from "../generated";
 import { transformBasicBlogPostData, transformBlogPostData } from "@mappers/blogMappers";
-
-// Type for the API response structure
-interface BlogListResponse {
-  items: BlogPost[];
-  pagination?: {
-    totalItems: number;
-    totalPages: number;
-    currentPage: number;
-    itemsPerPage: number;
-  };
-}
+import { BlogsGet200Response } from '../generated';
 
 /**
  * Fetches blog posts from the API with pagination
@@ -50,13 +40,8 @@ export const fetchBlogPosts = async (page: number = 1, limit: number = 10): Prom
       throw new Error(`Failed to fetch blog posts: ${response.status} ${response.statusText}`);
     }
 
-    const data: BlogListResponse | BlogPost[] = await response.json().catch(e => {
-      console.error('Error parsing JSON response:', e);
-      throw new Error('Invalid JSON response from server');
-    });
-    
-    const posts = Array.isArray(data) ? data : (data.items || []);
-    
+    const data: BlogsGet200Response = await response.json();
+    const posts = Array.isArray(data.items) ? data.items : [];
     return posts.map(post => transformBasicBlogPostData(post));
   } catch (error) {
     console.error('Error in fetchBlogPosts:', error);
