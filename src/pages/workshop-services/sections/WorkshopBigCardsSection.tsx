@@ -166,7 +166,7 @@ const WorkshopBigCardsSection: React.FC = () => {
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {typeWorkshops.map((workshop: Workshop & { isFree?: boolean }, index) => (
+                                {typeWorkshops.map((workshop: Workshop & { isFree?: boolean }, index: number) => (
                                     <WorkshopServicesCard
                                     key={workshop.id || index}
                                     workshop={workshop}

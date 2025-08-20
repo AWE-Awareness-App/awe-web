@@ -1,4 +1,4 @@
-import { Workshop, WorkshopsApi, WorkshopBookingsApi, Configuration, WorkshopsPostRequest } from '../generated';
+import { WorkshopsApi, WorkshopBookingsApi, Configuration, WorkshopsPostRequest, Workshop } from '../generated';
 
 // Create a configuration with the base path
 const config = new Configuration({
@@ -12,8 +12,8 @@ const workshopBookingsApi = new WorkshopBookingsApi(config);
 /**
  * Transforms API workshop data to our local Workshop interface
  */
-const transformWorkshop = (apiWorkshop: Workshop): Workshop => {
-  // Ensure all required fields are present
+const transformWorkshop = (apiWorkshop: any): Workshop => {
+  // Transform API data to our extended Workshop type
   return {
     id: apiWorkshop.id || '',
     name: apiWorkshop.name,
@@ -22,10 +22,14 @@ const transformWorkshop = (apiWorkshop: Workshop): Workshop => {
     duration: apiWorkshop.duration,
     maxSeats: apiWorkshop.maxSeats || 0, // Default value if not provided
     startDate: apiWorkshop.startDate,
+    endDate: apiWorkshop.endDate,
+    location: apiWorkshop.location,
+    format: apiWorkshop.format,
     price: typeof apiWorkshop.price === 'string' ? parseFloat(apiWorkshop.price) : apiWorkshop.price,
     bookingUrl: apiWorkshop.bookingUrl,
     type: apiWorkshop.type,
     counsellor: apiWorkshop.counsellor,
+    isFree: apiWorkshop.isFree || false,
     createdAt: apiWorkshop.createdAt,
     updatedAt: apiWorkshop.updatedAt,
     

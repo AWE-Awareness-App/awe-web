@@ -1,4 +1,3 @@
-import type { Workshop } from "@generated/api";
 import { 
     fetchWorkshops as fetchWorkshopsFromApi, 
     fetchWorkshopById as fetchWorkshopByIdFromApi,
@@ -8,8 +7,8 @@ import {
     bookWorkshop as bookWorkshopInApi
 } from "@services/workshopService";
 import { createMinimalWorkshop } from "@utils/workshopUtils";
+import { Workshop } from "@generated/api";
 
-// For backward compatibility, we'll maintain the same interface as before
 export type { Workshop };
 
 /**
