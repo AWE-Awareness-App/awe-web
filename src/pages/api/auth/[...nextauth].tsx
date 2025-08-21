@@ -1,7 +1,7 @@
 import NextAuth, { type AuthOptions, type User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import { login, validateToken } from '../../../services/authService';
-import { API_BASE_URL, API_ENDPOINTS } from '../../../config/api';
+import { login, validateToken } from '@services/authService';
+import { API_BASE_URL, API_ENDPOINTS } from '@config/api';
 
 // Extend the User type to include our custom fields
 declare module 'next-auth' {
