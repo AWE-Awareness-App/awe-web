@@ -5,13 +5,14 @@ import { getAllBlogPosts } from '@repositories/BlogRepository';
 import { BlogCard } from '@components/blog/BlogCard';
 import { useNewsletterDialog } from '../../hooks/useNewsletterDialog';
 import NewsletterDialog from '@components/newsletter/NewsletterDialog';
-import { BlogPost } from '@interfaces/BlogPost';
+import { BasicBlogPost } from '../../generated';
+
 
 interface BlogsPageProps {
-  posts: BlogPost[];
+  posts: BasicBlogPost[];
 }
 
-export default function BlogsPage({ posts }: BlogsPageProps) {
+export default function BlogsPage({ posts = [] }: BlogsPageProps) {
   const { isOpen, openDialog, closeDialog } = useNewsletterDialog();
 
   return (
@@ -29,9 +30,9 @@ export default function BlogsPage({ posts }: BlogsPageProps) {
           </div>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {posts && posts.length > 0 ? (
+            {posts.length > 0 ? (
               posts.map((post) => (
-                <BlogCard post={post} />
+                <BlogCard key={post.id}  post={post} />
               ))
             ) : (
               <div className="col-span-3 text-center py-12">
@@ -44,6 +45,7 @@ export default function BlogsPage({ posts }: BlogsPageProps) {
             <p className="text-gray-500">
               Want to stay updated?{' '}
               <button 
+                type="button"
                 onClick={openDialog}
                 className="font-medium text-orange-600 hover:text-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
               >
@@ -58,15 +60,17 @@ export default function BlogsPage({ posts }: BlogsPageProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps<BlogsPageProps> = async () => {
+export const getStaticProps: GetStaticProps<{ posts: BasicBlogPost[] }> = async () => {
   try {
     const posts = await getAllBlogPosts();
-    posts.forEach((post) => {
-      post.tags = Array.isArray(post.tags) ? post.tags : (post.tags ? [post.tags] : ['Uncategorized']);
-    });
+    console.log('Fetched posts:', posts);
+    
+    // Ensure we're returning plain objects that can be serialized to JSON
+    const serializedPosts = JSON.parse(JSON.stringify(posts || []));
+    
     return {
       props: {
-        posts: JSON.parse(JSON.stringify(posts || []))
+        posts: serializedPosts
       },
       revalidate: 3600
     };

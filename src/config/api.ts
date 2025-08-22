@@ -12,6 +12,7 @@ export const API_ENDPOINTS = {
   LOGIN: '/auth/login',
   REGISTER: '/auth/register',
   //USERS
+  USERS: '/users',
   GET_COUNSELLORS: '/users/counsellors',
   // Add other API endpoints here as needed
 } as const;

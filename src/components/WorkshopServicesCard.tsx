@@ -1,13 +1,16 @@
-import React from "react";
-import { FaPlus, FaCalendarAlt, FaMapMarkerAlt, FaUserTie } from "react-icons/fa";
-import { Workshop } from "@interfaces/Workshop";
+import React, { useState } from "react";
+import { FaPlus, FaCalendarAlt, FaMapMarkerAlt, FaUserTie, FaSpinner } from "react-icons/fa";
 import { cn, formatDate, formatCurrency, formatDuration } from "@lib/utils";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { isDateBeforeNow } from "@utils/dateUtils";
+import { Workshop } from "@generated/api";
 
-interface WorkshopServicesCardProps {
+export interface WorkshopServicesCardProps {
   workshop: Workshop;
   className?: string;
-  bgColor?: string; // Tailwind background color class
+  bgColor?: string;
+  onPurchaseInitiated?: (workshop: Workshop) => Promise<void>;
   onBookNow?: (workshop: Workshop) => void;
 }
 
@@ -16,13 +19,47 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
   className = "",
   bgColor = "bg-white",
   onBookNow,
+  onPurchaseInitiated,
 }) => {
-  const handleBookNow = (e: React.MouseEvent) => {
+  const [isProcessing, setIsProcessing] = useState(false);
+  const router = useRouter();
+  const { status } = useSession();
+
+  const handleBookNow = async (e: React.MouseEvent) => {
     e.preventDefault();
+    
+    // For backward compatibility
     if (onBookNow) {
       onBookNow(workshop);
-    } else if (workshop.bookingUrl) {
-      window.open(workshop.bookingUrl, '_blank', 'noopener,noreferrer');
+      return;
+    }
+
+    setIsProcessing(true);
+    
+    try {
+      if (onPurchaseInitiated) {
+        await onPurchaseInitiated(workshop);
+      } else {
+        // Default behavior if no handler is provided
+        if (status === 'unauthenticated') {
+          // Redirect to sign in with a return URL
+          router.push(`/auth/signin?callbackUrl=${encodeURIComponent(router.asPath)}`);
+          return;
+        }
+        
+        // Fallback to booking URL if no purchase handler
+        if (workshop.bookingUrl) {
+          window.open(workshop.bookingUrl, '_blank', 'noopener,noreferrer');
+        } else {
+          console.error('No purchase handler or booking URL provided for workshop:', workshop.id);
+          alert('Booking functionality is not properly configured.');
+        }
+      }
+    } catch (error) {
+      console.error('Error initiating booking:', error);
+      alert('Failed to initiate booking. Please try again.');
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -36,16 +73,12 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
 
   // Get counsellor name
   const getCounsellorName = (workshop: Workshop) => {
-    if (workshop.counsellorName) return workshop.counsellorName;
-    if (typeof workshop.counsellor === 'string') return workshop.counsellor;
-    if (workshop.counsellor?.firstName || workshop.counsellor?.lastName) {
-      return `${workshop.counsellor.firstName || ''} ${workshop.counsellor.lastName || ''}`.trim();
-    }
+    if (workshop.counsellor) return workshop.counsellor.firstName + ' ' + workshop.counsellor.lastName;
     return 'AWE Counsellor';
   };
 
   // Get the image URL, falling back to a default image if none is provided
-  const imageUrl = workshop.imageUrl || workshop.imageSrc || '/images/workshop-default.jpg';
+  const imageUrl = workshop.imageUrl || '/images/workshop-default.jpg';
 
   return (
     <div
@@ -53,9 +86,9 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
     >
       {/* Workshop Image */}
       <div className="w-full h-48 bg-gray-200 overflow-hidden">
-        <img
+        <img 
           src={imageUrl}
-          alt={workshop.title || workshop.name}
+          alt={workshop.name}
           className="w-full h-full object-cover"
           onError={(e) => {
             // Fallback to a default image if the provided one fails to load
@@ -68,12 +101,16 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
       <div className="p-6 flex-grow flex flex-col">
         {/* Title - Use title if available, fallback to name */}
         <h3 className="font-bold text-2xl text-blue-800 mb-2">
-          {workshop.title || workshop.name}
+          {workshop.name}
         </h3>
 
         {/* Price */}
         <div className="text-2xl font-bold text-blue-950 mb-4">
-          {formatPrice(workshop.price)}
+          {workshop.price === 0 ? (
+            <span className="text-green-600 font-semibold">Free</span>
+          ) : (
+            formatCurrency(workshop.price, 'USD')
+          )}
         </div>
 
         {/* Workshop details */}
@@ -86,24 +123,9 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
               <div>{formatDuration(workshop.duration)}</div>
               {workshop.startDate && !isDateBeforeNow(workshop.startDate) && (
                 <div className="text-sm text-gray-600">
-                  Starts: {formatDate(workshop.startDate, { month: 'short', day: 'numeric', year: 'numeric' })}
+                  Date: {formatDate(workshop.startDate, { month: 'short', day: 'numeric', year: 'numeric' })}
                 </div>
               )}
-              {workshop.endDate && workshop.endDate !== workshop.startDate && (
-                <div className="text-sm text-gray-600">
-                  Ends: {formatDate(workshop.endDate, { month: 'short', day: 'numeric', year: 'numeric' })}
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Location */}
-          <div className="flex items-start text-gray-700">
-            <FaMapMarkerAlt className="mr-2 text-blue-600 mt-1 flex-shrink-0" />
-            <div>
-              <div className="font-medium">Location:</div>
-              <div>{workshop.location || 'Online'}</div>
-              <div className="text-sm text-gray-600">{workshop.format || 'Workshop'}</div>
             </div>
           </div>
 
@@ -118,7 +140,7 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
         </div>
 
         {/* Description */}
-        {(workshop.description || workshop.features?.length === 0) && (
+        {(workshop.description) && (
           <div className="mb-4">
             {workshop.description ? (
               (workshop.description.includes('\n') || workshop.description.includes('\\n')) ? (
@@ -126,8 +148,8 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
                   {workshop.description
                     .replace(/\\n/g, '\n')  // Replace escaped newlines with actual newlines
                     .split('\n')
-                    .filter(line => line.trim() !== '')
-                    .map((line, index) => (
+                    .filter((line: string) => line.trim() !== '')
+                    .map((line: string, index: number) => (
                       <li key={index} className="text-gray-700">
                         {line.trim()}
                       </li>
@@ -145,47 +167,31 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
             )}
           </div>
         )}
-
-        {/* Features */}
-        {workshop.features && workshop.features.length > 0 && (
-          <div className="mt-4">
-            <h4 className="font-semibold text-blue-900 mb-2">
-              {workshop.type === 'INDIVIDUAL' ? 'What\'s included:' : 'Key Features:'}
-            </h4>
-            <ul className="space-y-2">
-              {workshop.features.slice(0, 5).map((feature, index) => (
-                <li key={index} className="flex items-start text-blue-950">
-                  <FaPlus className="mt-1 mr-2 text-blue-600 flex-shrink-0" />
-                  <span>{feature}</span>
-                </li>
-              ))}
-              {workshop.features.length > 5 && (
-                <li className="text-sm text-blue-700 mt-2">
-                  +{workshop.features.length - 5} more features
-                </li>
-              )}
-            </ul>
-          </div>
-        )}
       </div>
 
       {/* Book Now Button */}
-      <div className="mt-8 mb-2 mx-8">
+      <div className="mt-auto px-6 pb-6 pt-4">
         <button
           onClick={handleBookNow}
+          disabled={isProcessing}
           className={cn(
-            "w-full py-3 px-6 rounded-lg font-semibold text-white transition-colors duration-200 shadow-md hover:shadow-lg",
+            "w-full py-3 px-6 rounded-lg font-semibold text-white transition-colors duration-200 shadow-md hover:shadow-lg flex items-center justify-center space-x-2",
             {
-              'bg-blue-600 hover:bg-blue-700': Boolean(workshop.bookingUrl) || Boolean(onBookNow),
-              'bg-gray-400 cursor-not-allowed': !workshop.bookingUrl && !onBookNow,
-              'animate-pulse': !workshop.bookingUrl && !onBookNow,
+              'bg-purple-600 hover:bg-purple-700': workshop.price === 0,
+              'bg-blue-600 hover:bg-blue-700': workshop.price > 0,
             }
           )}
-          disabled={!workshop.bookingUrl && !onBookNow}
         >
-          {workshop.bookingUrl || onBookNow
-            ? workshop.type === 'INDIVIDUAL' ? 'Book Session' : 'Register Now'
-            : 'Coming Soon'}
+          {isProcessing ? (
+            <>
+              <FaSpinner className="animate-spin" />
+              <span>Processing...</span>
+            </>
+          ) : workshop.bookingUrl || onBookNow ? (
+            workshop.type === 'INDIVIDUAL' ? 'Book Session' : 'Register Now'
+          ) : (
+            'Coming Soon'
+          )}
         </button>
         {workshop.bookingUrl && (
           <p className="text-xs text-gray-500 mt-2 text-center">

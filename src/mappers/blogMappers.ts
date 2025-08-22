@@ -1,25 +1,35 @@
-import { BlogPost } from "@interfaces/BlogPost";
+import { BlogPost, BasicBlogPost } from '../generated';
 
 /**
- * Transforms API response data to match our BlogPost interface
- * Handles both new API format and provides backward compatibility
+ * Transforms API response data to match the generated BlogPost interface
+ * Ensures all required fields are properly set with fallbacks
  */
-export const transformBlogPostData = (apiPost: any): BlogPost => {
-  const post: BlogPost = {
-    id: apiPost.id,
-    title: apiPost.title,
-    excerpt: apiPost.shortDescription || apiPost.excerpt || '',
-    slug: apiPost.slug,
-    date: apiPost.publishDate ? 
-      new Date(apiPost.publishDate).toISOString().split('T')[0] : 
-      (apiPost.date || new Date().toISOString().split('T')[0]),
-    author: apiPost.authorName || apiPost.author || 'Unknown Author',
-    authorImageUrl: apiPost.authorImageUrl || '',
-    tags: apiPost.tags || 'Uncategorized',
-    readTime: apiPost.readTime || '5 min read',
-    image: apiPost.imageUrl || apiPost.image || '',
-    content: apiPost.content,
+export const transformBlogPostData = (apiPost: Partial<BlogPost>): BlogPost => {
+  return {
+    id: apiPost.id || '',
+    title: apiPost.title || 'Untitled Post',
+    content: apiPost.content || '',
+    imageUrl: apiPost.imageUrl || null,
+    authorName: apiPost.authorName || 'Unknown Author',
+    authorImageUrl: apiPost.authorImageUrl || null,
+    publishDate: apiPost.publishDate || new Date().toISOString(),
+    readTime: apiPost.readTime || 5, // Default to 5 minutes
+    slug: apiPost.slug || '',
+    tags: apiPost.tags || [],
+    ...(apiPost.updatedAt && { updatedAt: apiPost.updatedAt })
   };
+};
 
-  return post;
+export const transformBasicBlogPostData = (apiPost: Partial<BasicBlogPost>): BasicBlogPost => {
+  return {
+    id: apiPost.id || '',
+    title: apiPost.title || 'Untitled Post',
+    shortDescription: apiPost.shortDescription || '',
+    imageUrl: apiPost.imageUrl || null,
+    authorName: apiPost.authorName || 'Unknown Author',
+    publishDate: apiPost.publishDate || new Date().toISOString(),
+    readTime: apiPost.readTime || 5, // Default to 5 minutes
+    slug: apiPost.slug || '',
+    tags: apiPost.tags || [],
+  };
 };

@@ -32,10 +32,10 @@ const SignInModal: React.FC<SignInModalProp> = ({
         setError(null);
 
         const result = await signIn('credentials', {
-            redirect: false,
+            redirect: true,
             email: email,
             password,
-            callbackUrl: '/'
+            callbackUrl: `${window.location.origin}/`
         });
 
         if (result?.error) {

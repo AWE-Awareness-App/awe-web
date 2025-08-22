@@ -23,6 +23,8 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
+      "@/*": ["src/*"],
+      "@generated/*": ["src/generated/*"],
       "@components/*": ["src/components/*"],
       "@services/*": ["src/services/*"],
       "@repositories/*": ["src/repositories/*"],

@@ -1,93 +1,136 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import DefaultLayout from '../../components/DefaultLayout';
 import { getBlogPostBySlug } from '@repositories/BlogRepository';
-import { BlogPost } from '@interfaces/BlogPost';
+import { BlogPost } from '../../generated';
+import { format } from 'date-fns';
 
 interface BlogPostPageProps {
-  post: BlogPost;
+  post: BlogPost | null;
 }
 
 export default function BlogPostPage({ post }: BlogPostPageProps) {
   const router = useRouter();
 
   if (router.isFallback) {
-    return <div>Loading...</div>;
+    return (
+      <DefaultLayout activePage="blog">
+        <div className="w-full min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading post...</p>
+          </div>
+        </div>
+      </DefaultLayout>
+    );
   }
 
   if (!post) {
-    return <div>Post not found</div>;
+    return (
+      <DefaultLayout activePage="blog">
+        <div className="w-full min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">Post Not Found</h1>
+            <p className="text-gray-600 mb-6">The requested blog post could not be found.</p>
+            <a 
+              href="/blogs" 
+              className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
+            >
+              ← Back to all articles
+            </a>
+          </div>
+        </div>
+      </DefaultLayout>
+    );
   }
+
+  // Format the date consistently for both server and client
+  const [formattedDate, setFormattedDate] = useState('');
+  const [publishDate, setPublishDate] = useState<Date>(new Date());
+
+  useEffect(() => {
+    // This effect only runs on the client side
+    const date = post.publishDate ? new Date(post.publishDate) : new Date();
+    setPublishDate(date);
+    setFormattedDate(format(date, 'MMMM d, yyyy'));
+  }, [post.publishDate]);
+  const readTimeText = post.readTime === 1 ? '1 min read' : `${post.readTime} mins read`;
 
   return (
     <DefaultLayout activePage="blog">
       <div className="w-full min-h-screen bg-gray-50">
         <Head>
           <title>{`${post.title} - AWE Blog`}</title>
-          <meta name="description" content={post.excerpt} />
+          <meta name="description" content={post.content?.substring(0, 160) || 'Read this article on our blog'} />
+          <meta property="og:title" content={post.title} />
+          <meta property="og:description" content={post.content?.substring(0, 160) || ''} />
+          {post.imageUrl && <meta property="og:image" content={post.imageUrl} />}
         </Head>
 
-        <article className="w-full px-4 sm:px-6 lg:px-8">
+        <article className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <a href="/blogs" className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-6">
-              ← Back to all articles
+            <a 
+              href="/blogs" 
+              className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-6 transition-colors duration-200"
+            >
+              <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clipRule="evenodd" />
+              </svg>
+              Back to all articles
             </a>
 
-            <div className="flex items-center text-sm text-gray-500 mb-4">
-              <span>{post.date}</span>
-              <span className="mx-2">•</span>
-              <span>{post.readTime} mins</span>
-              {Array.isArray(post.tags) && post.tags.length > 0 && (
-                <>
-                  <span className="mx-2">•</span>
-                  <div className="flex flex-wrap gap-2">
-                    {post.tags.map((tag, index) => (
-                      <span key={index} className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        {tag}
-                      </span>
-                    ))}
+            <h1 className="text-4xl font-bold text-gray-900 mb-6">{post.title}</h1>
+            
+            <div className="flex flex-col sm:flex-row items-start sm:items-center text-sm text-gray-500 mb-8 gap-4">
+              <div className="flex items-center">
+                {post.authorImageUrl && (
+                  <img 
+                    src={post.authorImageUrl} 
+                    alt={post.authorName}
+                    className="w-10 h-10 rounded-full mr-3"
+                  />
+                )}
+                <div>
+                  <p className="text-gray-900 font-medium">{post.authorName}</p>
+                  <div className="flex items-center">
+                    <time dateTime={publishDate.toISOString()} className="text-gray-500">
+                      {formattedDate}
+                    </time>
+                    <span className="mx-2">•</span>
+                    <span>{readTimeText}</span>
                   </div>
-                </>
+                </div>
+              </div>
+              
+              {post.tags && post.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 sm:ml-auto">
+                  {post.tags.map((tag, index) => (
+                    <span 
+                      key={index} 
+                      className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               )}
             </div>
+          </div>
 
-            <h1 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
-              {post.title}
-            </h1>
-
-            <div className="mt-4 flex items-center">
-              <div className="flex-shrink-0">
-                <span className="sr-only">{post.author}</span>
-                {post.authorImageUrl ? (
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src={post.authorImageUrl}
-                    alt={post.author}
-                  />
-                ) : (
-                  <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
-                    {post.author?.charAt(0) || '?'}
-                  </div>
-                )}
-              </div>
-              <div className="ml-3">
-                <p className="text-sm font-medium text-gray-900">{post.author}</p>
-              </div>
+          {post.imageUrl && (
+            <div className="h-96 w-full rounded-xl overflow-hidden mb-8 relative">
+              <img
+                src={post.imageUrl}
+                alt={post.title}
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
-          </div>
-
-          <div className="h-96 w-full rounded-xl overflow-hidden mb-8 relative">
-            <img
-              src={post.image}
-              alt={post.title}
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
-          </div>
-
-          <div className="w-full overflow-x-hidden">
+          )}
+          <div className="w-full overflow-x-hidden mt-8">
             <div className="text-gray-700 leading-8">
               <ReactMarkdown
                 components={{
@@ -202,16 +245,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // Return no paths at build time, and generate pages on-demand
   return {
     paths: [],
-    fallback: 'blocking' as const,
+    fallback: 'blocking',
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params }) => {
   try {
-    const { slug } = params as { slug: string };
+    if (!params?.slug) {
+      return {
+        notFound: true,
+      };
+    }
 
-    // First try to get the post by ID if the slug is a valid ID
-    let post = await getBlogPostBySlug(slug);
+    const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
+    const post = await getBlogPostBySlug(slug);
 
     if (!post) {
       console.log(`Post with slug ${slug} not found`);
@@ -222,7 +269,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     return {
       props: {
-        post,
+        post: JSON.parse(JSON.stringify(post)), // Ensure date objects are serialized
       },
       revalidate: 60, // Regenerate the page every 60 seconds
     };
