@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaPlus, FaCalendarAlt, FaMapMarkerAlt, FaUserTie, FaSpinner } from "react-icons/fa";
-import { cn, formatDate, formatCurrency, formatDuration } from "@lib/utils";
+import { cn, formatDate, formatCurrency } from "@lib/utils";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { isDateBeforeNow } from "@utils/dateUtils";
@@ -120,7 +120,7 @@ const WorkshopServicesCard: React.FC<WorkshopServicesCardProps> = ({
             <FaCalendarAlt className="mr-2 text-blue-600 flex-shrink-0" />
             <div>
               <div className="font-medium">Duration:</div>
-              <div>{formatDuration(workshop.duration)}</div>
+              <div>{workshop.durationText}</div>
               {workshop.startDate && !isDateBeforeNow(workshop.startDate) && (
                 <div className="text-sm text-gray-600">
                   Date: {formatDate(workshop.startDate, { month: 'short', day: 'numeric', year: 'numeric' })}

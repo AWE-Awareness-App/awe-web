@@ -8,6 +8,7 @@ export const transformBlogPostData = (apiPost: Partial<BlogPost>): BlogPost => {
   return {
     id: apiPost.id || '',
     title: apiPost.title || 'Untitled Post',
+    shortDescription: apiPost.shortDescription || '',
     content: apiPost.content || '',
     imageUrl: apiPost.imageUrl || null,
     authorName: apiPost.authorName || 'Unknown Author',

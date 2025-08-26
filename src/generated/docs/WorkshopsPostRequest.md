@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **name** | **string** |  | [default to undefined]
 **description** | **string** |  | [default to undefined]
 **imageUrl** | **string** |  | [optional] [default to undefined]
-**duration** | **number** |  | [default to undefined]
+**durationText** | **string** |  | [default to undefined]
 **startDate** | **string** |  | [default to undefined]
 **price** | **number** |  | [default to undefined]
 **bookingUrl** | **string** |  | [default to undefined]
@@ -23,7 +23,7 @@ const instance: WorkshopsPostRequest = {
     name,
     description,
     imageUrl,
-    duration,
+    durationText,
     startDate,
     price,
     bookingUrl,

@@ -1192,10 +1192,10 @@ export interface WorkshopsPostRequest {
     'imageUrl'?: string | null;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof WorkshopsPostRequest
      */
-    'duration': number;
+    'durationText': string;
     /**
      * 
      * @type {string}
