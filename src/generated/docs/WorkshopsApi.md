@@ -1,6 +1,6 @@
 # WorkshopsApi
 
-All URIs are relative to *http://localhost:5000*
+All URIs are relative to *http://localhost:3000*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|
@@ -160,7 +160,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **workshopsIdPut**
-> Workshop workshopsIdPut(workshopsPostRequest)
+> Workshop workshopsIdPut(workshopsIdPutRequest)
 
 
 ### Example
@@ -169,18 +169,18 @@ No authorization required
 import {
     WorkshopsApi,
     Configuration,
-    WorkshopsPostRequest
+    WorkshopsIdPutRequest
 } from './api';
 
 const configuration = new Configuration();
 const apiInstance = new WorkshopsApi(configuration);
 
 let id: string; // (default to undefined)
-let workshopsPostRequest: WorkshopsPostRequest; //
+let workshopsIdPutRequest: WorkshopsIdPutRequest; //
 
 const { status, data } = await apiInstance.workshopsIdPut(
     id,
-    workshopsPostRequest
+    workshopsIdPutRequest
 );
 ```
 
@@ -188,7 +188,7 @@ const { status, data } = await apiInstance.workshopsIdPut(
 
 |Name | Type | Description  | Notes|
 |------------- | ------------- | ------------- | -------------|
-| **workshopsPostRequest** | **WorkshopsPostRequest**|  | |
+| **workshopsIdPutRequest** | **WorkshopsIdPutRequest**|  | |
 | **id** | [**string**] |  | defaults to undefined|
 
 

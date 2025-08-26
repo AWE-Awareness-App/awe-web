@@ -1,6 +1,6 @@
 # BlogsApi
 
-All URIs are relative to *http://localhost:5000*
+All URIs are relative to *http://localhost:3000*
 
 |Method | HTTP request | Description|
 |------------- | ------------- | -------------|

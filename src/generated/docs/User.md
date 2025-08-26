@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **gender** | **string** |  | [optional] [default to undefined]
 **occupation** | **string** |  | [optional] [default to undefined]
 **certification** | **string** |  | [optional] [default to undefined]
+**calendlyUrl** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -44,6 +45,7 @@ const instance: User = {
     gender,
     occupation,
     certification,
+    calendlyUrl,
 };
 ```
 

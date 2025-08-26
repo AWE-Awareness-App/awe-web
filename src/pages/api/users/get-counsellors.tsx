@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { API_BASE_URL, API_ENDPOINTS } from "@config/api";
-import { User } from "@interfaces/User";
+import { User } from "@generated/api";
 
 interface RegisterResponse {
     token: string

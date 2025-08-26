@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **id** | **string** |  | [default to undefined]
 **title** | **string** |  | [default to undefined]
 **content** | **string** |  | [default to undefined]
+**shortDescription** | **string** |  | [default to undefined]
 **imageUrl** | **string** |  | [optional] [default to undefined]
 **authorName** | **string** |  | [default to undefined]
 **authorImageUrl** | **string** |  | [default to undefined]
@@ -26,6 +27,7 @@ const instance: BlogPost = {
     id,
     title,
     content,
+    shortDescription,
     imageUrl,
     authorName,
     authorImageUrl,

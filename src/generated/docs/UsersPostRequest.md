@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **imageUrl** | **string** |  | [optional] [default to undefined]
 **linkedin** | **string** |  | [default to undefined]
 **reference** | **string** |  | [default to undefined]
-**stripeid** | **string** |  | [optional] [default to undefined]
+**stripeId** | **string** |  | [optional] [default to undefined]
 **gender** | **string** |  | [optional] [default to undefined]
 **occupation** | **string** |  | [optional] [default to undefined]
 **certification** | **string** |  | [optional] [default to undefined]
@@ -31,7 +31,7 @@ const instance: UsersPostRequest = {
     imageUrl,
     linkedin,
     reference,
-    stripeid,
+    stripeId,
     gender,
     occupation,
     certification,

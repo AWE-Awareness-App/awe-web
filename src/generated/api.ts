@@ -191,6 +191,12 @@ export interface BlogPost {
      * @type {string}
      * @memberof BlogPost
      */
+    'shortDescription': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BlogPost
+     */
     'imageUrl'?: string | null;
     /**
      * 
@@ -494,6 +500,32 @@ export type RegisterRequestRoleEnum = typeof RegisterRequestRoleEnum[keyof typeo
 /**
  * 
  * @export
+ * @interface ResendVerificationRequest
+ */
+export interface ResendVerificationRequest {
+    /**
+     * Email address to resend verification to
+     * @type {string}
+     * @memberof ResendVerificationRequest
+     */
+    'email': string;
+}
+/**
+ * 
+ * @export
+ * @interface SuccessResponse
+ */
+export interface SuccessResponse {
+    /**
+     * Success message
+     * @type {string}
+     * @memberof SuccessResponse
+     */
+    'message'?: string;
+}
+/**
+ * 
+ * @export
  * @interface User
  */
 export interface User {
@@ -593,6 +625,12 @@ export interface User {
      * @memberof User
      */
     'certification'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'calendlyUrl'?: string | null;
 }
 
 export const UserRoleEnum = {
@@ -688,7 +726,7 @@ export interface UsersPostRequest {
      * @type {string}
      * @memberof UsersPostRequest
      */
-    'stripeid'?: string | null;
+    'stripeId'?: string | null;
     /**
      * 
      * @type {string}
@@ -746,6 +784,19 @@ export type ValidationResponseRoleEnum = typeof ValidationResponseRoleEnum[keyof
 /**
  * 
  * @export
+ * @interface VerifyEmailRequest
+ */
+export interface VerifyEmailRequest {
+    /**
+     * Email verification token received via email
+     * @type {string}
+     * @memberof VerifyEmailRequest
+     */
+    'token': string;
+}
+/**
+ * 
+ * @export
  * @interface WebhookResponse
  */
 export interface WebhookResponse {
@@ -788,10 +839,10 @@ export interface Workshop {
     'imageUrl'?: string | null;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof Workshop
      */
-    'duration': number;
+    'durationText': string;
     /**
      * 
      * @type {number}
@@ -1015,12 +1066,6 @@ export interface WorkshopUser {
      * @type {string}
      * @memberof WorkshopUser
      */
-    'orkshopId'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof WorkshopUser
-     */
     'firstName': string;
     /**
      * 
@@ -1056,6 +1101,70 @@ export const WorkshopUserRoleEnum = {
 } as const;
 
 export type WorkshopUserRoleEnum = typeof WorkshopUserRoleEnum[keyof typeof WorkshopUserRoleEnum];
+
+/**
+ * 
+ * @export
+ * @interface WorkshopsIdPutRequest
+ */
+export interface WorkshopsIdPutRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkshopsIdPutRequest
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkshopsIdPutRequest
+     */
+    'description': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkshopsIdPutRequest
+     */
+    'image'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof WorkshopsIdPutRequest
+     */
+    'duration': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkshopsIdPutRequest
+     */
+    'startDate': string;
+    /**
+     * 
+     * @type {number}
+     * @memberof WorkshopsIdPutRequest
+     */
+    'price': number;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkshopsIdPutRequest
+     */
+    'bookingUrl': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof WorkshopsIdPutRequest
+     */
+    'type': WorkshopsIdPutRequestTypeEnum;
+}
+
+export const WorkshopsIdPutRequestTypeEnum = {
+    Live: 'LIVE',
+    Recording: 'RECORDING',
+    Both: 'BOTH'
+} as const;
+
+export type WorkshopsIdPutRequestTypeEnum = typeof WorkshopsIdPutRequestTypeEnum[keyof typeof WorkshopsIdPutRequestTypeEnum];
 
 /**
  * 
@@ -1129,8 +1238,8 @@ export type WorkshopsPostRequestTypeEnum = typeof WorkshopsPostRequestTypeEnum[k
 export const AuthApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * 
-         * @summary Login user
+         * Authenticates a user. Login will fail with 401 if email is not verified.
+         * @summary Login user (requires email verification)
          * @param {LoginRequest} loginRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1165,7 +1274,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * 
+         * Creates a new user account and sends an email verification token. Users must verify their email before logging in.
          * @summary Register a new user
          * @param {RegisterRequest} registerRequest 
          * @param {*} [options] Override http request option.
@@ -1194,6 +1303,42 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(registerRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Resend email verification token
+         * @param {ResendVerificationRequest} resendVerificationRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authResendVerificationPost: async (resendVerificationRequest: ResendVerificationRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'resendVerificationRequest' is not null or undefined
+            assertParamExists('authResendVerificationPost', 'resendVerificationRequest', resendVerificationRequest)
+            const localVarPath = `/auth/resend-verification`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(resendVerificationRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1234,6 +1379,42 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Verify email using verification token
+         * @param {VerifyEmailRequest} verifyEmailRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authVerifyEmailPost: async (verifyEmailRequest: VerifyEmailRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'verifyEmailRequest' is not null or undefined
+            assertParamExists('authVerifyEmailPost', 'verifyEmailRequest', verifyEmailRequest)
+            const localVarPath = `/auth/verify-email`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(verifyEmailRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -1245,8 +1426,8 @@ export const AuthApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = AuthApiAxiosParamCreator(configuration)
     return {
         /**
-         * 
-         * @summary Login user
+         * Authenticates a user. Login will fail with 401 if email is not verified.
+         * @summary Login user (requires email verification)
          * @param {LoginRequest} loginRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1258,7 +1439,7 @@ export const AuthApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
-         * 
+         * Creates a new user account and sends an email verification token. Users must verify their email before logging in.
          * @summary Register a new user
          * @param {RegisterRequest} registerRequest 
          * @param {*} [options] Override http request option.
@@ -1268,6 +1449,19 @@ export const AuthApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.authRegisterPost(registerRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['AuthApi.authRegisterPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Resend email verification token
+         * @param {ResendVerificationRequest} resendVerificationRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authResendVerificationPost(resendVerificationRequest: ResendVerificationRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SuccessResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authResendVerificationPost(resendVerificationRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.authResendVerificationPost']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
         /**
@@ -1282,6 +1476,19 @@ export const AuthApiFp = function(configuration?: Configuration) {
             const localVarOperationServerBasePath = operationServerMap['AuthApi.authValidateGet']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
         },
+        /**
+         * 
+         * @summary Verify email using verification token
+         * @param {VerifyEmailRequest} verifyEmailRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async authVerifyEmailPost(verifyEmailRequest: VerifyEmailRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SuccessResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authVerifyEmailPost(verifyEmailRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['AuthApi.authVerifyEmailPost']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
     }
 };
 
@@ -1293,8 +1500,8 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
     const localVarFp = AuthApiFp(configuration)
     return {
         /**
-         * 
-         * @summary Login user
+         * Authenticates a user. Login will fail with 401 if email is not verified.
+         * @summary Login user (requires email verification)
          * @param {LoginRequest} loginRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1303,7 +1510,7 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.authLoginPost(loginRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * Creates a new user account and sends an email verification token. Users must verify their email before logging in.
          * @summary Register a new user
          * @param {RegisterRequest} registerRequest 
          * @param {*} [options] Override http request option.
@@ -1314,12 +1521,32 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * 
+         * @summary Resend email verification token
+         * @param {ResendVerificationRequest} resendVerificationRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authResendVerificationPost(resendVerificationRequest: ResendVerificationRequest, options?: RawAxiosRequestConfig): AxiosPromise<SuccessResponse> {
+            return localVarFp.authResendVerificationPost(resendVerificationRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Validate authentication token
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         authValidateGet(options?: RawAxiosRequestConfig): AxiosPromise<ValidationResponse> {
             return localVarFp.authValidateGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Verify email using verification token
+         * @param {VerifyEmailRequest} verifyEmailRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        authVerifyEmailPost(verifyEmailRequest: VerifyEmailRequest, options?: RawAxiosRequestConfig): AxiosPromise<SuccessResponse> {
+            return localVarFp.authVerifyEmailPost(verifyEmailRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1332,8 +1559,8 @@ export const AuthApiFactory = function (configuration?: Configuration, basePath?
  */
 export class AuthApi extends BaseAPI {
     /**
-     * 
-     * @summary Login user
+     * Authenticates a user. Login will fail with 401 if email is not verified.
+     * @summary Login user (requires email verification)
      * @param {LoginRequest} loginRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1344,7 +1571,7 @@ export class AuthApi extends BaseAPI {
     }
 
     /**
-     * 
+     * Creates a new user account and sends an email verification token. Users must verify their email before logging in.
      * @summary Register a new user
      * @param {RegisterRequest} registerRequest 
      * @param {*} [options] Override http request option.
@@ -1357,6 +1584,18 @@ export class AuthApi extends BaseAPI {
 
     /**
      * 
+     * @summary Resend email verification token
+     * @param {ResendVerificationRequest} resendVerificationRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthApi
+     */
+    public authResendVerificationPost(resendVerificationRequest: ResendVerificationRequest, options?: RawAxiosRequestConfig) {
+        return AuthApiFp(this.configuration).authResendVerificationPost(resendVerificationRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
      * @summary Validate authentication token
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1364,6 +1603,18 @@ export class AuthApi extends BaseAPI {
      */
     public authValidateGet(options?: RawAxiosRequestConfig) {
         return AuthApiFp(this.configuration).authValidateGet(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Verify email using verification token
+     * @param {VerifyEmailRequest} verifyEmailRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuthApi
+     */
+    public authVerifyEmailPost(verifyEmailRequest: VerifyEmailRequest, options?: RawAxiosRequestConfig) {
+        return AuthApiFp(this.configuration).authVerifyEmailPost(verifyEmailRequest, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -2529,15 +2780,15 @@ export const WorkshopsApiAxiosParamCreator = function (configuration?: Configura
          * 
          * @summary Update a workshop
          * @param {string} id 
-         * @param {WorkshopsPostRequest} workshopsPostRequest 
+         * @param {WorkshopsIdPutRequest} workshopsIdPutRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workshopsIdPut: async (id: string, workshopsPostRequest: WorkshopsPostRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        workshopsIdPut: async (id: string, workshopsIdPutRequest: WorkshopsIdPutRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('workshopsIdPut', 'id', id)
-            // verify required parameter 'workshopsPostRequest' is not null or undefined
-            assertParamExists('workshopsIdPut', 'workshopsPostRequest', workshopsPostRequest)
+            // verify required parameter 'workshopsIdPutRequest' is not null or undefined
+            assertParamExists('workshopsIdPut', 'workshopsIdPutRequest', workshopsIdPutRequest)
             const localVarPath = `/workshops/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -2562,7 +2813,7 @@ export const WorkshopsApiAxiosParamCreator = function (configuration?: Configura
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(workshopsPostRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(workshopsIdPutRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -2661,12 +2912,12 @@ export const WorkshopsApiFp = function(configuration?: Configuration) {
          * 
          * @summary Update a workshop
          * @param {string} id 
-         * @param {WorkshopsPostRequest} workshopsPostRequest 
+         * @param {WorkshopsIdPutRequest} workshopsIdPutRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async workshopsIdPut(id: string, workshopsPostRequest: WorkshopsPostRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Workshop>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.workshopsIdPut(id, workshopsPostRequest, options);
+        async workshopsIdPut(id: string, workshopsIdPutRequest: WorkshopsIdPutRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Workshop>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.workshopsIdPut(id, workshopsIdPutRequest, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['WorkshopsApi.workshopsIdPut']?.[localVarOperationServerIndex]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
@@ -2727,12 +2978,12 @@ export const WorkshopsApiFactory = function (configuration?: Configuration, base
          * 
          * @summary Update a workshop
          * @param {string} id 
-         * @param {WorkshopsPostRequest} workshopsPostRequest 
+         * @param {WorkshopsIdPutRequest} workshopsIdPutRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        workshopsIdPut(id: string, workshopsPostRequest: WorkshopsPostRequest, options?: RawAxiosRequestConfig): AxiosPromise<Workshop> {
-            return localVarFp.workshopsIdPut(id, workshopsPostRequest, options).then((request) => request(axios, basePath));
+        workshopsIdPut(id: string, workshopsIdPutRequest: WorkshopsIdPutRequest, options?: RawAxiosRequestConfig): AxiosPromise<Workshop> {
+            return localVarFp.workshopsIdPut(id, workshopsIdPutRequest, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2793,13 +3044,13 @@ export class WorkshopsApi extends BaseAPI {
      * 
      * @summary Update a workshop
      * @param {string} id 
-     * @param {WorkshopsPostRequest} workshopsPostRequest 
+     * @param {WorkshopsIdPutRequest} workshopsIdPutRequest 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WorkshopsApi
      */
-    public workshopsIdPut(id: string, workshopsPostRequest: WorkshopsPostRequest, options?: RawAxiosRequestConfig) {
-        return WorkshopsApiFp(this.configuration).workshopsIdPut(id, workshopsPostRequest, options).then((request) => request(this.axios, this.basePath));
+    public workshopsIdPut(id: string, workshopsIdPutRequest: WorkshopsIdPutRequest, options?: RawAxiosRequestConfig) {
+        return WorkshopsApiFp(this.configuration).workshopsIdPut(id, workshopsIdPutRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
