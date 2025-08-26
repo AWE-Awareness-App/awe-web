@@ -52,6 +52,7 @@
     "@openapitools/openapi-generator-cli": "^2.21.4",
     "@types/node": "22.13.16",
     "@types/react": "19.0.12",
+    "eslint": "^9.34.0",
     "typescript": "5.8.2"
   }
 }

@@ -21,7 +21,7 @@ export const createMinimalWorkshop = (overrides: Partial<Workshop> = {}): Worksh
         name: overrides.name || 'Untitled Workshop',
         description: overrides.description || '',
         imageUrl: overrides.imageUrl || null,
-        duration: overrides.duration || 60, // Default to 60 minutes
+        durationText: overrides.durationText || '60 minutes', // Default to 60 minutes
         maxSeats: overrides.maxSeats || 10, // Default to 10 seats
         startDate: overrides.startDate || now,
         price: overrides.price || 0,
@@ -42,7 +42,7 @@ export const createMinimalWorkshop = (overrides: Partial<Workshop> = {}): Worksh
  */
 export const validateWorkshop = (workshop: Partial<Workshop>): string[] => {
     const requiredFields: (keyof Workshop)[] = [
-        'name', 'description', 'duration', 'maxSeats',
+        'name', 'description', 'durationText', 'maxSeats',
         'startDate', 'price', 'bookingUrl', 'type', 'counsellor'
     ];
     

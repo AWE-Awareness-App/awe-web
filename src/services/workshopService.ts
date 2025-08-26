@@ -1,4 +1,4 @@
-import { WorkshopsApi, WorkshopBookingsApi, Configuration, WorkshopsPostRequest, Workshop } from '../generated';
+import { WorkshopsApi, WorkshopBookingsApi, Configuration, WorkshopsPostRequest, Workshop, WorkshopsIdPutRequest } from '../generated';
 
 // Create a configuration with the base path
 const config = new Configuration({
@@ -73,7 +73,7 @@ export const createWorkshop = async (workshopData: Omit<Workshop, 'id'>): Promis
       name: workshopData.name,
       description: workshopData.description,
       imageUrl: workshopData.imageUrl || null,
-      duration: workshopData.duration,
+      durationText: workshopData.durationText,
       startDate: workshopData.startDate,
       price: typeof workshopData.price === 'string' ? parseFloat(workshopData.price) : workshopData.price,
       bookingUrl: workshopData.bookingUrl,
@@ -100,7 +100,7 @@ export const updateWorkshop = async (id: string, workshopData: Partial<Workshop>
     if (workshopData.name !== undefined) updateData.name = workshopData.name;
     if (workshopData.description !== undefined) updateData.description = workshopData.description;
     if (workshopData.imageUrl !== undefined) updateData.imageUrl = workshopData.imageUrl || null;
-    if (workshopData.duration !== undefined) updateData.duration = workshopData.duration;
+    if (workshopData.durationText !== undefined) updateData.durationText = workshopData.durationText;
     if (workshopData.startDate !== undefined) updateData.startDate = workshopData.startDate;
     if (workshopData.bookingUrl !== undefined) updateData.bookingUrl = workshopData.bookingUrl;
     
@@ -116,7 +116,7 @@ export const updateWorkshop = async (id: string, workshopData: Partial<Workshop>
       updateData.type = workshopData.type as any; // Type assertion since both enums should have the same values
     }
     
-    const response = await workshopApi.workshopsIdPut(id, updateData as WorkshopsPostRequest);
+    const response = await workshopApi.workshopsIdPut(id, updateData as WorkshopsIdPutRequest);
     return transformWorkshop(response.data);
   } catch (error) {
     console.error(`Error updating workshop with ID ${id}:`, error);
