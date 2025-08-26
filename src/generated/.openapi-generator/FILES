@@ -21,11 +21,14 @@ docs/HealthGet200Response.md
 docs/LoginRequest.md
 docs/PaymentsApi.md
 docs/RegisterRequest.md
+docs/ResendVerificationRequest.md
+docs/SuccessResponse.md
 docs/User.md
 docs/UsersApi.md
 docs/UsersIdPutRequest.md
 docs/UsersPostRequest.md
 docs/ValidationResponse.md
+docs/VerifyEmailRequest.md
 docs/WebhookResponse.md
 docs/Workshop.md
 docs/WorkshopBooking.md
@@ -35,6 +38,7 @@ docs/WorkshopBookingsPostRequest.md
 docs/WorkshopCounsellor.md
 docs/WorkshopUser.md
 docs/WorkshopsApi.md
+docs/WorkshopsIdPutRequest.md
 docs/WorkshopsPostRequest.md
 git_push.sh
 index.ts

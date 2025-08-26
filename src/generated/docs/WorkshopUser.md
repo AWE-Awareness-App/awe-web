@@ -6,7 +6,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **workshopId** | **string** |  | [optional] [default to undefined]
-**orkshopId** | **string** |  | [optional] [default to undefined]
 **firstName** | **string** |  | [default to undefined]
 **lastName** | **string** |  | [default to undefined]
 **email** | **string** |  | [default to undefined]
@@ -20,7 +19,6 @@ import { WorkshopUser } from './api';
 
 const instance: WorkshopUser = {
     workshopId,
-    orkshopId,
     firstName,
     lastName,
     email,

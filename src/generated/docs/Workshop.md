@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **name** | **string** |  | [default to undefined]
 **description** | **string** |  | [default to undefined]
 **imageUrl** | **string** |  | [optional] [default to undefined]
-**duration** | **number** |  | [default to undefined]
+**durationText** | **string** |  | [default to undefined]
 **maxSeats** | **number** |  | [default to 100]
 **startDate** | **string** |  | [default to undefined]
 **price** | **number** |  | [default to undefined]
@@ -29,7 +29,7 @@ const instance: Workshop = {
     name,
     description,
     imageUrl,
-    duration,
+    durationText,
     maxSeats,
     startDate,
     price,
