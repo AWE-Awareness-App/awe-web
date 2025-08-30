@@ -39,7 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             name: workshop.name,
             description: workshop.description,
             imageUrl: workshop.imageUrl || workshop.imageSrc, // Fallback to imageSrc for backward compatibility
-            duration: workshop.duration || '',
+            durationText: workshop.durationText || '',
             startDate: workshop.startDate,
             endDate: workshop.endDate,
             price: typeof workshop.price === 'string' ? parseFloat(workshop.price.replace(/[^0-9.]/g, '')) : workshop.price,
