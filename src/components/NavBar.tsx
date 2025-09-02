@@ -24,6 +24,13 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
 
   const healthcareOptions = [
     {
+      name: "Digital Reset",
+      title: "Digital Reset",
+      description: "From free sessions to personalized care.",
+      href: "/reset-programs",
+      key: "resetProgram"
+    },
+    {
       name: "Specialist Services",
       title: "Specialist Services",
       description: "Personalized support for your journey.",
@@ -43,7 +50,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
       description: "Engaging sessions to help you navigate the digital world.",
       href: "/workshop-services",
       key: "workshopServices"
-    },
+    }
   ];
 
   const navItems = [
