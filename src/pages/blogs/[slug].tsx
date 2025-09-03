@@ -14,7 +14,16 @@ interface BlogPostPageProps {
 
 export default function BlogPostPage({ post }: BlogPostPageProps) {
   const router = useRouter();
+  const [formattedDate, setFormattedDate] = useState('');
+  const [publishDate, setPublishDate] = useState<Date>(new Date());
 
+  useEffect(() => {
+    // This effect only runs on the client side
+    const date = post?.publishDate ? new Date(post.publishDate) : new Date();
+    setPublishDate(date);
+    setFormattedDate(format(date, 'MMMM d, yyyy'));
+  }, [post?.publishDate]);
+    
   if (router.isFallback) {
     return (
       <DefaultLayout activePage="blog">
@@ -46,17 +55,7 @@ export default function BlogPostPage({ post }: BlogPostPageProps) {
       </DefaultLayout>
     );
   }
-
-  // Format the date consistently for both server and client
-  const [formattedDate, setFormattedDate] = useState('');
-  const [publishDate, setPublishDate] = useState<Date>(new Date());
-
-  useEffect(() => {
-    // This effect only runs on the client side
-    const date = post.publishDate ? new Date(post.publishDate) : new Date();
-    setPublishDate(date);
-    setFormattedDate(format(date, 'MMMM d, yyyy'));
-  }, [post.publishDate]);
+  
   const readTimeText = post.readTime === 1 ? '1 min read' : `${post.readTime} mins read`;
 
   return (

@@ -1,4 +1,5 @@
 import { Workshop, WorkshopCounsellor } from "@generated/api";
+import { v4 as uuidv4 } from 'uuid';
 
 /**
  * Creates a minimal valid Workshop object with all required fields
@@ -17,7 +18,7 @@ export const createMinimalWorkshop = (overrides: Partial<Workshop> = {}): Worksh
 
     return {
         // Required fields with defaults
-        id: overrides.id || `workshop-${Math.random().toString(36).substr(2, 9)}`,
+        id: overrides.id || `workshop-${uuidv4()}`,
         name: overrides.name || 'Untitled Workshop',
         description: overrides.description || '',
         imageUrl: overrides.imageUrl || null,
@@ -63,7 +64,7 @@ export const createDefaultCounsellor = (name: string = ''): WorkshopCounsellor =
     const lastName = lastNameParts.join(' ');
     
     return {
-        id: `counsellor-${Math.random().toString(36).substr(2, 9)}`,
+        id: `counsellor-${uuidv4()}`,
         firstName,
         lastName,
         email: '',
