@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "flowbite-react";
 import { signIn } from "next-auth/react"
+import isEmail from "validator/lib/isEmail";
 
 interface SignInModalProp {
     isSignInModalOpen: boolean;
@@ -17,11 +18,7 @@ const SignInModal: React.FC<SignInModalProp> = ({
     const [password, setPassword] = useState('');
     const [error, setError] = useState<string | null>(null);
     
-    // SonarCloud S5852: This regex is not vulnerable to catastrophic backtracking
-    // because it does not use nested quantifiers or ambiguous alternations.
-    // It is linear in runtime.
-    const validateEmail = (e: string) =>
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+    const validateEmail = (e: string) => isEmail(e);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

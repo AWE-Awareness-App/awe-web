@@ -4,16 +4,16 @@ import SpecialistCard from "@components/SpecialistCard";
 import { trackEvent } from "@services/Analytics";
 import { FaArrowLeft, FaArrowRight, FaTimes } from "react-icons/fa";
 
-type CareType = "individual" | "family"
-type CalendlyUrlEndType = "/family-couples" | "/individual_care"
+type CareType = "individual" | "family";
+type CalendlyUrlEndType = "/family-couples" | "/individual_care";
 
 interface SpecialistInfo {
-    name: string
-    role: string
-    languages: string
-    imageSrc: string
-    linkedInUrl?: string
-    calendlyUrl: string
+    name: string;
+    role: string;
+    languages: string;
+    imageSrc: string;
+    linkedInUrl?: string;
+    calendlyUrl: string;
 }
 
 const mockData = [
@@ -23,31 +23,113 @@ const mockData = [
         languages: "English, French, Spanish",
         imageSrc: "/images/ChristianDominique.png",
         linkedInUrl: "https://www.linkedin.com/in/dominiquemba/",
-        calendlyUrl:
-            "https://calendly.com/christian-awedigitalwellness",
+        calendlyUrl: "https://calendly.com/christian-awedigitalwellness",
     },
-]
-
+];
 
 const IndividualCareFeatures = [
     "Private 1-1 Coaching with Professional",
     "Goal Setting, Planning and Tracking",
     "Actionable Tools and Teaching",
-    "Find Your Purpose and Motivation"];
+    "Find Your Purpose and Motivation"
+];
 
 const FamilyCouplesCareFeatures = [
     "Private 1-2+ Coaching",
     "Enhance Effective Communication",
     "Reduce Conflict",
     "Build Connection",
-    "Maintain Commitments"];
+    "Maintain Commitments"
+];
+
+const SpecialistSlider: React.FC<{
+    specialistsList: SpecialistInfo[];
+    slideIndex: number;
+    prevSlide: () => void;
+    nextSlide: () => void;
+    canLeft: boolean;
+    canRight: boolean;
+    calendlyUrlEnd: CalendlyUrlEndType | null;
+    totalSpecs: number;
+    simpleMode: boolean;
+}> = ({
+    specialistsList,
+    slideIndex,
+    prevSlide,
+    nextSlide,
+    canLeft,
+    canRight,
+    calendlyUrlEnd,
+    totalSpecs,
+    simpleMode,
+}) => {
+    return (
+        <div className="flex items-center justify-center">
+            {/* Left arrow */}
+            <button
+                onClick={prevSlide}
+                disabled={!canLeft}
+                className={`p-3 rounded-full mr-4 ${canLeft
+                    ? "bg-blue-600 text-white hover:bg-blue-700"
+                    : "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    }`}
+            >
+                <FaArrowLeft size={20} />
+            </button>
+            {/* Slider window */}
+            <div className="overflow-hidden w-full max-w-4xl">
+                <div
+                    className="flex transition-transform duration-300 ease-in-out"
+                    style={{
+                        width: simpleMode
+                            ? "100%"
+                            : `${(totalSpecs / 3) * 100}%`,
+                        transform: `translateX(-${(slideIndex * 100) / 3}%)`,
+                    }}
+                >
+                    {specialistsList.map((spec) => (
+                        <div key={spec.name} className="w-1/3 px-2">
+                            <SpecialistCard
+                                name={spec.name}
+                                role={spec.role}
+                                languages={spec.languages}
+                                imageSrc={spec.imageSrc}
+                                linkedInUrl={spec.linkedInUrl}
+                                onClick={() => {
+                                    trackEvent({
+                                        category: "User Actions",
+                                        action: `Book Now – ${spec.name}`,
+                                        label: "Specialist Booking",
+                                    });
+                                    window.open(spec.calendlyUrl + calendlyUrlEnd, "_blank", "noopener");
+                                }}
+                            />
+                        </div>
+                    ))}
+                    {/* Pad with empty slots for simple mode */}
+                    {simpleMode &&
+                        Array.from({ length: 3 - specialistsList.length }).map((_, i) => (
+                            <div key={`empty-${i}`} className="w-1/3 px-2" />
+                        ))}
+                </div>
+            </div>
+            {/* Right arrow */}
+            <button
+                onClick={nextSlide}
+                disabled={!canRight}
+                className={`p-3 rounded-full ml-4 ${canRight
+                    ? "bg-blue-600 text-white hover:bg-blue-700"
+                    : "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    }`}
+            >
+                <FaArrowRight size={20} />
+            </button>
+        </div>
+    );
+};
 
 const ConnectWithSpecialistSection: React.FC = () => {
-
-    const [selectedService, setSelectedService] = useState<CareType | null>(
-        null
-    );
-
+    const [selectedService, setSelectedService] = useState<CareType | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [counsellors, setCounsellors] = useState<SpecialistInfo[]>([]);
     const [slideIndex, setSlideIndex] = useState(0);
@@ -78,7 +160,6 @@ const ConnectWithSpecialistSection: React.FC = () => {
                 return res.json();
             })
             .then((data) => {
-                // API returns { counsellors: User[] }
                 const formatted: SpecialistInfo[] = data.counsellors.map((u: any) => ({
                     name: `${u.firstName} ${u.lastName}`,
                     role: u.role,
@@ -94,8 +175,7 @@ const ConnectWithSpecialistSection: React.FC = () => {
             .finally(() => setLoading(false));
     }, [isModalOpen, counsellors.length]);
 
-    let specialistsList = counsellors
-
+    let specialistsList = counsellors;
 
     const closeModal = () => {
         setIsModalOpen(false);
@@ -160,132 +240,19 @@ const ConnectWithSpecialistSection: React.FC = () => {
                                 : "Choose Your Family & Couples Specialist"}
                         </h2>
 
-                        {/* If ≤3 → simple flex */}
-                        {totalSpecs <= 3 ? (
-                            <div className="flex items-center justify-center">
-                                {/* Left arrow (will be disabled when total ≤3 since canLeft=false) */}
-                                <button
-                                    onClick={prevSlide}
-                                    disabled={!canLeft}
-                                    className={`p-3 rounded-full mr-4 ${canLeft
-                                        ? "bg-blue-600 text-white hover:bg-blue-700"
-                                        : "bg-gray-200 text-gray-400 cursor-not-allowed"
-                                        }`}
-                                >
-                                    <FaArrowLeft size={20} />
-                                </button>
-
-                                {/* Slider window: fixed to 3 slots */}
-                                <div className="overflow-hidden w-full max-w-4xl">
-                                    <div
-                                        className="flex transition-transform duration-300 ease-in-out"
-                                        style={{
-                                            // Always 100% width so 3 slots exactly fill container
-                                            width: "100%",
-                                            // No translate if total ≤3 (canLeft & canRight are false)
-                                            transform: `translateX(-${(slideIndex * 100) / 3}%)`,
-                                        }}
-                                    >
-                                        {/* Render actual specialists */}
-                                        {specialistsList.map((spec) => (
-                                            <div key={spec.name} className="w-1/3 px-2">
-                                                <SpecialistCard
-                                                    name={spec.name}
-                                                    role={spec.role}
-                                                    languages={spec.languages}
-                                                    imageSrc={spec.imageSrc}
-                                                    linkedInUrl={spec.linkedInUrl}
-                                                    onClick={() => {
-                                                        trackEvent({
-                                                            category: "User Actions",
-                                                            action: `Book Now – ${spec.name}`,
-                                                            label: "Specialist Booking",
-                                                        });
-                                                        window.open(spec.calendlyUrl + calendlyUrlEnd, "_blank", "noopener");
-                                                    }}
-                                                />
-                                            </div>
-                                        ))}
-
-                                        {/* Pad with empty slots so there are always 3 */}
-                                        {Array.from({ length: 3 - specialistsList.length }).map((_, i) => (
-                                            <div key={`empty-${i}`} className="w-1/3 px-2" />
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Right arrow (disabled when total ≤3 since canRight=false) */}
-                                <button
-                                    onClick={nextSlide}
-                                    disabled={!canRight}
-                                    className={`p-3 rounded-full ml-4 ${canRight
-                                        ? "bg-blue-600 text-white hover:bg-blue-700"
-                                        : "bg-gray-200 text-gray-400 cursor-not-allowed"
-                                        }`}
-                                >
-                                    <FaArrowRight size={20} />
-                                </button>
-                            </div>
-                        ) : (
-                            < div className="flex items-center justify-center">
-                                {/* Left arrow */}
-                                <button
-                                    onClick={prevSlide}
-                                    disabled={!canLeft}
-                                    className={`p-3 rounded-full mr-4 ${canLeft
-                                        ? "bg-blue-600 text-white hover:bg-blue-700"
-                                        : "bg-gray-200 text-gray-400 cursor-not-allowed"
-                                        }`}
-                                >
-                                    <FaArrowLeft size={20} />
-                                </button>
-
-                                {/* Window */}
-                                <div className="overflow-hidden w-full">
-                                    <div
-                                        className="flex transition-transform duration-300 ease-in-out"
-                                        style={{
-                                            width: `${(totalSpecs / 3) * 100}%`,
-                                            transform: `translateX(-${(slideIndex * 100) / 3}%)`,
-                                        }}
-                                    >
-                                        {specialistsList.map((spec) => (
-                                            <div key={spec.name} className="w-1/3 px-2">
-                                                <SpecialistCard
-                                                    name={spec.name}
-                                                    role={spec.role}
-                                                    languages={spec.languages}
-                                                    imageSrc={spec.imageSrc}
-                                                    linkedInUrl={spec.linkedInUrl}
-                                                    onClick={() => {
-                                                        trackEvent({
-                                                            category: "User Actions",
-                                                            action: `Book Now – ${spec.name}`,
-                                                            label: "Specialist Booking",
-                                                        });
-                                                        window.open(spec.calendlyUrl + calendlyUrlEnd, "_blank", "noopener");
-                                                    }}
-                                                />
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                {/* Right arrow */}
-                                <button
-                                    onClick={nextSlide}
-                                    disabled={!canRight}
-                                    className={`p-3 rounded-full ml-4 ${canRight
-                                        ? "bg-blue-600 text-white hover:bg-blue-700"
-                                        : "bg-gray-200 text-gray-400 cursor-not-allowed"
-                                        }`}
-                                >
-                                    <FaArrowRight size={20} />
-                                </button>
-                            </div>
-                        )}
+                        <SpecialistSlider
+                            specialistsList={specialistsList}
+                            slideIndex={slideIndex}
+                            prevSlide={prevSlide}
+                            nextSlide={nextSlide}
+                            canLeft={canLeft}
+                            canRight={canRight}
+                            calendlyUrlEnd={calendlyUrlEnd}
+                            totalSpecs={totalSpecs}
+                            simpleMode={totalSpecs <= 3}
+                        />
                     </div>
-                </div >
+                </div>
             )}
         </>
     );
