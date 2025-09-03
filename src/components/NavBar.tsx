@@ -24,26 +24,33 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
 
   const healthcareOptions = [
     {
+      name: "Digital Reset",
+      title: "Digital Reset",
+      description: "From free sessions to personalized care",
+      href: "/reset-programs",
+      key: "resetProgram"
+    },
+    {
       name: "Specialist Services",
       title: "Specialist Services",
-      description: "Personalized support for your journey.",
+      description: "Personalized support for your journey",
       href: "/specialist-services",
       key: "specialistServices"
     },
     {
       name: "Corporate Services",
       title: "Corporate Services",
-      description: "Tailored programs for remote-first teams.",
+      description: "Tailored programs for remote-first teams",
       href: "/corporate-services",
       key: "corporateServices"
     },
     {
       name: "Workshops",
       title: "Workshop Services",
-      description: "Engaging sessions to help you navigate the digital world.",
+      description: "Engaging sessions to help you navigate the digital world",
       href: "/workshop-services",
       key: "workshopServices"
-    },
+    }
   ];
 
   const navItems = [
@@ -51,6 +58,7 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
     { name: "Services", href: "#", key: "healthcareServices", type: "service" },
     { name: "Blogs", href: "/blogs", key: "blogs" },
     { name: "About Us", href: "/about", key: "about" },
+    { name: "Free Digital Reset", href: "/reset-programs/free-reset", key: "freeDigitalReset", emphasize: true },
   ];
 
   const logo =
@@ -163,14 +171,21 @@ const NavBar: React.FC<NavBarProps> = ({ logoPath, activePage }) => {
           <li key={item.key}>
             <a
               href={item.href}
-              className={`flex items-center px-4 py-2.5 mx-1 rounded-lg transition-colors ${activePage === item.key
-                ? "text-orange-600 bg-orange-50 font-medium"
-                : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
-                }`}
+              className={`flex items-center px-4 py-2.5 mx-1 rounded-lg transition-colors ${
+                item.emphasize
+                  ? "font-bold text-white bg-gradient-to-r from-orange-500 to-pink-500 shadow-lg border-2 border-orange-500"
+                  : activePage === item.key
+                  ? "text-orange-600 bg-orange-50 font-medium"
+                  : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+              }`}
+              style={item.emphasize ? { fontWeight: 'bold' } : {}}
             >
               {item.name}
-              {activePage === item.key && <MdCheckCircle className="ml-1.5 text-orange-500" />}
-            </a>
+              {item.emphasize && (
+                <span className="ml-2 px-2 py-0.5 rounded text-xs font-semibold bg-white text-orange-600 border border-orange-500">FREE</span>
+              )}
+                {activePage === item.key && <MdCheckCircle className="ml-1.5 text-orange-500" />}
+              </a>
           </li>
         )
       )}
