@@ -2,7 +2,7 @@ import React from "react";
 import ResetProgramCard from "@/components/reset-programs/ResetProgramCard";
 import { trackEvent } from "@services/Analytics";
 import { useRouter } from "next/router";
-import { programCards } from "./programCards";
+import { programCards } from "@/data/programCardsData";
 
 const ResetProgramsSection: React.FC = () => {
   const router = useRouter();
