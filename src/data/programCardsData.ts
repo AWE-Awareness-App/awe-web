@@ -53,3 +53,5 @@ export const programCards = [
     "https://book-foundations.example.com"
   ),
 ];
+
+export { makeCard };
